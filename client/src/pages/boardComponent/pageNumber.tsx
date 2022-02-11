@@ -1,11 +1,11 @@
 import React from 'react';
 
-function QBoard() {
+function PageNumber() {
   return (
     <div>
-			QBoard
+			PageNumber
     </div>
   );
 }
 
-export default QBoard
+export default PageNumber
