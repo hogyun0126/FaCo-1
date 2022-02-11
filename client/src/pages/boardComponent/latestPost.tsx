@@ -1,7 +1,6 @@
 import React from 'react';
-import './App.css';
 
-function PageNumber() {
+function LatestPost() {
   return (
     <div>
 			PageNumber
@@ -9,4 +8,4 @@ function PageNumber() {
   );
 }
 
-export default PageNumber
+export default LatestPost;

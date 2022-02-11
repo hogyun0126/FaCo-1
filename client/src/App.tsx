@@ -8,6 +8,7 @@ import Home from './pages/home';
 import QBoard from './pages/qBoard';
 import RBoard from './pages/rBoard';
 
+import ReduxTest from './pages/reduxTest';
 
 function App() {
   return (
@@ -17,12 +18,13 @@ function App() {
           <Menu></Menu>
         </header>
 
+        {/*<section><ReduxTest /></section>*/}
+
         <section className='section'>
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/qBoard' element={<QBoard />} />
             <Route path='/rBoard' element={<RBoard />} />
-            
           </Routes>
         </section>
 
