@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
-import { boardDummy } from '../../dummyData/boardDummy'; // 게시판 들어오면 전체 게시글을 받아옴
+import { postDummy } from '../../dummyData/boardDummy'; // 게시판 들어오면 전체 게시글을 받아옴
 
 function SearchBar() {
   const selectList = ['location', 'weather', 'title', 'writer'];
