@@ -12,7 +12,7 @@ import RBoard from './pages/rBoard';
 import { useDispatch, useSelector } from 'react-redux';
 import { postDummy } from './dummyData/boardDummy';
 import { RootState } from './modules';
-import { rBoardPopular, rBoardLts, qBoardLts } from './modules/posts';
+import { rBoardLts, qBoardLts } from './modules/posts';
 
 function App() {
   const state = useSelector((state: RootState) => state.postsReducer);
@@ -21,11 +21,10 @@ function App() {
   useEffect(func,[]);
   
   function func() {
-    dispatch(rBoardPopular(postDummy.rPopular));
     dispatch(rBoardLts(postDummy.rLts));
     dispatch(qBoardLts(postDummy.qLts));
 
-    console.log(state);
+    // console.log(state);
   }
 
   return (
@@ -36,7 +35,7 @@ function App() {
         </header>
 
         {/*<section><ReduxTest /></section>*/}
-        <button onClick={func}>test</button>
+        {/*<button onClick={func}>test</button>*/}
 
         <section className='section'>
           <Routes>

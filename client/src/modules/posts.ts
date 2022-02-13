@@ -1,9 +1,10 @@
 // type
-const R_BOARD_POPULAR = 'posts/R_BOARD_POPULAR' as const;
 const R_BOARD_LTS = 'posts/R_BOARD_LTS' as const;
 const Q_BOARD_LTS = 'posts/Q_BOARD_LTS' as const;
 
-export type QBoard = {
+export type QBoardPost = {
+  [key: string]: number | string | null;
+  id: number;
   title: string;
   weather: string;
   location: string;
@@ -13,26 +14,21 @@ export type QBoard = {
   img: string | null;
 };
 
-export type RBoard = QBoard & {
+export type RBoardPost = QBoardPost & {
   like: number;
+  img: string;
 }
 
 // action
-export const rBoardPopular = (arr: RBoard[]) => {
-  return {
-    type: R_BOARD_POPULAR,
-    payload: arr
-  }
-}
 
-export const rBoardLts = (arr: RBoard[]) => {
+export const rBoardLts = (arr: RBoardPost[]) => {
   return {
     type: R_BOARD_LTS,
     payload: arr
   }
 }
 
-export const qBoardLts = (arr: QBoard[]) => {
+export const qBoardLts = (arr: QBoardPost[]) => {
   return {
     type: Q_BOARD_LTS,
     payload: arr
@@ -41,20 +37,17 @@ export const qBoardLts = (arr: QBoard[]) => {
 
 // action type
 type PostsAction = 
-  |ReturnType<typeof rBoardPopular>
   |ReturnType<typeof rBoardLts>
   |ReturnType<typeof qBoardLts>;
 
 // state type
 type PostsState = {
-  rPopular: RBoard[];
-  rLts: RBoard[];
-  qLts: QBoard[];
+  rLts: RBoardPost[];
+  qLts: QBoardPost[];
 }
 
 // state
 const initialState: PostsState = {
-  rPopular: [],
   rLts: [],
   qLts: [],
 }
@@ -65,8 +58,6 @@ function postsReducer(
   action: PostsAction
 ): PostsState {
   switch (action.type) {
-    case R_BOARD_POPULAR:
-      return Object.assign({}, state, { rPopular : action.payload });
     case R_BOARD_LTS:
       return Object.assign({}, state, { rLts : action.payload });
     case Q_BOARD_LTS:
