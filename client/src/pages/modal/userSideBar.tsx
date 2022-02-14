@@ -1,10 +1,22 @@
-import React from 'react';
-import './App.css';
+import React, { useEffect, useState } from "react";
 
-function UserSideBar() {
+import { AiOutlineClose } from "react-icons/ai";
+
+type MyProps = {
+	isSideBarClose: ()=>void;
+}
+
+
+function UserSideBar({ isSideBarClose } : MyProps) {
+  
   return (
-    <div>
-			UserSideBar
+    <div className='side-container'>
+      <AiOutlineClose onClick={isSideBarClose}></AiOutlineClose>
+			<ul className='side-ul'>
+        <li>
+          내정보
+        </li>
+      </ul>
     </div>
   )
 }

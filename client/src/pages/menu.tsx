@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { BiLike  } from "react-icons/bi";
+import { BiLike} from "react-icons/bi";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 import { FiUser, FiUserX, FiUserPlus, FiUserMinus } from "react-icons/fi";
+import { FaBars } from "react-icons/fa";
 import { listenerCount } from 'process';
+import UserSideBar from "./modal/userSideBar";
+
 
 
 function Menu() {
 
-	const [ isHome, setIsHome ] = useState(true);
-	const [ isBiLike, setIsBiLike ] = useState(false);
-	const [ isQuestion, setIsQuestion ] = useState(false);
-	const [ isSignIn, setIsSignIn ] = useState(false);
-	const [ isHide, setIsHide ] = useState(false);
-	const [ isLogIn, setIsLogIn] = useState(false);
+	const [ isHome, setIsHome ] = useState<boolean>(true);
+	const [ isBiLike, setIsBiLike ] = useState<boolean>(false);
+	const [ isQuestion, setIsQuestion ] = useState<boolean>(false);
+	const [ isSignIn, setIsSignIn ] = useState<boolean>(false);
+	const [ isHide, setIsHide ] = useState<boolean>(false);
+	const [ isLogIn, setIsLogIn] = useState<boolean>(false);
+	const [ isSideBar, sestIsSideBar ] = useState<boolean>(false);
 
 	const isHomeClicked = () => {		
 		setIsHide(false)
@@ -38,7 +42,10 @@ function Menu() {
 	const isSignInClicked = () => {
 		setIsLogIn(!isLogIn)
 	}
-	
+	const isSideBarClicked = () => {
+		sestIsSideBar(!isSideBar)
+	}
+
 
   return (
 		<div className='menu-container'>
@@ -79,8 +86,13 @@ function Menu() {
 						</a>
 					}
 					</li>
+					<li>
+					  {isLogIn?'':<FaBars onClick={isSideBarClicked} className='menu-icon menu-myinfo'></FaBars>}
+						
+					</li>
 				</ul>
 			</div>
+			{isSideBar? <UserSideBar isSideBarClose={isSideBarClicked}/> : ''}
 		</div>
   );
 }
