@@ -3,6 +3,7 @@ import { BiLike  } from "react-icons/bi";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 import { FiUser, FiUserX, FiUserPlus, FiUserMinus } from "react-icons/fi";
 import { listenerCount } from 'process';
+import { NavLink } from "react-router-dom";
 
 
 function Menu() {
@@ -52,11 +53,11 @@ function Menu() {
 						</a>
 					</li>
 					<li onClick={isBiLikeClicked} className={isBiLike?'active':''}>
-						<a href='#'>
+						<NavLink to='/rBoard'>
 							<div className='menu-icon'><BiLike/></div>
 							<div className='menu-text'>추천게시판</div>
 							<div className={isHide||!isBiLike?'':'indicator'}></div>
-						</a>
+						</NavLink>
 					</li>
 					<li onClick={isQuestionClicked} className={isQuestion?'active':''} >
 						<a href='#'>

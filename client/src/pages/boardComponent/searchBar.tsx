@@ -1,11 +1,17 @@
-import React, { ChangeEvent, useState } from 'react';
-import { boardDummy } from '../../dummyData/boardDummy'; // 게시판 들어오면 전체 게시글을 받아옴
+import { ChangeEvent, useState } from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from '../../modules';
+import { RBoardPost } from '../../modules/posts';
 
-function SearchBar() {
-  const selectList = ['location', 'weather', 'title', 'writer'];
+type searchBarProps = {
+  ltsHandler: (posts: RBoardPost[]) => void;
+}
+
+function SearchBar({ ltsHandler }: searchBarProps) {
+  const selectList: string[] = ['location', 'weather', 'title', 'writer'];
   const [selected, setSelected] = useState('location');
   const [inputValue, setInputValue] = useState('');
-
+  const state = useSelector((state: RootState) => state.postsReducer.rLts);
 
   // select
   function handleSelectChange(e: ChangeEvent<HTMLSelectElement>) {
@@ -15,12 +21,21 @@ function SearchBar() {
 
   // input
   function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
-    // console.log(inputValue)
+    //console.log(inputValue)
     setInputValue(e.target.value);
   }
 
   function handleBtnClick() {
-    //누르면 리덕스 상태 갱신 (멀로 필터할건지 변수 - 위치,작성자,날짜등)
+    // 검색 기능 누르면 상태 갱신 (멀로 필터할건지 변수 - 위치,작성자,날짜등) rlts
+    const filterdPost = state
+      .filter(post => {
+        const data = post[selected];
+        if (typeof data === 'string') {
+          return data.includes(inputValue);
+        }
+      });
+    
+    ltsHandler(filterdPost);
   }
 
   return (
