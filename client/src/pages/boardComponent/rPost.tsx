@@ -1,10 +1,10 @@
 import { RBoardPost } from '../../modules/posts';
 
-type PostProps = {
+type RPostProps = {
   post: RBoardPost;
 }
 
-function Post({ post }: PostProps) {
+function RPost({ post }: RPostProps) {
   // 링크 걸어야함 자세히보기 페이지로, 좋아요 기능 미완
   return (
    <div >
@@ -17,4 +17,4 @@ function Post({ post }: PostProps) {
   )
 }
 
-export default Post;
+export default RPost;

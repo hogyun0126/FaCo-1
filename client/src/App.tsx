@@ -23,8 +23,6 @@ function App() {
   function func() {
     dispatch(rBoardLts(postDummy.rLts));
     dispatch(qBoardLts(postDummy.qLts));
-
-    // console.log(state);
   }
 
   return (

@@ -31,12 +31,11 @@ function SearchBar({ ltsHandler }: searchBarProps) {
       .filter(post => {
         const data = post[selected];
         if (typeof data === 'string') {
-          return data.includes(inputValue)
+          return data.includes(inputValue);
         }
       });
     
     ltsHandler(filterdPost);
-
   }
 
   return (

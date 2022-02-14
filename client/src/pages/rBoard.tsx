@@ -4,7 +4,7 @@ import { RootState } from '../modules';
 
 import SearchBar from './boardComponent/searchBar';
 import PageNumber from './boardComponent/pageNumber';
-import Post from './boardComponent/rBoardPost';
+import RPost from './boardComponent/rPost';
 import { RBoardPost } from '../modules/posts';
 
 function RBoard() {
@@ -22,12 +22,12 @@ function RBoard() {
 
       <div>
         <p>인기 게시글</p>
-        {popular.map(post => <Post key={post.id} post={post} />)}
+        {popular.map(post => <RPost key={post.id} post={post} />)}
       </div>
 
       <div>
         <p>최근 게시물</p>
-        {lts.map(post => <Post key={post.id} post={post}/>)}
+        {lts.map(post => <RPost key={post.id} post={post}/>)}
       </div>
 
       <PageNumber />
