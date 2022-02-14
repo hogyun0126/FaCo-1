@@ -60,11 +60,11 @@ function Menu() {
 						</NavLink>
 					</li>
 					<li onClick={isQuestionClicked} className={isQuestion?'active':''} >
-						<a href='#'>
+						<NavLink to='/qBoard'>
 							<div className='menu-icon'><AiOutlineQuestionCircle/></div>
 							<div className='menu-text'>질문게시판</div>
 							<div className={isHide||!isQuestion?'':'indicator'}></div>
-						</a>
+						</NavLink>
 					</li>
 					<li onClick={isSignInClicked}>
 					{isLogIn?
