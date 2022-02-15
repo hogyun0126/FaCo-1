@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../modules';
 
@@ -9,10 +9,12 @@ import { postType } from '../modules/posts';
 
 function RBoard() {
   const state = useSelector((state: RootState) => state.postsReducer.rLts);
-  const popular = state.sort((a, b) => a.like > b.like ? -1 : 1).slice(0, 3);
+  const popular = state.slice().sort((a, b) => a.like > b.like ? -1 : 1).slice(0, 3);
   const [lts, setLts] = useState(state);
-  
-  function searchHandler(posts: postType[]) {
+
+  useEffect(() => searchHandler(state), []);
+
+  function searchHandler(posts: postType[]): void {
     setLts(posts);
   }
   
@@ -22,12 +24,16 @@ function RBoard() {
 
       <div>
         <p>인기 게시글</p>
-        {popular.map(post => <RPost key={post.id} post={post} />)}
+        <div className='rboard-container'>
+          {popular.map((post, idx) => <RPost key={post.id} post={post} />)}
+        </div>
       </div>
 
       <div>
         <p>최근 게시물</p>
-        {lts.map(post => <RPost key={post.id} post={post}/>)}
+        <div className='rboard-container'>
+          {lts.map((post, idx) => <RPost key={post.id} post={post} />)}
+        </div>
       </div>
 
       <PageNumber />
