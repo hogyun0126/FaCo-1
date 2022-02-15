@@ -29,7 +29,7 @@ function RBoard() {
   
   return (
     <div>
-      <SearchBar searchHandler={searchHandler} boardType={'rLts'}/>
+      <SearchBar searchHandler={searchHandler} pageNumberBtnClick={pageNumberBtnClick} boardType={'rLts'} postCount={postCount} />
 
       <div>
         <h1>인기 게시글</h1>
