@@ -18,7 +18,7 @@ function App() {
   const state = useSelector((state: RootState) => state.postsReducer);
   const dispatch = useDispatch();
 
-  useEffect(func,[]);
+  useEffect(func, []);
   
   function func() {
     dispatch(rBoardLts(postDummy.rLts));

@@ -163,9 +163,42 @@
 }
 
 /*rboard*/
-.rboard-popular-container {
+.rboard-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.rboard-post {
+  display: flex;
+  flex-direction: column;
+  margin: 2vh;
+}
+
+.rboard-post img {
+  width: 20vh;
+  height: 30vh;
+}
+
+.rboard-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.rboard-title {
   display: flex;
   justify-content: space-between;
 }
 
 /*qboard*/
+.qboard-container th, td {
+  padding: 10px;
+}
+
+/*page number*/
+.page-number-container {
+  display: flex;
+}
+
+.page-number-container div {
+  margin: 10px;
+}
