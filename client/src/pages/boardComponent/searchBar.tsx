@@ -5,10 +5,12 @@ import { postType } from '../../modules/posts';
 
 type searchBarProps = {
   searchHandler: (posts: postType[]) => void;
+  pageNumberBtnClick: (go: number) => void;
   boardType: string;
+  postCount: number;
 }
 
-function SearchBar({ searchHandler, boardType }: searchBarProps) {
+function SearchBar({ searchHandler, pageNumberBtnClick, boardType, postCount }: searchBarProps) {
   const selectList: string[] = ['location', 'weather', 'title', 'writer'];
   const [selected, setSelected] = useState('location');
   const [inputValue, setInputValue] = useState('');
@@ -37,7 +39,9 @@ function SearchBar({ searchHandler, boardType }: searchBarProps) {
         }
       });
     
+    setInputValue('');
     searchHandler(filterdPost);
+    pageNumberBtnClick(postCount);
   }
 
   return (
@@ -49,7 +53,7 @@ function SearchBar({ searchHandler, boardType }: searchBarProps) {
           </option>
         ))}
       </select>
-      <input type='text' onChange={handleInputChange} />
+      <input type='text' value={inputValue} onChange={handleInputChange} />
       <button onClick={handleBtnClick}>검색</button>
     </div>
   );

@@ -25,7 +25,7 @@ function QBoard() {
 
   return (
     <div className='qboard-container'>
-			<SearchBar searchHandler={searchHandler} boardType='qLts'/>
+			<SearchBar searchHandler={searchHandler} pageNumberBtnClick={pageNumberBtnClick} boardType='qLts' postCount={postCount}/>
       
       <h1>질문 게시판</h1>
 
