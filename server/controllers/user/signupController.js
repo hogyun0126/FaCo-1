@@ -5,15 +5,15 @@ const hashGenerator = require('../utils/hashGenerator');
 const saltGenerator = require('../utils/saltGenerator');
 
 module.exports = async (req, res) => {
-    const { nickname, name, email, password, passwordCheck, phoneNumber} = req.body;
+    const { id, email, password, passwordCheck, phoneNumber, location, sex} = req.body;
     // password, passwordCheck 같은지 확인
     if (password !== passwordCheck) {
         return res.status(400).send({message: 'error', errorMessage: 'Invalid Request'});
     }
-    // nickname 또는 email이 존재하는지 확인
+    // id 또는 email이 존재하는지 확인
     const userInfo = await user.findOne({where: {
         [Op.or]: [
-        {nickname: nickname}, 
+        {id: id}, 
         {email: email},
         ]}});
 
@@ -28,11 +28,12 @@ module.exports = async (req, res) => {
     // 회원가입 하기
     try {
         await user.create({
-        nickname,
-        name,
+        id,
         email,
         password: hashedPassword,
         phone: phoneNumber,
+        location: location,
+        sex: sex,
         salt,
         });
     } catch (err) {
