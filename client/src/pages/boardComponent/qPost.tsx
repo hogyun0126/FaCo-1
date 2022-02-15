@@ -7,13 +7,13 @@ type QPOstProps = {
 
 function QPost({ post }: QPOstProps) {
   return (
-    <div>
-      <p>[{post.location}/{post.weather}]</p>
-      <p>{post.title} {post.img !== null && <HiOutlinePhotograph />}</p>
-      <p>{post.writer}</p>
-      <p>{post.createdAt}</p>
-      <p>{post.like}</p>
-    </div>
+    <tr>
+      <td>[{post.location}/{post.weather}]</td>
+      <td>{post.title} {post.img !== null && <HiOutlinePhotograph />}</td>
+      <td>{post.writer}</td>
+      <td>{post.createdAt}</td>
+      <td>{post.like}</td>
+    </tr>
   )
 }
 

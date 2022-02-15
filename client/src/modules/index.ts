@@ -11,7 +11,7 @@ const persistConfig = {
   whitelist: ['postsReducer'],
 }
 
-export const rootReducer = combineReducers({
+const rootReducer = combineReducers({
   testReducer,
   postsReducer
 });

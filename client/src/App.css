@@ -190,3 +190,15 @@
 }
 
 /*qboard*/
+.qboard-container th, td {
+  padding: 10px;
+}
+
+/*page number*/
+.page-number-container {
+  display: flex;
+}
+
+.page-number-container div {
+  margin: 10px;
+}

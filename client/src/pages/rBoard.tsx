@@ -12,7 +12,16 @@ function RBoard() {
   const popular = state.slice().sort((a, b) => a.like > b.like ? -1 : 1).slice(0, 3);
   const [lts, setLts] = useState(state);
 
+  const postCount = 3; // 페이지당 보여줄 개수
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(postCount);
+
   useEffect(() => searchHandler(state), []);
+
+  function pageNumberBtnClick(go: number): void {
+    setStart(go - postCount);
+    setEnd(go);
+  }
 
   function searchHandler(posts: postType[]): void {
     setLts(posts);
@@ -23,20 +32,20 @@ function RBoard() {
       <SearchBar searchHandler={searchHandler} boardType={'rLts'}/>
 
       <div>
-        <p>인기 게시글</p>
+        <h1>인기 게시글</h1>
         <div className='rboard-container'>
           {popular.map((post, idx) => <RPost key={post.id} post={post} />)}
         </div>
       </div>
 
       <div>
-        <p>최근 게시물</p>
+        <h1>최근 게시글</h1>
         <div className='rboard-container'>
-          {lts.map((post, idx) => <RPost key={post.id} post={post} />)}
+          {lts.slice(start, end).map((post, idx) => <RPost key={post.id} post={post} />)}
         </div>
       </div>
 
-      <PageNumber />
+      <PageNumber pageCount={lts.length} postCount={postCount} pageNumberBtnClick={pageNumberBtnClick} />
     </div>
   );
 }
