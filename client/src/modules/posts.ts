@@ -2,7 +2,7 @@
 const R_BOARD_LTS = 'posts/R_BOARD_LTS' as const;
 const Q_BOARD_LTS = 'posts/Q_BOARD_LTS' as const;
 
-export type QBoardPost = {
+export type postType = {
   [key: string]: number | string | null;
   id: number;
   title: string;
@@ -12,23 +12,18 @@ export type QBoardPost = {
   createdAt: number;
   body: string;
   img: string | null;
+  like: number;
 };
 
-export type RBoardPost = QBoardPost & {
-  like: number;
-  img: string;
-}
-
 // action
-
-export const rBoardLts = (arr: RBoardPost[]) => {
+export const rBoardLts = (arr: postType[]) => {
   return {
     type: R_BOARD_LTS,
     payload: arr
   }
 }
 
-export const qBoardLts = (arr: QBoardPost[]) => {
+export const qBoardLts = (arr: postType[]) => {
   return {
     type: Q_BOARD_LTS,
     payload: arr
@@ -42,8 +37,9 @@ type PostsAction =
 
 // state type
 type PostsState = {
-  rLts: RBoardPost[];
-  qLts: QBoardPost[];
+  [key: string]: postType[];
+  rLts: postType[];
+  qLts: postType[];
 }
 
 // state

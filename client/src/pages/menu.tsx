@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { BiLike  } from "react-icons/bi";
+import { BiLike} from "react-icons/bi";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 import { FiUser, FiUserX, FiUserPlus, FiUserMinus } from "react-icons/fi";
+import { FaBars } from "react-icons/fa";
 import { listenerCount } from 'process';
+import UserSideBar from "./modal/userSideBar";
+
 import { NavLink } from "react-router-dom";
 
 
 function Menu() {
 
-	const [ isHome, setIsHome ] = useState(true);
-	const [ isBiLike, setIsBiLike ] = useState(false);
-	const [ isQuestion, setIsQuestion ] = useState(false);
-	const [ isSignIn, setIsSignIn ] = useState(false);
-	const [ isHide, setIsHide ] = useState(false);
-	const [ isLogIn, setIsLogIn] = useState(false);
+	const [ isHome, setIsHome ] = useState<boolean>(true);
+	const [ isBiLike, setIsBiLike ] = useState<boolean>(false);
+	const [ isQuestion, setIsQuestion ] = useState<boolean>(false);
+	const [ isSignIn, setIsSignIn ] = useState<boolean>(false);
+	const [ isHide, setIsHide ] = useState<boolean>(false);
+	const [ isLogIn, setIsLogIn] = useState<boolean>(false);
+	const [ isSideBar, sestIsSideBar ] = useState<boolean>(false);
 
 	const isHomeClicked = () => {		
 		setIsHide(false)
@@ -39,18 +43,21 @@ function Menu() {
 	const isSignInClicked = () => {
 		setIsLogIn(!isLogIn)
 	}
-	
+	const isSideBarClicked = () => {
+		sestIsSideBar(!isSideBar)
+	}
+
 
   return (
 		<div className='menu-container'>
 			<div className='menu-list-container'>
 				<ul className='menu-list'>
 					<li onClick={isHomeClicked} className={isHome?'active':''}>
-						<a href='#'>
+						<NavLink to='/'>
 							<div className='menu-icon'><BiLike/></div>
 							<div className='menu-text'>홈페이지</div>
 							<div className={isHide||!isHome?'':'indicator'}></div>
-						</a>
+						</NavLink>
 					</li>
 					<li onClick={isBiLikeClicked} className={isBiLike?'active':''}>
 						<NavLink to='/rBoard'>
@@ -60,11 +67,11 @@ function Menu() {
 						</NavLink>
 					</li>
 					<li onClick={isQuestionClicked} className={isQuestion?'active':''} >
-						<a href='#'>
+						<NavLink to='/qBoard'>
 							<div className='menu-icon'><AiOutlineQuestionCircle/></div>
 							<div className='menu-text'>질문게시판</div>
 							<div className={isHide||!isQuestion?'':'indicator'}></div>
-						</a>
+						</NavLink>
 					</li>
 					<li onClick={isSignInClicked}>
 					{isLogIn?
@@ -80,8 +87,13 @@ function Menu() {
 						</a>
 					}
 					</li>
+					<li>
+					  {isLogIn?'':<FaBars onClick={isSideBarClicked} className='menu-icon menu-myinfo'></FaBars>}
+						
+					</li>
 				</ul>
 			</div>
+			{isSideBar? <UserSideBar isSideBarClose={isSideBarClicked}/> : ''}
 		</div>
   );
 }

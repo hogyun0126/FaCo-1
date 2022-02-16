@@ -1,17 +1,20 @@
 import { ChangeEvent, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from '../../modules';
-import { RBoardPost } from '../../modules/posts';
+import { postType } from '../../modules/posts';
 
 type searchBarProps = {
-  ltsHandler: (posts: RBoardPost[]) => void;
+  searchHandler: (posts: postType[]) => void;
+  pageNumberBtnClick: (go: number) => void;
+  boardType: string;
+  postCount: number;
 }
 
-function SearchBar({ ltsHandler }: searchBarProps) {
+function SearchBar({ searchHandler, pageNumberBtnClick, boardType, postCount }: searchBarProps) {
   const selectList: string[] = ['location', 'weather', 'title', 'writer'];
   const [selected, setSelected] = useState('location');
   const [inputValue, setInputValue] = useState('');
-  const state = useSelector((state: RootState) => state.postsReducer.rLts);
+  const state = useSelector((state: RootState) => state.postsReducer[boardType]);
 
   // select
   function handleSelectChange(e: ChangeEvent<HTMLSelectElement>) {
@@ -25,17 +28,20 @@ function SearchBar({ ltsHandler }: searchBarProps) {
     setInputValue(e.target.value);
   }
 
+  // 검색 버튼
   function handleBtnClick() {
-    // 검색 기능 누르면 상태 갱신 (멀로 필터할건지 변수 - 위치,작성자,날짜등) rlts
     const filterdPost = state
       .filter(post => {
         const data = post[selected];
         if (typeof data === 'string') {
-          return data.includes(inputValue);
+          const reg = new RegExp(inputValue, 'i');
+          return reg.test(data);
         }
       });
     
-    ltsHandler(filterdPost);
+    setInputValue('');
+    searchHandler(filterdPost);
+    pageNumberBtnClick(postCount);
   }
 
   return (
@@ -47,7 +53,7 @@ function SearchBar({ ltsHandler }: searchBarProps) {
           </option>
         ))}
       </select>
-      <input type='text' onChange={handleInputChange} />
+      <input type='text' value={inputValue} onChange={handleInputChange} />
       <button onClick={handleBtnClick}>검색</button>
     </div>
   );
