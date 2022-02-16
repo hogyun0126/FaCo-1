@@ -6,6 +6,7 @@ import { FaBars } from "react-icons/fa";
 import { listenerCount } from 'process';
 import UserSideBar from "./modal/userSideBar";
 
+import { NavLink } from "react-router-dom";
 
 
 function Menu() {
@@ -52,25 +53,25 @@ function Menu() {
 			<div className='menu-list-container'>
 				<ul className='menu-list'>
 					<li onClick={isHomeClicked} className={isHome?'active':''}>
-						<a href='#'>
+						<NavLink to='/'>
 							<div className='menu-icon'><BiLike/></div>
 							<div className='menu-text'>홈페이지</div>
 							<div className={isHide||!isHome?'':'indicator'}></div>
-						</a>
+						</NavLink>
 					</li>
 					<li onClick={isBiLikeClicked} className={isBiLike?'active':''}>
-						<a href='#'>
+						<NavLink to='/rBoard'>
 							<div className='menu-icon'><BiLike/></div>
 							<div className='menu-text'>추천게시판</div>
 							<div className={isHide||!isBiLike?'':'indicator'}></div>
-						</a>
+						</NavLink>
 					</li>
 					<li onClick={isQuestionClicked} className={isQuestion?'active':''} >
-						<a href='#'>
+						<NavLink to='/qBoard'>
 							<div className='menu-icon'><AiOutlineQuestionCircle/></div>
 							<div className='menu-text'>질문게시판</div>
 							<div className={isHide||!isQuestion?'':'indicator'}></div>
-						</a>
+						</NavLink>
 					</li>
 					<li onClick={isSignInClicked}>
 					{isLogIn?

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect }  from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 
@@ -8,9 +8,26 @@ import Home from './pages/home';
 import QBoard from './pages/qBoard';
 import RBoard from './pages/rBoard';
 
-import ReduxTest from './pages/reduxTest';
+// import ReduxTest from './pages/reduxTest';
+import { useDispatch, useSelector } from 'react-redux';
+import { postDummy } from './dummyData/boardDummy';
+import { locationDummy } from './dummyData/location';
+import { RootState } from './modules';
+import { rBoardLts, qBoardLts } from './modules/posts';
+import { locationLts } from './modules/location';
 
 function App() {
+  const state = useSelector((state: RootState) => state.postsReducer);
+  const dispatch = useDispatch();
+
+  useEffect(func,[]);
+  
+  function func() {
+    dispatch(rBoardLts(postDummy.rLts));
+    dispatch(qBoardLts(postDummy.qLts));
+    dispatch(locationLts(locationDummy.selectLocation));
+  }
+
   return (
     <BrowserRouter>
       <div className='app-container'>
@@ -19,6 +36,7 @@ function App() {
         </header>
 
         {/*<section><ReduxTest /></section>*/}
+        {/*<button onClick={func}>test</button>*/}
 
         <section className='section'>
           <Routes>
@@ -27,11 +45,10 @@ function App() {
             <Route path='/rBoard' element={<RBoard />} />
           </Routes>
         </section>
-
-        <footer className='app-footer'>
-          <Footer></Footer>
-        </footer>
       </div>
+      <footer className='app-footer'>
+          <Footer></Footer>
+      </footer>
     </BrowserRouter>
   );
 }

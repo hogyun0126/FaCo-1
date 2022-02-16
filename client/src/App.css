@@ -1,7 +1,9 @@
 /* app */
 .app-container {
   margin-inline: 3vw;
-  
+  height: auto;
+  min-height: 85vh;
+  padding-top: 40px;
 }
 .app-header {
 }
@@ -9,7 +11,7 @@
 /* menu */
 .menu-container {
   display:flex;
-  margin-top: 40px;
+  
 }
 /* .menu-home {
   position: relative;
@@ -134,9 +136,9 @@
 .home-container {
   margin: 10px;
 }
-.home-container div {
-  height: 100px;
-}
+
+/* menu */
+
 .home-recommand-images {
   height: 400px;
   width: 500px;
@@ -148,28 +150,30 @@
 }
 .home-ul {
   display: flex;
+  position:relative;
   list-style: none;
-  animation: example 10s infinite alternate;
+  animation: slide 10s infinite alternate;
   animation-timing-function: linear;
 }
 .home-ul li {
   margin-inline: 15px;
 }
-@keyframes example {
-  from {  transform: translateX(0vw);}
-  to { transform: translateX(-142vw);}
+@keyframes slide {
+  from {  transform: translateX(0);}
+  to { transform: translateX(-1300px);}
 }
 
 /* footer */
 .footer-container {
-  position: absolute;
-  bottom: 0px;
+  position:relative;
   align-items: center;
   background-color: burlywood;
   width: 94vw;
   height: 5vh;
+  margin-inline: 3vw;
+  
+  
 }
-
 
 /*board*/
 .board-img {

@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     body: DataTypes.STRING,
     userId: DataTypes.STRING,
     boardId: DataTypes.STRING,
+    like: DataTypes.STRING,
     createdAt: DataTypes.STRING
   }, {
     sequelize,
