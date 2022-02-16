@@ -11,8 +11,10 @@ import RBoard from './pages/rBoard';
 // import ReduxTest from './pages/reduxTest';
 import { useDispatch, useSelector } from 'react-redux';
 import { postDummy } from './dummyData/boardDummy';
+import { locationDummy } from './dummyData/location';
 import { RootState } from './modules';
 import { rBoardLts, qBoardLts } from './modules/posts';
+import { locationLts } from './modules/location';
 
 function App() {
   const state = useSelector((state: RootState) => state.postsReducer);
@@ -23,6 +25,7 @@ function App() {
   function func() {
     dispatch(rBoardLts(postDummy.rLts));
     dispatch(qBoardLts(postDummy.qLts));
+    dispatch(locationLts(locationDummy.selectLocation));
   }
 
   return (
@@ -42,11 +45,10 @@ function App() {
             <Route path='/rBoard' element={<RBoard />} />
           </Routes>
         </section>
-
-        <footer className='app-footer'>
-          <Footer></Footer>
-        </footer>
       </div>
+      <footer className='app-footer'>
+          <Footer></Footer>
+      </footer>
     </BrowserRouter>
   );
 }
