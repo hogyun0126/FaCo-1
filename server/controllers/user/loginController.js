@@ -3,10 +3,10 @@ const hashGenerator = require('../utils/hashGenerator');
 const jwtGenerator = require('../utils/jwtGenerator');
 
 module.exports = async (req, res) => {
-    const { email, password } = req.body;
+    const { id, password } = req.body;
 
-  // email 있는지 확인
-    const userInfo = await user.findOne({ where: { email: email }});
+  // id 있는지 확인
+    const userInfo = await user.findOne({ where: { id: id }});
     if (!userInfo) {
         return res.status(401).send({message: 'error', errorMessage: 'Unauthorized request - email not found'});
     }
@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
     
     // jwt token 생성 및 쿠기 생성
     const token = jwtGenerator({
-        userId: userInfo.userId,
+        id: userInfo.id,
         email: userInfo.email,
         phone: userInfo.phone,
         location: userInfo.location,
