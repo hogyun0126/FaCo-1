@@ -4,7 +4,7 @@ import 'react-quill/dist/quill.snow.css';
 import { useRef } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { postType, qBoardLts } from '../modules/posts';
+import { postType, qBoardLts, rBoardLts } from '../modules/posts';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RootState } from '../modules';
 import { increaseKey } from '../modules/test';
@@ -13,26 +13,27 @@ type Location = {
   post: postType;
 }
 
-function PostEditor () {
+function QPostEditor () {
   const dispatch = useDispatch();
   const nav = useNavigate();
   const location = useLocation();
 
   const key = useSelector((state: RootState) => state.testReducer.key); //test
-  const state = useSelector((state: RootState) => state.postsReducer.qLts); // 일단은 qboard만
+  const state = useSelector((state: RootState) => state.postsReducer.qLts);
 
   const QuillRef = useRef<ReactQuill>();
   const [inputTitle, setInputTitle] = useState("");
   const [isTitleEmpty, setIsTitleEmpty] = useState(false);
-  const linkData = location.state as Location;
+  const locationState = location.state as Location;
+
   let quill = QuillRef.current?.getEditor();
 
   useEffect(
     () => {
       quill = QuillRef.current?.getEditor();
-      if (linkData !== null) {
-        quill?.setContents(linkData.post.body);
-        setInputTitle(linkData.post.title);
+      if (!!locationState.post) {
+        quill?.setContents(locationState.post.body);
+        setInputTitle(locationState.post.title);
       }
     },
     []
@@ -43,7 +44,7 @@ function PostEditor () {
     const formData = new FormData();
     let url = "https://mblogthumb-phinf.pstatic.net/20160506_24/yujoki76_14625160575783K2DW_JPEG/street_style_rainy_days_%2822%29.png?type=w2";
 
-    const range = QuillRef.current?.getEditor().getSelection()?.index;
+    const range = quill?.getSelection()?.index;
     if (range !== null && range !== undefined) {
       quill?.setSelection(range, 1);
 
@@ -120,7 +121,7 @@ function PostEditor () {
     const delta: any = quill?.getContents().ops;
     const updateState = state.slice();
       
-    if (linkData === null) {
+    if (!locationState.post) {
       console.log('신규')
       updateState.unshift({
         id: key,
@@ -132,21 +133,21 @@ function PostEditor () {
         like: 5,
         createdAt: 20230101,
         body: delta,
-        img: '',
+        img: null
       });
       
       dispatch(increaseKey(key)); // dummy
     } else {
       console.log('수정')
-      const idx = state.findIndex(el => el.id === linkData.post.id);
+      const idx = updateState.findIndex(el => el.id === locationState.post.id);
       updateState[idx] = {
         ...updateState[idx],
         body: delta,
         title: inputTitle,
       }
     }
-
-    dispatch(qBoardLts(updateState));    
+    
+    dispatch(qBoardLts(updateState));
     nav('/qBoard');
   }
 
@@ -179,4 +180,4 @@ function PostEditor () {
   )
 }
 
-export default PostEditor;
+export default QPostEditor;

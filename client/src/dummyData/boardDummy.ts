@@ -10,7 +10,7 @@ export const postDummy = {
       like: 200,
       createdAt: 20220519,
       body: '바디',
-      img: 'https://mblogthumb-phinf.pstatic.net/20160506_24/yujoki76_14625160575783K2DW_JPEG/street_style_rainy_days_%2822%29.png?type=w2',
+      img: ['https://mblogthumb-phinf.pstatic.net/20160506_24/yujoki76_14625160575783K2DW_JPEG/street_style_rainy_days_%2822%29.png?type=w2'],
     },
     {
       id: 2,
@@ -22,7 +22,7 @@ export const postDummy = {
       like: 500,
       createdAt: 20220411,
       body: '바디',
-      img: 'https://mblogthumb-phinf.pstatic.net/20160506_24/yujoki76_14625160575783K2DW_JPEG/street_style_rainy_days_%2822%29.png?type=w2',
+      img: ['https://mblogthumb-phinf.pstatic.net/20160506_24/yujoki76_14625160575783K2DW_JPEG/street_style_rainy_days_%2822%29.png?type=w2'],
     },
     {
       id: 3,
@@ -34,7 +34,7 @@ export const postDummy = {
       like: 300,
       createdAt: 20220410,
       body: '바디',
-      img: 'https://mblogthumb-phinf.pstatic.net/20160506_24/yujoki76_14625160575783K2DW_JPEG/street_style_rainy_days_%2822%29.png?type=w2',
+      img: ['https://mblogthumb-phinf.pstatic.net/20160506_24/yujoki76_14625160575783K2DW_JPEG/street_style_rainy_days_%2822%29.png?type=w2'],
     },
     {
       id: 4,
@@ -46,7 +46,7 @@ export const postDummy = {
       like: 40,
       createdAt: 20220317,
       body: '바디',
-      img: 'https://mblogthumb-phinf.pstatic.net/20160506_24/yujoki76_14625160575783K2DW_JPEG/street_style_rainy_days_%2822%29.png?type=w2',
+      img: ['https://mblogthumb-phinf.pstatic.net/20160506_24/yujoki76_14625160575783K2DW_JPEG/street_style_rainy_days_%2822%29.png?type=w2'],
     },
     {
       id: 5,
@@ -58,7 +58,7 @@ export const postDummy = {
       like: 2,
       createdAt: 20220311,
       body: '바디',
-      img: 'https://mblogthumb-phinf.pstatic.net/20160506_24/yujoki76_14625160575783K2DW_JPEG/street_style_rainy_days_%2822%29.png?type=w2',
+      img: ['https://mblogthumb-phinf.pstatic.net/20160506_24/yujoki76_14625160575783K2DW_JPEG/street_style_rainy_days_%2822%29.png?type=w2'],
     },
     {
       id: 6,
@@ -70,7 +70,7 @@ export const postDummy = {
       like: 2000,
       createdAt: 20220214,
       body: '바디',
-      img: 'https://mblogthumb-phinf.pstatic.net/20160506_24/yujoki76_14625160575783K2DW_JPEG/street_style_rainy_days_%2822%29.png?type=w2',
+      img: ['https://mblogthumb-phinf.pstatic.net/20160506_24/yujoki76_14625160575783K2DW_JPEG/street_style_rainy_days_%2822%29.png?type=w2'],
     },
     {
       id: 7,
@@ -82,7 +82,7 @@ export const postDummy = {
       like: 300,
       createdAt: 20220211,
       body: '바디',
-      img: 'https://mblogthumb-phinf.pstatic.net/20160506_24/yujoki76_14625160575783K2DW_JPEG/street_style_rainy_days_%2822%29.png?type=w2',
+      img: ['https://mblogthumb-phinf.pstatic.net/20160506_24/yujoki76_14625160575783K2DW_JPEG/street_style_rainy_days_%2822%29.png?type=w2'],
     },
     {
       id: 8,
@@ -94,7 +94,7 @@ export const postDummy = {
       like: 0,
       createdAt: 20220209,
       body: '바디',
-      img: 'https://mblogthumb-phinf.pstatic.net/20160506_24/yujoki76_14625160575783K2DW_JPEG/street_style_rainy_days_%2822%29.png?type=w2',
+      img: ['https://mblogthumb-phinf.pstatic.net/20160506_24/yujoki76_14625160575783K2DW_JPEG/street_style_rainy_days_%2822%29.png?type=w2'],
     },
   ],
   qLts: [
@@ -108,7 +108,7 @@ export const postDummy = {
       like: 20,
       createdAt: 20220201,
       body: '바디',
-      img: 'https://mblogthumb-phinf.pstatic.net/20160506_24/yujoki76_14625160575783K2DW_JPEG/street_style_rainy_days_%2822%29.png?type=w2',
+      img: ['https://mblogthumb-phinf.pstatic.net/20160506_24/yujoki76_14625160575783K2DW_JPEG/street_style_rainy_days_%2822%29.png?type=w2'],
     },
     {
       id: 2,
@@ -120,7 +120,7 @@ export const postDummy = {
       like: 1,
       createdAt: 20220120,
       body: '바디',
-      img: 'https://mblogthumb-phinf.pstatic.net/20160506_24/yujoki76_14625160575783K2DW_JPEG/street_style_rainy_days_%2822%29.png?type=w2',
+      img: ['https://mblogthumb-phinf.pstatic.net/20160506_24/yujoki76_14625160575783K2DW_JPEG/street_style_rainy_days_%2822%29.png?type=w2'],
     },
     {
       id: 3,
