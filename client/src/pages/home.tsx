@@ -8,7 +8,7 @@ import LocaList from './Component/location';
 import { RootState } from '../modules';
 
 import RPost from './boardComponent/rPost';
-import { RBoardPost } from '../modules/posts';
+import { postType } from '../modules/posts';
 
 
 function Home() {
@@ -17,17 +17,17 @@ function Home() {
 	const stateQPost = useSelector((state: RootState) => state.postsReducer.qLts);
 
   const locations = stateLocation.sort((a, b) => a.locationKr > b.locationKr ? 1 : -1);
-	const recommand = stateRPost.sort((a, b) => a.id > b.id ? 1 : -1).slice(0, 5);
-	const question = stateQPost.sort((a, b) => a.id > b.id ? 1 : -1).slice(0, 5);
+	const recommand = stateRPost.slice(-5);
+	const question = stateQPost.slice(-5);
 	
 	// 지역별 초기값 설정
-	const [weather, setWeather] = useState<string>('Clear');
-	const [selected, setSelected] = useState<string>('');
-
 	const api = {
-		key: '', // 비공개 키로 만들기
+		key: 'da646735954e126fccbdcd34e0005c8c', // 비공개 키로 만들기
 		base: 'https://api.openweathermap.org/data/2.5/'
 	}
+	const [selected, setSelected] = useState<string>('서울');
+	const [weather, setWeather] = useState<string>('Clear');
+
 	
 	const dateBuilder =(d: any) => {
 		let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -49,19 +49,9 @@ function Home() {
 				console.log(result);
 			})
 	}
-	// const search = (e:any) => {
-	// 	if(e.key === 'Enter')
-	// 		fetch(`${api.base}weather?q=${selected}&units=metric&APPID=${api.key}`)
-	// 		.then(res => res.json())
-	// 		.then(result => {
-	// 			setWeather(result);
-	// 			setSelected(''); 
-	// 			console.log(result);
-	// 		})
-	// }
-	
 
-	const inputChange = (e:any) => {
+
+	const inputChange = (e:any) :void => {
 		let selectedLocation = locations.filter(el => el.locationKr === e.target.value)[0]
 		setSelected(selectedLocation.locationEn)
 	}
@@ -83,13 +73,6 @@ function Home() {
   return (
     <div className='home-container'>
 			<div>
-				{/* {(typeof weather.main !== 'undefined') ? (
-					<span>날씨 : {weather.main[0].main}</span>
-
-				) : ('')} */}
-
-				{/* <input type='text'
-				onChange={e => inputChange(e)} value={selected} onKeyPress={search}></input> */}
 				<input type='text'
 				onChange={e => setSelected(e.target.value)} value={selected} onKeyPress={search}></input>
 				
@@ -97,7 +80,7 @@ function Home() {
 				<select onChange={e=>handleSelect(e)}>
 					{locations.map(loca => <LocaList key={loca.id} location={loca}/>)}
 				</select>
-				<div onClick={search}>선택</div>
+				<span onClick={search}>선택</span>
 				<div>날씨 : {`${weather}`} </div>
 				<div>날짜 : {dateBuilder(new Date())}</div>
 			</div>
@@ -106,7 +89,7 @@ function Home() {
 			<div>인기게시글</div>
 				<ul className='home-ul'>
 					{recommand/*filter(post=>post.weather === weather)*/.map(el =>
-					<li key={el.id}><img className='home-recommand-images'  src={el.img} alt='ddd'/></li>)}
+					<li key={el.id}><img className='home-recommand-images' src={el.img !== null ? el.img : ''} alt='ddd'/></li>)}
 				</ul>
 			</div>
 			
