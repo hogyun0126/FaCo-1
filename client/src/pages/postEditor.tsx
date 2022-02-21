@@ -1,12 +1,42 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useRef } from 'react';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { postType, qBoardLts } from '../modules/posts';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { RootState } from '../modules';
+import { increaseKey } from '../modules/test';
+
+type Location = {
+  post: postType;
+}
 
 function PostEditor () {
+  const dispatch = useDispatch();
+  const nav = useNavigate();
+  const location = useLocation();
+
+  const key = useSelector((state: RootState) => state.testReducer.key); //test
+  const state = useSelector((state: RootState) => state.postsReducer.qLts); // 일단은 qboard만
+
   const QuillRef = useRef<ReactQuill>();
-  const [contents, setContents] = useState<any>("");
+  const [inputTitle, setInputTitle] = useState("");
+  const [isTitleEmpty, setIsTitleEmpty] = useState(false);
+  const linkData = location.state as Location;
+  let quill = QuillRef.current?.getEditor();
+
+  useEffect(
+    () => {
+      quill = QuillRef.current?.getEditor();
+      if (linkData !== null) {
+        quill?.setContents(linkData.post.body);
+        setInputTitle(linkData.post.title);
+      }
+    },
+    []
+  );
   
   const imageHandler = () => {
     const input = document.createElement("input");
@@ -15,7 +45,6 @@ function PostEditor () {
 
     const range = QuillRef.current?.getEditor().getSelection()?.index;
     if (range !== null && range !== undefined) {
-      let quill = QuillRef.current?.getEditor();
       quill?.setSelection(range, 1);
 
       quill?.clipboard.dangerouslyPasteHTML(
@@ -58,47 +87,82 @@ function PostEditor () {
       }
       */
     
-  }
+  };
 
-  const modules = {
-    toolbar: {
-      container: [
-        ["bold", "italic", "underline", "strike", "blockquote"],
-        [{ size: ["small", false, "large", "huge"] }, { color: [] }],
-        [
-          { list: "ordered" },
-          { list: "bullet" },
-          { indent: "-1" },
-          { indent: "+1" },
-          { align: [] },
+  const modules = useMemo(
+    () => ({
+      toolbar: {
+        container: [
+          ["bold", "italic", "underline", "strike", "blockquote"],
+          [{ size: ["small", false, "large", "huge"] }, { color: [] }],
+          [
+            { list: "ordered" },
+            { list: "bullet" },
+            { indent: "-1" },
+            { indent: "+1" },
+            { align: [] },
+          ],
+          ["image"],
         ],
-        ["image"],
-      ],
-      handlers: {
-        image: imageHandler,
+        handlers: {
+          image: imageHandler,
+        },
       },
-    },
+    }),
+    []
+  );
+
+  function handleSubmitBtnClick() {
+    if (inputTitle === '') {
+      return setIsTitleEmpty(true);
+    }
+
+    const delta: any = quill?.getContents().ops;
+    const updateState = state.slice();
+      
+    if (linkData === null) {
+      console.log('신규')
+      updateState.unshift({
+        id: key,
+        type: 'q',
+        title: inputTitle,
+        weather: '비',
+        location: '부산',
+        writer: 'lee',
+        like: 5,
+        createdAt: 20230101,
+        body: delta,
+        img: '',
+      });
+      
+      dispatch(increaseKey(key)); // dummy
+    } else {
+      console.log('수정')
+      const idx = state.findIndex(el => el.id === linkData.post.id);
+      updateState[idx] = {
+        ...updateState[idx],
+        body: delta,
+        title: inputTitle,
+      }
+    }
+
+    dispatch(qBoardLts(updateState));    
+    nav('/qBoard');
   }
 
-  const [a,setA] = useState<any>('');
-
-  function handleSubmitBtnClick(e: any) {
-
-    let quill = QuillRef.current?.getEditor();
-    setA(quill?.root.innerHTML)
-    console.log(typeof quill?.root.innerHTML)
-  }
-
-  function Test({html}:any) {
-    //console.log(html)
-    return (
-      <pre dangerouslySetInnerHTML={{__html: html}}/>
-    )
+  function inputTitleChange(e: React.ChangeEvent<HTMLInputElement> ) {
+    setInputTitle(e.target.value);
+    setIsTitleEmpty(false);
   }
 
   return (
     <div>
+      <div className='post-editor-title-container'>
+        <div>title</div>
+        <input type='text' value={inputTitle} onChange={(e) => inputTitleChange(e)} />
+      </div>
       <ReactQuill
+        className='post-editor-quill'
         ref={(element) => {
           if (element !== null) {
             QuillRef.current = element;
@@ -107,9 +171,10 @@ function PostEditor () {
         modules={modules}
         theme='snow'
       />
-      <button onClick={(e)=>handleSubmitBtnClick(e)}>submit</button>
-      <Test html={a} />
-      
+      <div className='post-editor-submit-container'>
+        {isTitleEmpty && <p>제목을 입력해주세요</p>}
+        <button className='post-editor-submit-btn' onClick={handleSubmitBtnClick}>submit</button>
+      </div>
     </div>
   )
 }

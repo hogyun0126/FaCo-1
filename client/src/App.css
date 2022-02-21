@@ -181,8 +181,6 @@
   width: 94vw;
   height: 5vh;
   margin-inline: 3vw;
-  
-  
 }
 
 /*board*/
@@ -229,5 +227,57 @@
 }
 
 .page-number-container div {
-  margin: 10px;
+  padding: 1vh;
+}
+
+/*post editor*/
+.post-editor-title-container {
+  display: flex;
+  align-items: baseline;
+  margin: 2em 0 2em 0;
+  border-bottom: 1px solid black;
+  padding: 1em;
+  padding-bottom: 0;
+}
+
+.post-editor-title-container div {
+  font-size: 30px;
+}
+
+.post-editor-title-container input {
+  border: none;
+  margin-left: 1em;
+  width: -webkit-fill-available;
+  font-size: 30px;
+}
+
+.post-editor-title-container input:focus {
+  outline: none;
+}
+
+.post-editor-quill {
+  height: 65vh;
+  margin: 1em 0 1em 0;
+}
+
+
+.post-editor-submit-container {
+  display: flex;
+  float: right;
+  margin: 2em 0 2em 0;
+  align-items: baseline;
+}
+
+.post-editor-submit-container p {
+  color: #f88787;
+}
+
+.post-editor-submit-btn {
+  padding: 0.5em;
+  font-size: 30px;
+  border-radius: 5px;
+  float: right;
+  color: white;
+  background-color: black;
+  margin-left: 1em;
 }
