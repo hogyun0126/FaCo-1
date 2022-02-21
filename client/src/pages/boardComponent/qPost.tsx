@@ -1,15 +1,17 @@
 import { postType } from "../../modules/posts";
 import { HiOutlinePhotograph } from "react-icons/hi";
+import { Link, NavLink } from "react-router-dom";
 
 type QPOstProps = {
   post: postType;
+  postClickHandler: (post: postType)=>void;
 }
 
-function QPost({ post }: QPOstProps) {
+function QPost({ post, postClickHandler }: QPOstProps) {
   return (
     <tr>
       <td>[{post.location}/{post.weather}]</td>
-      <td>{post.title} {post.img !== null && <HiOutlinePhotograph />}</td>
+      <td onClick={() => postClickHandler(post)}>{post.title} {post.img !== null && <HiOutlinePhotograph />}</td>
       <td>{post.writer}</td>
       <td>{post.createdAt}</td>
       <td>{post.like}</td>
