@@ -63,7 +63,7 @@ function QBoard() {
         </tbody>
       </table>
 
-      <NavLink to='/postEditor'>
+      <NavLink to='/qPostEditor' state={{boardType: 'q'}}>
         <button>글쓰기</button>
       </NavLink>
 

@@ -7,7 +7,7 @@ import Footer from './pages/footer';
 import Home from './pages/home';
 import QBoard from './pages/qBoard';
 import RBoard from './pages/rBoard';
-import PostEditor from './pages/postEditor';
+import PostEditor from './pages/qPostEditor';
 
 
 // import ReduxTest from './pages/reduxTest';
@@ -18,6 +18,8 @@ import { RootState } from './modules';
 import { rBoardLts, qBoardLts } from './modules/posts';
 import { locationLts } from './modules/location';
 import PostView from './pages/postView';
+import RPostEditor from './pages/rPostEditor';
+import QPostEditor from './pages/qPostEditor';
 function App() {
   const state = useSelector((state: RootState) => state.postsReducer);
   const dispatch = useDispatch();
@@ -45,7 +47,8 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/qBoard' element={<QBoard />} />
             <Route path='/rBoard' element={<RBoard />} />
-            <Route path='/postEditor' element={<PostEditor />} />
+            <Route path='/qPostEditor' element={<QPostEditor />} />
+            <Route path='/rPostEditor' element={<RPostEditor />} />
           </Routes>
         </section>
       </div>

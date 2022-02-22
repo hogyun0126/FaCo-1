@@ -5,7 +5,7 @@ const INCREASE_LIKE = 'post/INCREASE_LIKE' as const;
 const DECREASE_LIKE = 'post/DECREASE_LIKE' as const;
 
 export type postType = {
-  [key: string]: number | string | null;
+  [key: string]: string[] | number | string | null;
   id: number;
   type: string;
   title: string;
@@ -14,7 +14,7 @@ export type postType = {
   writer: string;
   createdAt: number;
   body: any;
-  img: string | null;
+  img: string[] | null;
   like: number;
 };
 

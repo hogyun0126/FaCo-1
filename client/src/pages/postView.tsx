@@ -36,13 +36,29 @@ function PostView({ post }: PostViewProps) {
 
   return (
     <div>
-      <div>{post.title}</div>
-      <pre dangerouslySetInnerHTML={{__html: html}}/>
-      <div onClick={handleLikeClick}>좋아요 {post.like}</div>
-      {isWriter && 
-        <NavLink to='/postEditor' state={{post}}>
-          <button>수정하기</button>
-        </NavLink>}
+      <div className={post.img ? '' : 'none'}>
+        {post.img}
+      </div>
+
+      <div>
+        <div>{post.title}</div>
+        <pre dangerouslySetInnerHTML={{__html: html}}/>
+
+        <div>
+          <div onClick={handleLikeClick}>좋아요 {post.like}</div>
+          {
+            isWriter && 
+              <NavLink to='/postEditor' state={{post}}>
+                <button>수정하기</button>
+              </NavLink>
+          }
+        </div>
+
+        <div>
+          <p>댓글</p>
+          <div>댓글들</div>
+        </div>
+      </div>
     </div>
   )
 }

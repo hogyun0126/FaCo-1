@@ -281,3 +281,23 @@
   background-color: black;
   margin-left: 1em;
 }
+
+/*r post editor*/
+.r-post-editor-container {
+  display: flex;
+  margin: 2em 0 2em 0; 
+}
+
+.r-post-editor-img-form {
+  width: 50%;
+  margin: 2em;
+}
+
+.r-post-editor-text-form-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
