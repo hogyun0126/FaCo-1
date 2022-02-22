@@ -1,18 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Img } from "../../modules/posts";
 
-type Img = {
-  file: File;
-  url: string;
+type ImgForm = Img & {
   checked: boolean;
 }
 
 type ImgFormProps = {
-  images: string[];
-  handleImages: (images: string[]) => void;
+  images: Img[];
+  handleImages: (images: Img[]) => void;
 }
 
 function ImgForm({ images, handleImages }: ImgFormProps) {
-  const [imgFiles, setImageFile] = useState<Img[]>([]);
+  const [imgFiles, setImageFile] = useState<ImgForm[]>([]);
+
+  useEffect(() => {
+    const memo = images.map(el => {
+      return {
+        ...el,
+        checked: true,
+      }
+    })
+    setImageFile(memo);
+  }, [images]);
 
   function imgHandler() {
     const input = document.createElement('input');
@@ -26,27 +35,41 @@ function ImgForm({ images, handleImages }: ImgFormProps) {
 
       // files[0] 파일 올리면 s3에 보내서 주소 받아옴
       const url = 'https://mblogthumb-phinf.pstatic.net/20160506_24/yujoki76_14625160575783K2DW_JPEG/street_style_rainy_days_%2822%29.png?type=w2';
-      setImageFile([...imgFiles, {
-        file: files[0],
-        url: url,
-        checked: false,
-      }])
+      const update = [
+        ...imgFiles,
+        {
+          name: files[0].name,
+          url: url,
+          checked: true,
+        }
+      ];
 
-
-      // 미리보기 구현해야 함
+      updateImg(update);
     }
   }
 
   function checkBoxHandler(e: React.ChangeEvent<HTMLInputElement>) {
     const update = imgFiles.map(el => {
-      if (el.file.name === e.target.value) {
+      if (el.name === e.target.value) {
         el.checked = e.target.checked;
       }
       return el;
     });
 
+    updateImg(update);
+  }
+
+  function updateImg(update: ImgForm[]) {
     setImageFile(update);
-    const checked = update.filter(el => el.checked).map(el => el.url);
+    const checked = update
+      .filter(el => el.checked)
+      .map(el => {
+        return {
+          name: el.name,
+          url: el.url
+        }
+      });
+
     handleImages(checked);
   }
 
@@ -56,8 +79,8 @@ function ImgForm({ images, handleImages }: ImgFormProps) {
       <div>
         {imgFiles.map((el, idx) => (
           <label key={idx}>
-            <input  type='checkbox' value={el.file.name} onChange={(e)=>checkBoxHandler(e)} />
-            {el.file.name}
+            <input  type='checkbox' value={el.name} onChange={(e)=>checkBoxHandler(e)} checked />
+            {el.name}
           </label>
           ))}
       </div>

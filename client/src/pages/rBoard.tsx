@@ -5,7 +5,7 @@ import { RootState } from '../modules';
 import SearchBar from './boardComponent/searchBar';
 import PageNumber from './boardComponent/pageNumber';
 import RPost from './boardComponent/rPost';
-import { postType } from '../modules/posts';
+import { PostType } from '../modules/posts';
 import { NavLink } from 'react-router-dom';
 import { postDummy } from '../dummyData/boardDummy';
 import PostView from './postView';
@@ -18,7 +18,7 @@ function RBoard() {
   const postCount = 3; // 페이지당 보여줄 개수
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(postCount);
-  const [currentPost, setCurrentPost] = useState<postType>(postDummy.qLts[0]);
+  const [currentPost, setCurrentPost] = useState<PostType>(postDummy.rLts[0]);
   const [isPostClicked, setIspostClicked] = useState(false);
 
   useEffect(() => searchHandler(state), []);
@@ -28,13 +28,19 @@ function RBoard() {
     setEnd(go);
   }
 
-  function searchHandler(posts: postType[]): void {
+  function searchHandler(posts: PostType[]): void {
     setLts(posts);
   }
 
-  function postClickHandler(post: postType) {
+  function postClickHandler(post: PostType) {
     setCurrentPost(post);
     setIspostClicked(true);
+  }
+
+  function handleModalBackgroundClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    if (e.target === e.currentTarget) {
+      setIspostClicked(false);
+    }
   }
   
   return (
@@ -64,8 +70,10 @@ function RBoard() {
       <PageNumber pageCount={lts.length} postCount={postCount} pageNumberBtnClick={pageNumberBtnClick} />
       {
         isPostClicked &&
-          <div>
-            <PostView post={currentPost} />
+          <div onClick={(e)=>{handleModalBackgroundClick(e)}} className='rboard-postview-modal-background'>
+            <div className='rboard-postview-modal'>
+              <PostView post={currentPost} />
+            </div>
           </div>
       }
     </div>

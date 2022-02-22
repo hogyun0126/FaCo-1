@@ -4,13 +4,13 @@ import 'react-quill/dist/quill.snow.css';
 import { useRef } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { postType, qBoardLts, rBoardLts } from '../modules/posts';
+import { PostType, qBoardLts, rBoardLts } from '../modules/posts';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RootState } from '../modules';
 import { increaseKey } from '../modules/test';
 
 type Location = {
-  post: postType;
+  post: PostType;
 }
 
 function QPostEditor () {
@@ -133,7 +133,7 @@ function QPostEditor () {
         like: 5,
         createdAt: 20230101,
         body: delta,
-        img: null
+        img: []
       });
       
       dispatch(increaseKey(key)); // dummy
@@ -157,7 +157,7 @@ function QPostEditor () {
   }
 
   return (
-    <div>
+    <div className='q-post-editor-container'>
       <div className='post-editor-title-container'>
         <div>title</div>
         <input type='text' value={inputTitle} onChange={(e) => inputTitleChange(e)} />
@@ -172,9 +172,12 @@ function QPostEditor () {
         modules={modules}
         theme='snow'
       />
-      <div className='post-editor-submit-container'>
-        {isTitleEmpty && <p>제목을 입력해주세요</p>}
-        <button className='post-editor-submit-btn' onClick={handleSubmitBtnClick}>submit</button>
+      
+      <div>
+        <div className='post-editor-submit-container'>
+          {isTitleEmpty && <p>제목을 입력해주세요</p>}
+          <button className='post-editor-submit-btn' onClick={handleSubmitBtnClick}>submit</button>
+        </div>
       </div>
     </div>
   )

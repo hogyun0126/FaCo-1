@@ -4,8 +4,13 @@ const Q_BOARD_LTS = 'posts/Q_BOARD_LTS' as const;
 const INCREASE_LIKE = 'post/INCREASE_LIKE' as const;
 const DECREASE_LIKE = 'post/DECREASE_LIKE' as const;
 
-export type postType = {
-  [key: string]: string[] | number | string | null;
+export type Img = {
+  name: string;
+  url: string;
+}
+
+export type PostType = {
+  [key: string]: Img[] | number | string;
   id: number;
   type: string;
   title: string;
@@ -14,19 +19,19 @@ export type postType = {
   writer: string;
   createdAt: number;
   body: any;
-  img: string[] | null;
+  img: Img[];
   like: number;
 };
 
 // action
-export const rBoardLts = (arr: postType[]) => {
+export const rBoardLts = (arr: PostType[]) => {
   return {
     type: R_BOARD_LTS,
     payload: arr
   }
 }
 
-export const qBoardLts = (arr: postType[]) => {
+export const qBoardLts = (arr: PostType[]) => {
   return {
     type: Q_BOARD_LTS,
     payload: arr
@@ -62,9 +67,9 @@ type PostsAction =
 
 // state type
 type PostsState = {
-  [key: string]: postType[]
-  rLts: postType[];
-  qLts: postType[];
+  [key: string]: PostType[];
+  rLts: PostType[];
+  qLts: PostType[];
 }
 
 // state

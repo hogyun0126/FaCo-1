@@ -216,6 +216,28 @@
   justify-content: space-between;
 }
 
+.rboard-postview-modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  z-index: 2;
+}
+
+.rboard-postview-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+  z-index: 2;
+}
+
 /*qboard*/
 .qboard-container th, td {
   padding: 10px;
@@ -260,7 +282,6 @@
   margin: 1em 0 1em 0;
 }
 
-
 .post-editor-submit-container {
   display: flex;
   float: right;
@@ -299,5 +320,9 @@
   flex-direction: column;
 }
 
-
-
+/*q post editor*/
+.q-post-editor-container {
+  display: flex;
+  margin: 2em 0 2em 0; 
+  flex-direction: column;
+}

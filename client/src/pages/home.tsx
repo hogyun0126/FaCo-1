@@ -8,7 +8,7 @@ import LocaList from './Component/location';
 import { RootState } from '../modules';
 
 import RPost from './boardComponent/rPost';
-import { postType } from '../modules/posts';
+import { PostType } from '../modules/posts';
 
 
 function Home() {
@@ -106,7 +106,7 @@ function Home() {
 			<div>인기게시글</div>
 				<ul className='home-ul'>
 					{recommand/*filter(post=>post.weather === weather)*/.map(el =>
-					<li key={el.id}><img className='home-recommand-images'  src={el.img !== null ? el.img[0] : ''} alt='ddd'/></li>)}
+					<li key={el.id}><img className='home-recommand-images'  src={el.img !== null ? el.img[0].url : ''} alt='ddd'/></li>)}
 				</ul>
 			</div>
 			
