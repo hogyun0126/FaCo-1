@@ -4,25 +4,27 @@ import 'react-quill/dist/quill.snow.css';
 import { useRef } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { Img, PostType, rBoardLts } from '../modules/posts';
+import { Img, PostType, qBoardLts, rBoardLts } from '../modules/posts';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RootState } from '../modules';
 import { increaseKey } from '../modules/test';
 import ImgForm from './boardComponent/imgForm';
+import ImgView from './boardComponent/imgView';
 
 type Location = {
   post: PostType;
+  boardType: 'r' | 'q';
 }
 
-function RPostEditor () {
+function PostEditor () {
   const dispatch = useDispatch();
   const nav = useNavigate();
   const location = useLocation();
-
-  const key = useSelector((state: RootState) => state.testReducer.key); //dummy
-  const state = useSelector((state: RootState) => state.postsReducer.rLts);
   const locationState = location.state as Location;
-
+  const boardType = locationState.boardType;
+  const key = useSelector((state: RootState) => state.testReducer.key); //dummy
+  const state = useSelector((state: RootState) => state.postsReducer[`${boardType}Lts`]); // 추후 렌더링 될때마다 서버에서 받아오는걸로 변경
+ 
   const QuillRef = useRef<ReactQuill>();
   const [inputTitle, setInputTitle] = useState("");
   const [isImgEmpty, setIsImgEmpty] = useState(false);
@@ -34,7 +36,7 @@ function RPostEditor () {
   useEffect(
     () => {
       quill = QuillRef.current?.getEditor();
-      if (locationState !== null) {
+      if (locationState.post !== undefined) {
         // console.log(locationState)
         quill?.setContents(locationState.post.body);
         setInputTitle(locationState.post.title);
@@ -68,18 +70,18 @@ function RPostEditor () {
       return setIsTitleEmpty(true);
     }
 
-    if (images.length === 0) {
+    if (images.length === 0 && boardType === 'r') {
       return setIsImgEmpty(true);
     }
 
     const delta: any = quill?.getContents().ops;
     const updateState = state.slice();
       
-    if (locationState === null) {
+    if (locationState.post === undefined) {
       console.log('신규')
       updateState.unshift({
         id: key,
-        type: 'r',
+        type: boardType,
         title: inputTitle,
         weather: '비',
         location: '부산',
@@ -96,13 +98,19 @@ function RPostEditor () {
       const idx = updateState.findIndex(el => el.id === locationState.post.id);
       updateState[idx] = {
         ...updateState[idx],
-        body: delta,
         title: inputTitle,
+        body: delta,
+        img: images
       }
     }
     
-    dispatch(rBoardLts(updateState));
-    nav('/rBoard');
+    if (boardType === 'r') {
+      dispatch(rBoardLts(updateState));
+    } else {
+      dispatch(qBoardLts(updateState));
+    }
+    
+    nav(`/${boardType}Board`);
   }
 
   function inputTitleChange(e: React.ChangeEvent<HTMLInputElement> ) {
@@ -118,7 +126,7 @@ function RPostEditor () {
     <div className='r-post-editor-container'>
       <div className='r-post-editor-img-form'>
         <ImgForm images={images} handleImages={handleImages} />
-        {images.length > 0 && <img src={images[0].url} />} {/*추후 넘어가게 구현할거임 밑에 미리보기랑 컴포넌트 새로하나 만듬 */}
+        {images.length > 0 && <ImgView images={images}/>}
       </div>
 
       <div className='r-post-editor-text-form-container'>
@@ -150,4 +158,4 @@ function RPostEditor () {
   )
 }
 
-export default RPostEditor;
+export default PostEditor;
