@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import { BiLike} from "react-icons/bi";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 import { FiUser, FiUserX, FiUserPlus, FiUserMinus } from "react-icons/fi";
@@ -6,28 +7,45 @@ import { FaBars } from "react-icons/fa";
 import { listenerCount } from 'process';
 import UserSideBar from "./modal/userSideBar";
 import SignIn from './modal/signIn';
+import logo from '../logo/FaCo.png'
 
 import { NavLink } from "react-router-dom";
+import { updateIndicator } from "../modules/menus";
+import { RootState } from "../modules";
 
 
 function Menu() {
-
+	// const dispatch = useDispatch();
 	const indicator = useRef<any>([]);
+	
+
+	// useEffect(() => {
+	// 	dispatch(updateIndicator(indicator.current))
+	// },[])
 
 	const isClikcedMenu = (e:any) => {
 		let indicatorList = e.currentTarget.parentNode.children
-		// e.currentTarget.className = 'active'
+		e.currentTarget.className = 'active'
 		for (let i = 0; i < indicatorList.length; i++) {
-      indicatorList[i].className = ''
-			indicator.current[i].className = ''; 
+      if(indicator.current !== undefined){
+				indicatorList[i].className = ''
+				indicator.current[i].className = ''; 
+			}
+			
       if (indicatorList[i] === e.currentTarget) {
 				indicatorList[i].className = 'active'
 			indicator.current[i].className = 'indicator'; 
       }
     }
-		console.log(indicator)
-		console.log(e.currentTarget.parentNode.children)
-		console.log(e.currentTarget)
+		// const a = indicatorArray.map((el : any) => {
+		// 	let list = el.parentNode.parentNode
+		// 	if(list === e.currentTarget){
+		// 		el.className = 'indicator'
+		// 	}
+		// 	return el
+		// })
+		// dispatch(updateIndicator(a))
+		// console.log(indicatorArray[0])
 	}
 
 	const [ isLogIn, setIsLogIn] = useState<boolean>(false);
@@ -38,7 +56,7 @@ function Menu() {
 	const [ isSignUp, setIsSignUp ] = useState<boolean>(false);
 
 	const isLogInClicked = () => {
-		setIsLogIn(!isLogIn)
+		setIsLogIn(!isLogIn) // 내 정보를 불러왔을때 isLogIn -> true
 		setIsSignIn(true)
 	}
 	const isSignInClose = () => {
@@ -52,9 +70,9 @@ function Menu() {
   return (
 		<div className='menu-container'>
 			<div className='menu-list-container'>
-				<ul className='menu-list'  >
-					<li value='home' >
-						<NavLink to='/' onClick={isClikcedMenu}>
+				<ul className='menu-list'>
+					<li value='home' onClick={isClikcedMenu} >
+						<NavLink to='/'>
 							<div className='menu-icon'><BiLike/></div>
 							<div className='menu-text'>홈페이지</div>
 							<div ref={el=>indicator.current[0]=el}></div>

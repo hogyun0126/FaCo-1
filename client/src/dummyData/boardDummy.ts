@@ -2,6 +2,7 @@ export const postDummy = {
   rLts: [
     {
       id: 1,
+      type: 'r',
       title: '일산 우중충할때 룩',
       weather: 'Clear',
       location: '일산',
@@ -13,6 +14,7 @@ export const postDummy = {
     },
     {
       id: 2,
+      type: 'r',
       title: '서울 비올때 룩',
       weather: '비',
       location: '서울',
@@ -24,6 +26,7 @@ export const postDummy = {
     },
     {
       id: 3,
+      type: 'r',
       title: '서울 더울때 룩',
       weather: '더위',
       location: '서울',
@@ -35,6 +38,7 @@ export const postDummy = {
     },
     {
       id: 4,
+      type: 'r',
       title: '부산 비올때 룩',
       weather: '비',
       location: '부산',
@@ -46,6 +50,7 @@ export const postDummy = {
     },
     {
       id: 5,
+      type: 'r',
       title: '부산 화창할때 룩',
       weather: '화창',
       location: '부산',
@@ -57,6 +62,7 @@ export const postDummy = {
     },
     {
       id: 6,
+      type: 'r',
       title: '6',
       weather: '화창',
       location: '제주',
@@ -68,6 +74,7 @@ export const postDummy = {
     },
     {
       id: 7,
+      type: 'r',
       title: '7',
       weather: '화창',
       location: '부산',
@@ -79,6 +86,7 @@ export const postDummy = {
     },
     {
       id: 8,
+      type: 'r',
       title: '8',
       weather: '화창',
       location: '부산',
@@ -92,6 +100,7 @@ export const postDummy = {
   qLts: [
     {
       id: 1,
+      type: 'q',
       title: '부산 화창한 날씨 상의 추천좀',
       weather: '화창',
       location: '부산',
@@ -103,6 +112,7 @@ export const postDummy = {
     },
     {
       id: 2,
+      type: 'q',
       title: '부산 화창한 날씨 상의 추천좀',
       weather: '화창',
       location: '부산',
@@ -114,6 +124,7 @@ export const postDummy = {
     },
     {
       id: 3,
+      type: 'q',
       title: '서울 오늘 뭐입지',
       weather: '흐림',
       location: '서울',
@@ -125,6 +136,7 @@ export const postDummy = {
     },
     {
       id: 4,
+      type: 'q',
       title: '대구 오늘 뭐입지',
       weather: '더위',
       location: '대구',
@@ -136,6 +148,7 @@ export const postDummy = {
     },
     {
       id: 5,
+      type: 'q',
       title: '대구 오늘 뭐입지',
       weather: '더위',
       location: '대구',
@@ -147,6 +160,7 @@ export const postDummy = {
     },
     {
       id: 6,
+      type: 'q',
       title: '대구 오늘 뭐입지',
       weather: '더위',
       location: '대구',
@@ -158,6 +172,7 @@ export const postDummy = {
     },
     {
       id: 7,
+      type: 'q',
       title: '대구 오늘 뭐입지',
       weather: '더위',
       location: '대구',

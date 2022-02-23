@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { arrayBuffer } from 'stream/consumers';
 import { images } from '../dummyData/images';
@@ -12,6 +12,7 @@ import { postType } from '../modules/posts';
 
 
 function Home() {
+	// const dispatch = useDispatch();
   const stateLocation = useSelector((state: RootState) => state.locationReducer.lLts);
 	const stateRPost = useSelector((state: RootState) => state.postsReducer.rLts);
 	const stateQPost = useSelector((state: RootState) => state.postsReducer.qLts);

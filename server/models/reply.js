@@ -16,9 +16,10 @@ module.exports = (sequelize, DataTypes) => {
   reply.init({
     body: DataTypes.STRING,
     userId: DataTypes.STRING,
-    boardId: DataTypes.STRING,
-    like: DataTypes.STRING,
-    createdAt: DataTypes.STRING
+    postId: DataTypes.STRING,
+    postId: DataTypes.STRING,
+    createdAt: DataTypes.STRING,
+    updatedAt: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'reply',

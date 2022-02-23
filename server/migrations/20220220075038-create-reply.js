@@ -14,13 +14,16 @@ module.exports = {
       userId: {
         type: Sequelize.STRING
       },
-      boardId: {
+      postId: {
         type: Sequelize.STRING
       },
-      like: {
+      postId: {
         type: Sequelize.STRING
       },
       createdAt: {
+        type: Sequelize.STRING
+      },
+      updatedAt: {
         type: Sequelize.STRING
       },
       createdAt: {

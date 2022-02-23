@@ -2,51 +2,43 @@
 const USER_INFO = 'userInfo/USER_INFO' as const;
 
 export type userInfoType = {
-  [key: string]: number | string | null;
-  id: string|null;
-	password: string | number | null;
-	name: string | null;
-	phone: number | null;
-	email: string | null;
-	location: string | null;
-	sex: string | null;
+    id: string
+    name: string,
+    phone: any,
+    email: string,
+    location: string,
+    sex: string
 };
 
 // action
-export const userInfo = (arr: userInfoType[]) => {
+export const userInfo = (obj: userInfoType) => {
   return {
     type: USER_INFO,
-    payload: arr
+    payload: obj
   }
 }
 
 // action type
 type UserInfoAction = 
-  ReturnType<typeof userInfo>
+  |ReturnType<typeof userInfo>
 
 // state type
 type UserInfoState = {
-  [key: string]: userInfoType[];
-  userId: userInfoType[];
-  userPassword: userInfoType[];
-  userName: userInfoType[];
-  userPhone: userInfoType[];
-  userEmail: userInfoType[];
-  userLocation: userInfoType[];
-  userSex: userInfoType[];
-  
+  [key: string]: userInfoType;
+  userInfo: userInfoType;
 }
 
-// state
 const initialState: UserInfoState = {
-  userId: [],
-  userPassword: [],
-  userName: [],
-  userPhone: [],
-  userEmail: [],
-  userLocation: [],
-  userSex: []
+  userInfo: {
+    id: '',
+    name: '',
+    phone: '',
+    email: '',
+    location: '',
+    sex: ''
+  }
 }
+
 
 // reducer
 function userInfoReducer(
@@ -55,7 +47,7 @@ function userInfoReducer(
 ): UserInfoState {
   switch (action.type) {
     case USER_INFO:
-      return Object.assign({}, state, { rLts : action.payload });
+      return Object.assign({}, state, { userInfo : action.payload });
     default:
       return state;
   }

@@ -3,6 +3,7 @@ import testReducer from "./test";
 import postsReducer from "./posts";
 import locationReducer from "./location";
 import userInfoReducer from "./userInfo";
+import menuReducer from "./menus";
 
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -10,14 +11,15 @@ import storage from 'redux-persist/lib/storage';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['postsReducer','locationReducer','userInfoReducer'],
+  whitelist: ['postsReducer','locationReducer','userInfoReducer','menuReducer'],
 }
 
 const rootReducer = combineReducers({
   testReducer,
   postsReducer,
   locationReducer,
-  userInfoReducer
+  userInfoReducer,
+  menuReducer
 });
 
 export const persistedReducer = persistReducer<any, any>(persistConfig, rootReducer);

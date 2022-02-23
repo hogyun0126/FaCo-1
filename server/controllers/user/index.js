@@ -1,5 +1,8 @@
 module.exports = {
-    signUp: require('./signupController'),
-    signIn: require('./loginController'),
-    signOut: require('./logoutController')
-}
+    signup: require("./signup"),
+    signin: require("./signin"),
+    signout: require("./signout"),
+    withdraw: require("./withdraw"),
+    modify: require("./modify"),
+    checkEmail: require("./checkEmail"),
+  };
