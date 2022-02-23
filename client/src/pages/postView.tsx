@@ -2,12 +2,12 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
 import { RootState } from "../modules";
-import { decreaseLike, increaseLike, postType } from "../modules/posts";
+import { decreaseLike, increaseLike, PostType } from "../modules/posts";
 
 import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html';
 
 type PostViewProps = {
-  post: postType;
+  post: PostType;
 }
 
 function PostView({ post }: PostViewProps) {
@@ -35,10 +35,8 @@ function PostView({ post }: PostViewProps) {
   
 
   return (
-    <div>
-      <div className={post.img ? '' : 'none'}>
-        {post.img}
-      </div>
+    <div className="postview-container">
+      {post.img !== null && <img src={post.img[0].url} />}
 
       <div>
         <div>{post.title}</div>
@@ -48,7 +46,7 @@ function PostView({ post }: PostViewProps) {
           <div onClick={handleLikeClick}>좋아요 {post.like}</div>
           {
             isWriter && 
-              <NavLink to='/postEditor' state={{post}}>
+              <NavLink to={post.type === 'r' ? '/rPostEditor' : '/qPostEditor'} state={{post}}>
                 <button>수정하기</button>
               </NavLink>
           }
@@ -56,6 +54,7 @@ function PostView({ post }: PostViewProps) {
 
         <div>
           <p>댓글</p>
+          <div>댓글들</div>
           <div>댓글들</div>
         </div>
       </div>

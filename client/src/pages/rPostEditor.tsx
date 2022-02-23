@@ -4,16 +4,14 @@ import 'react-quill/dist/quill.snow.css';
 import { useRef } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { postType, rBoardLts } from '../modules/posts';
+import { Img, PostType, rBoardLts } from '../modules/posts';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RootState } from '../modules';
 import { increaseKey } from '../modules/test';
 import ImgForm from './boardComponent/imgForm';
 
-
-
 type Location = {
-  post: postType;
+  post: PostType;
 }
 
 function RPostEditor () {
@@ -21,14 +19,15 @@ function RPostEditor () {
   const nav = useNavigate();
   const location = useLocation();
 
-  const key = useSelector((state: RootState) => state.testReducer.key); //test
-  const state = useSelector((state: RootState) => state.postsReducer.qLts);
+  const key = useSelector((state: RootState) => state.testReducer.key); //dummy
+  const state = useSelector((state: RootState) => state.postsReducer.rLts);
+  const locationState = location.state as Location;
 
   const QuillRef = useRef<ReactQuill>();
   const [inputTitle, setInputTitle] = useState("");
+  const [isImgEmpty, setIsImgEmpty] = useState(false);
   const [isTitleEmpty, setIsTitleEmpty] = useState(false);
-  const locationState = location.state as Location;
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState<Img[]>([]);
 
   let quill = QuillRef.current?.getEditor();
 
@@ -36,8 +35,10 @@ function RPostEditor () {
     () => {
       quill = QuillRef.current?.getEditor();
       if (locationState !== null) {
+        // console.log(locationState)
         quill?.setContents(locationState.post.body);
         setInputTitle(locationState.post.title);
+        setImages(locationState.post.img)
       }
     },
     []
@@ -67,10 +68,14 @@ function RPostEditor () {
       return setIsTitleEmpty(true);
     }
 
+    if (images.length === 0) {
+      return setIsImgEmpty(true);
+    }
+
     const delta: any = quill?.getContents().ops;
     const updateState = state.slice();
       
-    if (locationState.post === null) {
+    if (locationState === null) {
       console.log('신규')
       updateState.unshift({
         id: key,
@@ -105,7 +110,7 @@ function RPostEditor () {
     setIsTitleEmpty(false);
   }
 
-  function handleImages(images: string[]) {
+  function handleImages(images: Img[]) {
     setImages(images)
   }
 
@@ -113,7 +118,7 @@ function RPostEditor () {
     <div className='r-post-editor-container'>
       <div className='r-post-editor-img-form'>
         <ImgForm images={images} handleImages={handleImages} />
-        {images && <img src={images[0]} />} {/*추후 넘어가게 구현할거임 밑에 미리보기랑 컴포넌트 새로하나 만듬 */}
+        {images.length > 0 && <img src={images[0].url} />} {/*추후 넘어가게 구현할거임 밑에 미리보기랑 컴포넌트 새로하나 만듬 */}
       </div>
 
       <div className='r-post-editor-text-form-container'>
@@ -132,10 +137,11 @@ function RPostEditor () {
           modules={modules}
           theme='snow'
         />
-        <div>
 
+        <div>
           <div className='post-editor-submit-container'>
             {isTitleEmpty && <p>제목을 입력해주세요</p>}
+            {isImgEmpty && <p>이미지를 추가해주세요</p>}
             <button className='post-editor-submit-btn' onClick={handleSubmitBtnClick}>submit</button>
           </div>
         </div>

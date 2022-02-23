@@ -1,10 +1,10 @@
 import { ChangeEvent, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from '../../modules';
-import { postType } from '../../modules/posts';
+import { PostType } from '../../modules/posts';
 
 type searchBarProps = {
-  searchHandler: (posts: postType[]) => void;
+  searchHandler: (posts: PostType[]) => void;
   pageNumberBtnClick: (go: number) => void;
   boardType: string;
   postCount: number;
