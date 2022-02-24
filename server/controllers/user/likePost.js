@@ -2,7 +2,7 @@ const { like } = require('../models');
 
 module.exports = async (req, res) => {
   const { id: postId } = req.params;
-  const { id: userId } = req.user;
+  const { id: userId } = req.body.user;
 
   try {
   // 좋아요를 한 적이 있는지 확인
