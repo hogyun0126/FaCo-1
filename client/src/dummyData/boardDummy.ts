@@ -4,7 +4,7 @@ export const postDummy = {
       id: 1,
       type: 'r',
       title: '일산 우중충할때 룩',
-      weather: '흐림',
+      weather: 'Clear',
       location: '일산',
       writer: 'kim',
       like: 200,

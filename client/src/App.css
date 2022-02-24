@@ -152,7 +152,7 @@
 .home-recommand-images {
   height: 400px;
   width: 500px;
-  position:relative;
+  /* position:relative; */
 }
 .home-ul:hover {
   animation-play-state: paused;
