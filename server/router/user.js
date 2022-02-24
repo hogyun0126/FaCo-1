@@ -24,9 +24,6 @@ router.post(
     body("location")
       .isAlpha()
       .withMessage("장소를 입력해주세요"),
-    body("sex")
-      .isArray()
-      .withMessage("성별를 입력해주세요"),
     validateError,
   ],
   userController.signup.signup,

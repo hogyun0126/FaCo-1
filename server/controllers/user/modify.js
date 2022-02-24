@@ -17,7 +17,7 @@ async function modify(req, res) {
     }
 
     if (phone) {
-        userDB.modifyUser(phone, userId);
+      userDB.modifyUser(phone, userId);
       }
 
     return res.status(200).json({ message: "정보 수정이 완료되었습니다" });
