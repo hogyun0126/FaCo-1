@@ -185,8 +185,12 @@
 
 /*board*/
 .board-img {
-  width: 300px;
-  height: 400px;
+  min-width: 300px;
+  min-height: 400px;
+  max-width: 300px;
+  max-height: 400px;
+  width: auto;
+  height: auto;
 }
 
 /*rboard*/
@@ -326,3 +330,39 @@
   margin: 2em 0 2em 0; 
   flex-direction: column;
 }
+
+/*img view*/
+.img-view-main-container {
+  display: flex;
+  align-items: center;
+  font-size: xx-large;
+}
+
+.img-view-preview-container {
+  display: flex;
+}
+
+.img-view-preview-img {
+  width: auto;
+  height: auto;
+  max-width: 100px;
+  max-height: 100px;
+  margin-left: 2em;
+}
+
+/*post view*/
+.postview-container {
+  display: flex;
+}
+
+.postview-container > div {
+  flex-basis: 600px;
+  width: 600px;
+}
+
+.postview-content-container {
+  background-color: skyblue;
+  margin-left: 20px;
+  padding: 10px;
+}
+

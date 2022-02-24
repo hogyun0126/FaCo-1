@@ -63,7 +63,7 @@ function RBoard() {
         </div>
       </div>
 
-      <NavLink to='/rPostEditor'>
+      <NavLink to='/postEditor' state={{boardType: 'r'}}>
         <button>글쓰기</button>
       </NavLink>
 

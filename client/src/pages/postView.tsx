@@ -5,6 +5,7 @@ import { RootState } from "../modules";
 import { decreaseLike, increaseLike, PostType } from "../modules/posts";
 
 import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html';
+import ImgView from "./boardComponent/imgView";
 
 type PostViewProps = {
   post: PostType;
@@ -31,14 +32,14 @@ function PostView({ post }: PostViewProps) {
     // dispatch(decreaseLike(post.id, post.type));
   }
 
-  //console.log(post)
-  
-
   return (
     <div className="postview-container">
-      {post.img !== null && <img src={post.img[0].url} />}
-
+      {post.img.length !== 0 && 
       <div>
+        <ImgView images={post.img} />
+      </div>}
+
+      <div className="postview-content-container">
         <div>{post.title}</div>
         <pre dangerouslySetInnerHTML={{__html: html}}/>
 
@@ -46,7 +47,7 @@ function PostView({ post }: PostViewProps) {
           <div onClick={handleLikeClick}>좋아요 {post.like}</div>
           {
             isWriter && 
-              <NavLink to={post.type === 'r' ? '/rPostEditor' : '/qPostEditor'} state={{post}}>
+              <NavLink to='/postEditor' state={{post, boardType: post.type}}>
                 <button>수정하기</button>
               </NavLink>
           }
