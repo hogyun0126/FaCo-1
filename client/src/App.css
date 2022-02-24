@@ -185,8 +185,12 @@
 
 /*board*/
 .board-img {
-  width: 300px;
-  height: 400px;
+  min-width: 300px;
+  min-height: 400px;
+  max-width: 300px;
+  max-height: 400px;
+  width: auto;
+  height: auto;
 }
 
 /*rboard*/
@@ -214,6 +218,28 @@
 .rboard-title {
   display: flex;
   justify-content: space-between;
+}
+
+.rboard-postview-modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  z-index: 2;
+}
+
+.rboard-postview-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+  z-index: 2;
 }
 
 /*qboard*/
@@ -260,7 +286,6 @@
   margin: 1em 0 1em 0;
 }
 
-
 .post-editor-submit-container {
   display: flex;
   float: right;
@@ -281,3 +306,63 @@
   background-color: black;
   margin-left: 1em;
 }
+
+/*r post editor*/
+.r-post-editor-container {
+  display: flex;
+  margin: 2em 0 2em 0; 
+}
+
+.r-post-editor-img-form {
+  width: 50%;
+  margin: 2em;
+}
+
+.r-post-editor-text-form-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+/*q post editor*/
+.q-post-editor-container {
+  display: flex;
+  margin: 2em 0 2em 0; 
+  flex-direction: column;
+}
+
+/*img view*/
+.img-view-main-container {
+  display: flex;
+  align-items: center;
+  font-size: xx-large;
+}
+
+.img-view-preview-container {
+  display: flex;
+}
+
+.img-view-preview-img {
+  width: auto;
+  height: auto;
+  max-width: 100px;
+  max-height: 100px;
+  margin-left: 2em;
+}
+
+/*post view*/
+.postview-container {
+  display: flex;
+}
+
+.postview-container > div {
+  flex-basis: 600px;
+  width: 600px;
+}
+
+.postview-content-container {
+  background-color: skyblue;
+  margin-left: 20px;
+  padding: 10px;
+}
+

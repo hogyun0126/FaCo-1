@@ -2,12 +2,13 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
 import { RootState } from "../modules";
-import { decreaseLike, increaseLike, postType } from "../modules/posts";
+import { decreaseLike, increaseLike, PostType } from "../modules/posts";
 
 import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html';
+import ImgView from "./boardComponent/imgView";
 
 type PostViewProps = {
-  post: postType;
+  post: PostType;
 }
 
 function PostView({ post }: PostViewProps) {
@@ -31,18 +32,33 @@ function PostView({ post }: PostViewProps) {
     // dispatch(decreaseLike(post.id, post.type));
   }
 
-  //console.log(post)
-  
-
   return (
-    <div>
-      <div>{post.title}</div>
-      <pre dangerouslySetInnerHTML={{__html: html}}/>
-      <div onClick={handleLikeClick}>좋아요 {post.like}</div>
-      {isWriter && 
-        <NavLink to='/postEditor' state={{post}}>
-          <button>수정하기</button>
-        </NavLink>}
+    <div className="postview-container">
+      {post.img.length !== 0 && 
+      <div>
+        <ImgView images={post.img} />
+      </div>}
+
+      <div className="postview-content-container">
+        <div>{post.title}</div>
+        <pre dangerouslySetInnerHTML={{__html: html}}/>
+
+        <div>
+          <div onClick={handleLikeClick}>좋아요 {post.like}</div>
+          {
+            isWriter && 
+              <NavLink to='/postEditor' state={{post, boardType: post.type}}>
+                <button>수정하기</button>
+              </NavLink>
+          }
+        </div>
+
+        <div>
+          <p>댓글</p>
+          <div>댓글들</div>
+          <div>댓글들</div>
+        </div>
+      </div>
     </div>
   )
 }

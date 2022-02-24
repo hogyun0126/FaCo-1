@@ -1,10 +1,10 @@
-import { postType } from "../../modules/posts";
+import { PostType } from "../../modules/posts";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import { Link, NavLink } from "react-router-dom";
 
 type QPOstProps = {
-  post: postType;
-  postClickHandler: (post: postType)=>void;
+  post: PostType;
+  postClickHandler: (post: PostType)=>void;
 }
 
 function QPost({ post, postClickHandler }: QPOstProps) {

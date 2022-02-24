@@ -4,7 +4,7 @@ import { RootState } from '../modules';
 import SearchBar from './boardComponent/searchBar';
 import PageNumber from './boardComponent/pageNumber';
 import QPost from './boardComponent/qPost';
-import { postType, qBoardLts } from '../modules/posts';
+import { PostType, qBoardLts } from '../modules/posts';
 import { NavLink, Route, Routes } from 'react-router-dom';
 import { postDummy } from '../dummyData/boardDummy';
 import PostView from './postView';
@@ -17,7 +17,7 @@ function QBoard() {
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(postCount);
   const [isPostClicked, setIspostClicked] = useState(false);
-  const [currentPost, setCurrentPost] = useState<postType>(postDummy.qLts[0]);
+  const [currentPost, setCurrentPost] = useState<PostType>(postDummy.qLts[0]);
 
   
   useEffect(() => {
@@ -26,11 +26,11 @@ function QBoard() {
   }, []);
   
 
-  function searchHandler(posts: postType[]) {
+  function searchHandler(posts: PostType[]) {
     setLts(posts);
   }
 
-  function postClickHandler(post: postType) {
+  function postClickHandler(post: PostType) {
     setCurrentPost(post);
     setIspostClicked(true);
   }
@@ -63,7 +63,7 @@ function QBoard() {
         </tbody>
       </table>
 
-      <NavLink to='/postEditor'>
+      <NavLink to='/postEditor' state={{boardType: 'q'}}>
         <button>글쓰기</button>
       </NavLink>
 

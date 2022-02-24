@@ -4,90 +4,47 @@ import 'react-quill/dist/quill.snow.css';
 import { useRef } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { postType, qBoardLts } from '../modules/posts';
+import { Img, PostType, qBoardLts, rBoardLts } from '../modules/posts';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RootState } from '../modules';
 import { increaseKey } from '../modules/test';
+import ImgForm from './boardComponent/imgForm';
+import ImgView from './boardComponent/imgView';
 
 type Location = {
-  post: postType;
+  post: PostType;
+  boardType: 'r' | 'q';
 }
 
 function PostEditor () {
   const dispatch = useDispatch();
   const nav = useNavigate();
   const location = useLocation();
-
-  const key = useSelector((state: RootState) => state.testReducer.key); //test
-  const state = useSelector((state: RootState) => state.postsReducer.qLts); // 일단은 qboard만
-
+  const locationState = location.state as Location;
+  const boardType = locationState.boardType;
+  const key = useSelector((state: RootState) => state.testReducer.key); //dummy
+  const state = useSelector((state: RootState) => state.postsReducer[`${boardType}Lts`]); // 추후 렌더링 될때마다 서버에서 받아오는걸로 변경
+ 
   const QuillRef = useRef<ReactQuill>();
   const [inputTitle, setInputTitle] = useState("");
+  const [isImgEmpty, setIsImgEmpty] = useState(false);
   const [isTitleEmpty, setIsTitleEmpty] = useState(false);
-  const linkData = location.state as Location;
+  const [images, setImages] = useState<Img[]>([]);
+
   let quill = QuillRef.current?.getEditor();
 
   useEffect(
     () => {
       quill = QuillRef.current?.getEditor();
-      if (linkData !== null) {
-        quill?.setContents(linkData.post.body);
-        setInputTitle(linkData.post.title);
+      if (locationState.post !== undefined) {
+        // console.log(locationState)
+        quill?.setContents(locationState.post.body);
+        setInputTitle(locationState.post.title);
+        setImages(locationState.post.img)
       }
     },
     []
   );
-  
-  const imageHandler = () => {
-    const input = document.createElement("input");
-    const formData = new FormData();
-    let url = "https://mblogthumb-phinf.pstatic.net/20160506_24/yujoki76_14625160575783K2DW_JPEG/street_style_rainy_days_%2822%29.png?type=w2";
-
-    const range = QuillRef.current?.getEditor().getSelection()?.index;
-    if (range !== null && range !== undefined) {
-      quill?.setSelection(range, 1);
-
-      quill?.clipboard.dangerouslyPasteHTML(
-        range,
-        `<img src=${url} alt="이미지 태그가 삽입됩니다." />`
-      );
-    }
-
-    /*
-    input.setAttribute("type", "file");
-    input.setAttribute("accept", "image/*");
-    input.click();
-    input.onchange = async () => {
-      const file: any = input.files;
-      if (file !== null) {
-        formData.append("image", file[0]);
-
-
-        console.log(formData.get('image'))
-
-        axios.post('http://localhost:4000/img', formData, {
-          headers: {
-            'content-type': 'multipart/form-data'
-          }
-        })
-        .then(res => {
-          console.log(res)
-
-          const range = QuillRef.current?.getEditor().getSelection()?.index;
-          if (range !== null && range !== undefined) {
-            let quill = QuillRef.current?.getEditor();
-            quill?.setSelection(range, 1);
-
-            quill?.clipboard.dangerouslyPasteHTML(
-              range,
-              `<img src=${res.data.path} alt="이미지 태그가 삽입됩니다." />`
-            );
-          }
-        })
-      }
-      */
-    
-  };
 
   const modules = useMemo(
     () => ({
@@ -101,12 +58,8 @@ function PostEditor () {
             { indent: "-1" },
             { indent: "+1" },
             { align: [] },
-          ],
-          ["image"],
-        ],
-        handlers: {
-          image: imageHandler,
-        },
+          ]
+        ]
       },
     }),
     []
@@ -117,14 +70,18 @@ function PostEditor () {
       return setIsTitleEmpty(true);
     }
 
+    if (images.length === 0 && boardType === 'r') {
+      return setIsImgEmpty(true);
+    }
+
     const delta: any = quill?.getContents().ops;
     const updateState = state.slice();
       
-    if (linkData === null) {
+    if (locationState.post === undefined) {
       console.log('신규')
       updateState.unshift({
         id: key,
-        type: 'q',
+        type: boardType,
         title: inputTitle,
         weather: '비',
         location: '부산',
@@ -132,22 +89,28 @@ function PostEditor () {
         like: 5,
         createdAt: 20230101,
         body: delta,
-        img: '',
+        img: images
       });
       
       dispatch(increaseKey(key)); // dummy
     } else {
       console.log('수정')
-      const idx = state.findIndex(el => el.id === linkData.post.id);
+      const idx = updateState.findIndex(el => el.id === locationState.post.id);
       updateState[idx] = {
         ...updateState[idx],
-        body: delta,
         title: inputTitle,
+        body: delta,
+        img: images
       }
     }
-
-    dispatch(qBoardLts(updateState));    
-    nav('/qBoard');
+    
+    if (boardType === 'r') {
+      dispatch(rBoardLts(updateState));
+    } else {
+      dispatch(qBoardLts(updateState));
+    }
+    
+    nav(`/${boardType}Board`);
   }
 
   function inputTitleChange(e: React.ChangeEvent<HTMLInputElement> ) {
@@ -155,25 +118,41 @@ function PostEditor () {
     setIsTitleEmpty(false);
   }
 
+  function handleImages(images: Img[]) {
+    setImages(images)
+  }
+
   return (
-    <div>
-      <div className='post-editor-title-container'>
-        <div>title</div>
-        <input type='text' value={inputTitle} onChange={(e) => inputTitleChange(e)} />
+    <div className='r-post-editor-container'>
+      <div className='r-post-editor-img-form'>
+        <ImgForm images={images} handleImages={handleImages} />
+        {images.length > 0 && <ImgView images={images}/>}
       </div>
-      <ReactQuill
-        className='post-editor-quill'
-        ref={(element) => {
-          if (element !== null) {
-            QuillRef.current = element;
-          }
-        }}
-        modules={modules}
-        theme='snow'
-      />
-      <div className='post-editor-submit-container'>
-        {isTitleEmpty && <p>제목을 입력해주세요</p>}
-        <button className='post-editor-submit-btn' onClick={handleSubmitBtnClick}>submit</button>
+
+      <div className='r-post-editor-text-form-container'>
+        <div className='post-editor-title-container'>
+          <div>title</div>
+          <input type='text' value={inputTitle} onChange={(e) => inputTitleChange(e)} />
+        </div>
+
+        <ReactQuill
+          className='post-editor-quill'
+          ref={(element) => {
+            if (element !== null) {
+              QuillRef.current = element;
+            }
+          }}
+          modules={modules}
+          theme='snow'
+        />
+
+        <div>
+          <div className='post-editor-submit-container'>
+            {isTitleEmpty && <p>제목을 입력해주세요</p>}
+            {isImgEmpty && <p>이미지를 추가해주세요</p>}
+            <button className='post-editor-submit-btn' onClick={handleSubmitBtnClick}>submit</button>
+          </div>
+        </div>
       </div>
     </div>
   )
