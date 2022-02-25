@@ -1,4 +1,4 @@
 module.exports = {
     userController: require("./user"),
-    likeComtroller: require("./like")
+    likeController: require("./like")
   };

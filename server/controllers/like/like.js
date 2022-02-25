@@ -1,37 +1,26 @@
-const { like } = require('../models');
-
-module.exports = async (req, res) => {
-  const { id: postId } = req.params;
-  const { id: userId } = req.body.user;
-
+async function likePost(req, res) {
   try {
-  // 좋아요를 한 적이 있는지 확인
-    const likeInfo = await like.findOne({
-      where: {
-        post_id: postId,
-        user_id: userId,
-      }
-    });
-    if (!likeInfo) {
-    // 없으면 생성
-      await like.create({
-        post_id: postId,
-        user_id: userId,
-      });
-    } else {
-    // 있으면 삭제
-      await like.destroy({
-        where: {
-          post_id: postId,
-          user_id: userId,
-        }
-      });
+    const { id: userId } = req.body.user;
+    const { id: postId } = req.params;
+
+    if (await this.like.likeInfo(userId, postId)) {
+      return res.status(409).json({ message: "이미 좋아요를 누른 게시물입니다" })
     }
+
+    const createLikeData = await this.like.createLike(
+      userId,
+      postId,
+    );
+    const likeId = createLikeData.id;
+    const result = { likeId, userId, postId };
+
+    return res.status(201).json({ data: result, message: "좋아요를 눌렀습니다." });
   } catch (err) {
     console.log(err);
-    return res.status(500).send({message: 'error', errorMessage: 'DB Error'});
-  }
-  
-  res.send({message: 'ok'});
+    return res.status(500).send({message: "서버 에러입니다." });
+}
+};
 
+module.exports = {
+  likePost,
 };
