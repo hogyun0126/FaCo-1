@@ -26,7 +26,7 @@ router.post(
       .withMessage("장소를 입력해주세요"),
     validateError,
   ],
-  userController.signup.signup,
+  userController.signup,
 );
 
 router.post(
@@ -35,12 +35,10 @@ router.post(
     body("email").isEmail().withMessage("이메일을 입력해주세요"),
     body("password")
       .notEmpty()
-      .withMessage("비밀번호를 입력해주세요")
-      .isLength({ min: 8, max: 16 })
-      .withMessage("8~16자리 비밀번호를 입력해주세요"),
+      .withMessage("비밀번호를 입력해주세요"),
     validateError,
   ],
-  userController.signin.signin,
+  userController.signin,
 );
 
 router.post(
@@ -51,12 +49,12 @@ router.post(
       .notEmpty()
       .withMessage("이미 로그아웃 되었습니다."),
   ],
-  userController.signout.signout,
+  userController.signout,
 );
 
-router.delete("/", accessToken, userController.withdraw.withdrawUser);
+router.delete("/", accessToken, userController.withdraw,);
 
-router.patch("/", accessToken, userController.modify.modify);
+router.patch("/", accessToken, userController.modify,);
 
 router.get(
   "/email",
@@ -64,7 +62,7 @@ router.get(
     query("email").isEmail().withMessage("이메일을 입력해주세요"),
     validateError,
   ],
-  userController.checkEmail.checkEmail,
+  userController.checkEmail,
 );
 
 module.exports = router;
