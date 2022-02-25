@@ -56,13 +56,13 @@ router.delete("/", accessToken, userController.withdraw.withdrawUser,);
 
 router.patch("/", accessToken, userController.modify.modify,);
 
-router.get(
-  "/email",
-  [
-    query("email").isEmail().withMessage("이메일을 입력해주세요"),
-    validateError,
-  ],
-  userController.checkEmail.checkEmail,
-);
+// router.get(
+//   "/email",
+//   [
+//     query("email").isEmail().withMessage("이메일을 입력해주세요"),
+//     validateError,
+//   ],
+//   userController.checkEmail.checkEmail,
+// );
 
 module.exports = router;
