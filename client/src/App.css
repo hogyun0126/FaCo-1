@@ -119,6 +119,7 @@
 /* user sidebar*/
 .side-container {
   background-color: skyblue;
+  width: 30vw;
   height:100vh;
   display: flex;
   position: fixed;
@@ -128,8 +129,8 @@
   animation: sidebar 0.5s;
 }
 @keyframes sidebar {
-  from {  transform: translateX(100px);}
-  to { transform: translateX(0px);}
+  from {  transform: translateX(30vw);}
+  to { transform: translateX(0);}
 }
 
 /* home */
