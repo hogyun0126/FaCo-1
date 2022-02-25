@@ -1,6 +1,6 @@
 const crypto = require("crypto");
 const userDB = require("../../data/user");
-const checkEmail = require("./checkEmail");
+// const checkEmail = require("./checkEmail");
 
 function createCrypto(password) {
   const salt = crypto.randomBytes(64).toString("hex");
@@ -15,7 +15,7 @@ async function signup(req, res) {
   try {
     const { email, name, password, phone, location, sex } = req.body;
 
-    if (await checkEmail.resultUserByEmail(email)) {
+    if (await userDB.resultUserByEmail(email)) {
       return res.status(409).json({ message: `이미 존재하는 이메일입니다.` });
     }
 
