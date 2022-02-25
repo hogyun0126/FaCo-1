@@ -1,6 +1,7 @@
-const checkEmail = require("./checkEmail");
+// const checkEmail = require("./checkEmail");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
+const userDB = require("../../data/user")
 
 function checkUserPassword(user, password) {
   const dbPassword = user.password;
@@ -29,7 +30,7 @@ function createAccessToken(user) {
 async function signin(req, res) {
   try {
     const { email, password } = req.body;
-    const user = await checkEmail.resultUserByEmail(email);
+    const user = await userDB.resultUserByEmail(email);
 
     if (!user) {
       return res.status(404).json({ message: "회원을 찾을수 없습니다." });
