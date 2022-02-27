@@ -338,6 +338,13 @@
   font-size: xx-large;
 }
 
+.img-view-main-container > img {
+  width: auto;
+  height: auto;
+  max-width: 500px;
+  max-height: 5 00px;
+} 
+
 .img-view-preview-container {
   display: flex;
 }

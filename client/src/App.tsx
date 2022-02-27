@@ -17,7 +17,7 @@ import { locationDummy } from './dummyData/location';
 import { RootState } from './modules';
 import { rBoardLts, qBoardLts } from './modules/posts';
 import { locationLts } from './modules/location';
-import PostView from './pages/postView';
+import Test from './pages/test';
 
 function App() {
   const state = useSelector((state: RootState) => state.postsReducer);
@@ -47,6 +47,7 @@ function App() {
             <Route path='/qBoard' element={<QBoard />} />
             <Route path='/rBoard' element={<RBoard />} />
             <Route path='/postEditor' element={<PostEditor />} />
+            <Route path='/test' element={<Test />} />
           </Routes>
         </section>
       </div>
