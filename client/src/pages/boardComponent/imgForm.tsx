@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Img } from "../../modules/posts";
+import { BsFillPlusSquareFill } from "react-icons/bs"
 
 import { S3Client, PutObjectCommand, ListObjectsCommand } from "@aws-sdk/client-s3";
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
@@ -33,12 +34,13 @@ const s3 = new S3Client({
 function ImgForm({ images, handleImages }: ImgFormProps) {
   const [imgFiles, setImageFile] = useState<ImgForm[]>([]);
   const [isUserHasAlbum, setIsUserHasAlbum] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isImgLimit, setIstImgLimit] = useState(false);
 
-
-  const user = 'test@test.com'; // 로그인한 유저 이메일
+  const user = '2test@test.com'; // 로그인한 유저 이메일
 
   useEffect(() => {
-    console.log(s3Config)
+    // console.log(s3Config)
     const memo = images.map(el => {
       return {
         ...el,
@@ -54,14 +56,14 @@ function ImgForm({ images, handleImages }: ImgFormProps) {
 
   async function listAlbums(user: string) {
     try {
+      setIsLoading(true);
       const album = await s3.send(
         new ListObjectsCommand({
-          Prefix: user,
+          Prefix: user + '/',
           Bucket: s3Config.bucketName,
         })
       )
-
-      console.log(album, 'albums');
+      setIsLoading(false);
 
       if (album.Contents !== undefined) {
         setIsUserHasAlbum(true);
@@ -72,6 +74,10 @@ function ImgForm({ images, handleImages }: ImgFormProps) {
   }
 
   function imgHandler() {
+    if (images.length === 5) {
+      return;
+    }
+
     const input = document.createElement('input');
     input.setAttribute("type", "file");
     input.setAttribute("accept", "image/*");
@@ -82,13 +88,16 @@ function ImgForm({ images, handleImages }: ImgFormProps) {
       // files[0] 파일 올리면 s3에 보내서 주소 받아옴
       if (!isUserHasAlbum) {
         // 앨범 없으면 만들고
+        setIsLoading(true);
         const album = await s3.send(new PutObjectCommand({
           Bucket: s3Config.bucketName,
-          Key: user
+          Key: user + '/'
         }));
+        setIsLoading(false);
         setIsUserHasAlbum(true);
       }
 
+      setIsLoading(true);
       // 이미지 넣음 (중복은 aws상에서 걸러짐)
       const path = user + '/' + file.name;
       const data = await s3.send(new PutObjectCommand({
@@ -96,6 +105,7 @@ function ImgForm({ images, handleImages }: ImgFormProps) {
         Bucket: s3Config.bucketName,
         Key: path
       }));
+      setIsLoading(false);
 
       const href = `https://${s3Config.bucketName}.s3.amazonaws.com/`;
       const url =  href + path;
@@ -133,21 +143,37 @@ function ImgForm({ images, handleImages }: ImgFormProps) {
           url: el.url
         }
       });
-
+    
     handleImages(checked);
+    if (checked.length < 5) {
+      setIstImgLimit(false);
+    } else {
+      setIstImgLimit(true);
+    }
   }
 
   return (
-    <div>
-      <div onClick={imgHandler}>+</div>
+    <div className="img-form-container">
       <div>
-        {imgFiles.map((el, idx) => (
-          <label key={idx}>
-            <input  type='checkbox' value={el.name} onChange={(e)=>checkBoxHandler(e)} checked />
-            {el.name}
-          </label>
-          ))}
+        <div className="img-form-upload-form">
+          <div onClick={imgHandler}><BsFillPlusSquareFill size={30} /></div>
+          {isImgLimit ? (
+              <div className="img-form-img-limit-alert">이미지는 5개까지 추가할 수 있습니다</div>
+            ) : (
+              <div>Add image</div>
+            )
+          }
+        </div>
+        <ul className="img-form-file-list">
+          {imgFiles.map((el, idx) => (
+            <li key={idx}>
+              <input  type='checkbox' value={el.name} onChange={(e)=>checkBoxHandler(e)} checked />
+              {el.name}
+            </li>
+            ))}
+        </ul>
       </div>
+      {isLoading && <div className='img-form-loading'>Loading...</div>}
     </div>
   )
 }
