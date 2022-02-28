@@ -55,5 +55,6 @@ async function signin(req, res) {
 
 module.exports = {
   checkUserPassword,
+  createAccessToken,
   signin,
 };
