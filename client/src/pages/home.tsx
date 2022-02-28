@@ -45,9 +45,9 @@ function Home() {
 	const search = (e:any) => {
 			fetch(`${api.base}weather?q=${selected}&units=metric&APPID=${api.key}`)
 			.then(res => res.json())
-			.then(result => {
-				setWeather(result.weather[0].main);
-				console.log(result);
+			.then(res => {
+				setWeather(res.weather[0].main);
+				console.log(res);
 			})
 	}
 

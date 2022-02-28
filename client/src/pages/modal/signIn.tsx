@@ -63,10 +63,10 @@ function SignIn({isSignInClose}:MyProps) {
 			<div className='sign-in-view'>
         <div onClick={isSignInClose}>X
         </div>
-      <div>이메일 : 
+      <div className='sign-title'>이메일 : 
           <input type='text' name='email' onChange={(e)=>handleEmailValue(e)}></input>
         </div>
-        <div>비밀번호 : 
+        <div className='sign-title'>비밀번호 : 
           <input type='password' name='password' onChange={(e)=>handlePasswordValue(e)}></input>
         </div>
 
