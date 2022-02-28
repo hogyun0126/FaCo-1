@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Img } from "../../modules/posts";
 
 type ImgViewProps = {
@@ -8,6 +8,10 @@ type ImgViewProps = {
 function ImgView({ images }: ImgViewProps) {
   const [currentIdx, setCurrentIdx] = useState(0);
   const maxIdx = images.length - 1;
+
+  useEffect(() => {
+    setCurrentIdx(images.length - 1);
+  }, [images])
 
   function preViewHandler() {
     if (currentIdx === 0) {

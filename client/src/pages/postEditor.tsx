@@ -33,18 +33,15 @@ function PostEditor () {
 
   let quill = QuillRef.current?.getEditor();
 
-  useEffect(
-    () => {
-      quill = QuillRef.current?.getEditor();
-      if (locationState.post !== undefined) {
-        // console.log(locationState)
-        quill?.setContents(locationState.post.body);
-        setInputTitle(locationState.post.title);
-        setImages(locationState.post.img)
-      }
-    },
-    []
-  );
+  useEffect(() => {
+    quill = QuillRef.current?.getEditor();
+    if (locationState.post !== undefined) {
+      // console.log(locationState)
+      quill?.setContents(locationState.post.body);
+      setInputTitle(locationState.post.title);
+      setImages(locationState.post.img)
+    }
+  }, []);
 
   const modules = useMemo(
     () => ({
@@ -104,6 +101,7 @@ function PostEditor () {
       }
     }
     
+    // 서버 요청 부분
     if (boardType === 'r') {
       dispatch(rBoardLts(updateState));
     } else {
