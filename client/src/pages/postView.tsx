@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
 import { RootState } from "../modules";
@@ -19,17 +19,38 @@ function PostView({ post }: PostViewProps) {
   const [isWriter, setIsWriter] = useState(true);
   // 2. like테이블에서 해당 post를 userInfo가 눌럿는지
   const [isAlreadyLike, setIsAlreadyLike] = useState(false);
-
+  const [comment, setComment] = useState<string[]>([]);
+  const [textareaValue, setTextareaValue] = useState('');
 
   const converter = new QuillDeltaToHtmlConverter(post.body, {});
   const html = converter.convert();
   //console.log(post.body)
+
+  useEffect(() => {
+    async function callback() {
+      // awit 해당 post id의 댓글들 요청
+      const arr = ['댓글1', '댓글2', '댓글3', '댓글4']
+      setComment(arr);
+    }
+    callback();
+  }, []);
 
   function handleLikeClick() {
     // 안눌럿으면 증가
     dispatch(increaseLike(post.id, post.type));
     // 눌럿으면 감소
     // dispatch(decreaseLike(post.id, post.type));
+  }
+
+  function handleCommentSubmit() {
+    // post 아이디로 comment 테이블에 요청보냄
+    // state 갱신 - 일회성 추후 어차피 서버에서 받아옴
+    setComment([...comment, textareaValue]);
+    setTextareaValue('');
+  }
+
+  function handleTextareaChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    setTextareaValue(e.target.value);
   }
 
   return (
@@ -40,10 +61,10 @@ function PostView({ post }: PostViewProps) {
       </div>}
 
       <div className="postview-content-container">
-        <div>{post.title}</div>
-        <pre dangerouslySetInnerHTML={{__html: html}}/>
+        <div className="postview-content-title">{post.title}</div>
+        <pre className="postview-content-body" dangerouslySetInnerHTML={{__html: html}}/>
 
-        <div>
+        <div className="postview-content-like-container">
           <div onClick={handleLikeClick}>좋아요 {post.like}</div>
           {
             isWriter && 
@@ -52,11 +73,19 @@ function PostView({ post }: PostViewProps) {
               </NavLink>
           }
         </div>
+        
+        <p>comment</p>
+        <div className="postview-content-commentes">
+          {comment.map((el, idx) => {
+            return <div key={idx}>{el}</div>
+          })}
+        </div>
 
-        <div>
-          <p>댓글</p>
-          <div>댓글들</div>
-          <div>댓글들</div>
+        <div className="postview-content-comment-form">
+          <textarea value={textareaValue} onChange={(e) => handleTextareaChange(e)} maxLength={200} placeholder="최대 200자까지 입력할 수 있습니다"></textarea>
+          <div>
+            <button onClick={handleCommentSubmit}>Add comment</button>
+          </div>
         </div>
       </div>
     </div>

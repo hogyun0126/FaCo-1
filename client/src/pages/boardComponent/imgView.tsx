@@ -10,7 +10,7 @@ function ImgView({ images }: ImgViewProps) {
   const maxIdx = images.length - 1;
 
   useEffect(() => {
-    setCurrentIdx(images.length - 1);
+    setCurrentIdx(0);
   }, [images])
 
   function preViewHandler() {
@@ -34,10 +34,10 @@ function ImgView({ images }: ImgViewProps) {
   }
 
   return (
-    <div>
+    <div className="img-view-container">
       <div className="img-view-main-container">
         <div onClick={preViewHandler}>{'<'}</div>
-        <img src={images[currentIdx].url}/>
+        <img src={images[currentIdx]?.url}/>
         <div onClick={nextViewHandler}>{'>'}</div>
       </div>
 
