@@ -3,10 +3,10 @@ const userDB = require("../../data/user");
 // const checkEmail = require("./checkEmail");
 
 function createCrypto(password) {
-  const salt = crypto.randomBytes(64).toString("hex");
-  const encryptedPassword = crypto
-    .pbkdf2Sync(password, salt, 9999, 64, "sha512")
-    .toString("base64");
+  const salt = (crypto.randomBytes(64) || "").toString("hex");
+  const encryptedPassword = (
+    crypto.pbkdf2Sync(password, salt, 9999, 64, "sha512") || ""
+  ).toString("base64");
 
   return [salt, encryptedPassword];
 }
