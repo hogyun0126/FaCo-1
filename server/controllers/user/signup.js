@@ -26,8 +26,8 @@ async function signup(req, res) {
       encryptedPassword,
       phone,
       location,
-      sex,
       salt,
+      sex,
     );
     const userId = createUserData.id;
     const result = { userId, email, name, phone, location, sex };

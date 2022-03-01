@@ -9,7 +9,6 @@ function checkUserPassword(user, password) {
   const hashedPassword = (
     crypto.pbkdf2Sync(password, salt, 9999, 64, "sha512") || ""
   ).toString("base64");
-
   return hashedPassword === dbPassword ? true : false;
 }
 
@@ -31,7 +30,6 @@ async function signin(req, res) {
   try {
     const { email, password } = req.body;
     const user = await userDB.resultUserByEmail(email);
-    console.log("user")
     if (!user) {
       return res.status(404).json({ message: "회원을 찾을수 없습니다." });
     }
