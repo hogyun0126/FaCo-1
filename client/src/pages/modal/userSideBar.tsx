@@ -19,6 +19,10 @@ function UserSideBar({ isSideBarClose } : MyProps) {
     // dispatch(locationLts(Object.assign({}, )));
   }
 
+  function isWeatherClick (e:any) {
+    console.log(e.target)
+  }
+
   
   return (
     <div className='side-container'>
@@ -29,7 +33,10 @@ function UserSideBar({ isSideBarClose } : MyProps) {
         </NavLink>
         <li>
           <div>날씨</div>
-          <input type='checkbox'></input>
+          <input type='checkbox' value='Clear' onClick={(e)=>isWeatherClick(e)}>맑음</input>
+          <input type='checkbox' value='Clouds' onClick={(e)=>isWeatherClick(e)}>흐림</input>
+          <input type='checkbox' value='Rain' onClick={(e)=>isWeatherClick(e)}>비</input>
+          <input type='checkbox' value='Snow' onClick={(e)=>isWeatherClick(e)}>눈</input>
         </li>
         <li>
         <div>지역</div>

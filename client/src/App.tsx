@@ -8,6 +8,7 @@ import Home from './pages/home';
 import QBoard from './pages/qBoard';
 import RBoard from './pages/rBoard';
 import PostEditor from './pages/postEditor';
+import MyInfo from './pages/myInfo';
 
 
 // import ReduxTest from './pages/reduxTest';
@@ -47,6 +48,7 @@ function App() {
             <Route path='/qBoard' element={<QBoard />} />
             <Route path='/rBoard' element={<RBoard />} />
             <Route path='/postEditor' element={<PostEditor />} />
+            <Route path='/myinfo' element={<MyInfo/>}/>
           </Routes>
         </section>
       </div>

@@ -9,15 +9,16 @@ import { RootState } from '../modules';
 
 import RPost from './boardComponent/rPost';
 import { PostType } from '../modules/posts';
+import { LocationSelected } from "../modules/location";
 
 
 function Home() {
-	// const dispatch = useDispatch();
-  const stateLocation = useSelector((state: RootState) => state.locationReducer.lLts);
+	const dispatch = useDispatch();
+  const stateLocation = useSelector((state: RootState) => state.locationReducer);
 	const stateRPost = useSelector((state: RootState) => state.postsReducer.rLts);
 	const stateQPost = useSelector((state: RootState) => state.postsReducer.qLts);
 
-  const locations = stateLocation.sort((a, b) => a.locationKr > b.locationKr ? 1 : -1);
+  const locations = stateLocation.lLts.sort((a, b) => a.locationKr > b.locationKr ? 1 : -1);
 	const recommand = stateRPost.slice(-5);
 	const question = stateQPost.slice(-5);
 	
@@ -26,7 +27,8 @@ function Home() {
 		key: 'da646735954e126fccbdcd34e0005c8c', // 비공개 키로 만들기
 		base: 'https://api.openweathermap.org/data/2.5/'
 	}
-	const [selected, setSelected] = useState<string>('서울');
+	// const selected = dispatch(locationSelected)
+	const [selected, setSelected]= useState<string>('서울')
 	const [weather, setWeather] = useState<string>('Clear');
 
 	
@@ -41,7 +43,6 @@ function Home() {
 		
 		return `${day} ${date} ${month} ${year}`
 	}
-	
 	const search = (e:any) => {
 			fetch(`${api.base}weather?q=${selected}&units=metric&APPID=${api.key}`)
 			.then(res => res.json())
@@ -54,12 +55,12 @@ function Home() {
 
 	const inputChange = (e:any) :void => {
 		let selectedLocation = locations.filter(el => el.locationKr === e.target.value)[0]
-		setSelected(selectedLocation.locationEn)
+		// setSelected(selectedLocation.locationEn)
 	}
 
 	const handleSelect = (e:any) => {
     // setSelected(e.target.value);
-    setSelected(e.target.value)
+    // selected.locationKr = e.target.value
 
 		// fetch(`${api.base}weather?q=${selected}&units=metric&APPID=${api.key}`)
 		// 	.then(res => res.json())
@@ -69,13 +70,14 @@ function Home() {
 		// 		console.log(result);
 		// 	})
   };
-
+	console.log(stateLocation)
 
   return (
     <div className='home-container'>
 			<div>
 				<input type='text'
-				onChange={e => setSelected(e.target.value)} value={selected} onKeyPress={search}></input>
+				// onChange={e => setSelected(e.target.value)} value={selected} onKeyPress={search}></input>
+				></input>
 				
 				{/* 지역 선택 */}
 				<select onChange={e=>handleSelect(e)}>
