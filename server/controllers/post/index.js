@@ -1,4 +1,5 @@
 module.exports = {
-    qBoard: require("./qBoard"),
-    rBoard: require("./rBoard"),
-  };
+    create: require("./create"),
+    delete: require("./delete"),
+    modify: require("./modify")
+};
