@@ -10,6 +10,7 @@ import { RootState } from '../modules';
 import RPost from './boardComponent/rPost';
 import { PostType } from '../modules/posts';
 import { LocationSelected } from "../modules/location";
+import Weather from "./Component/weather";
 
 
 function Home() {
@@ -59,7 +60,7 @@ function Home() {
 	}
 
 	const handleSelect = (e:any) => {
-    // setSelected(e.target.value);
+    setSelected(e.target.value);
     // selected.locationKr = e.target.value
 
 		// fetch(`${api.base}weather?q=${selected}&units=metric&APPID=${api.key}`)
@@ -75,16 +76,14 @@ function Home() {
   return (
     <div className='home-container'>
 			<div>
-				<input type='text'
-				// onChange={e => setSelected(e.target.value)} value={selected} onKeyPress={search}></input>
-				></input>
+				<div>{selected}</div>
 				
 				{/* 지역 선택 */}
 				<select onChange={e=>handleSelect(e)}>
 					{locations.map(loca => <LocaList key={loca.id} location={loca}/>)}
 				</select>
 				<span onClick={search}>선택</span>
-				<div>날씨 : {`${weather}`} </div>
+				<div>날씨 : <Weather/> </div>
 				<div>날짜 : {dateBuilder(new Date())}</div>
 			</div>
 			<div>
