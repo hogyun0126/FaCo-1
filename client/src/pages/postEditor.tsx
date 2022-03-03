@@ -121,13 +121,13 @@ function PostEditor () {
   }
 
   return (
-    <div className='r-post-editor-container'>
-      <div className='r-post-editor-img-form'>
+    <div className='post-editor-container'>
+      <div className='post-editor-img-form'>
         <ImgForm images={images} handleImages={handleImages} />
         {images.length > 0 && <ImgView images={images}/>}
       </div>
 
-      <div className='r-post-editor-text-form-container'>
+      <div className='post-editor-text-form-container'>
         <div className='post-editor-title-container'>
           <div>title</div>
           <input type='text' value={inputTitle} onChange={(e) => inputTitleChange(e)} />

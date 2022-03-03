@@ -84,13 +84,14 @@ function postsReducer(
   action: PostsAction
 ): PostsState {
   function likeChange(postType: string, id: number, actionType: string) {
-    const index = state[postType + 'Lts'].findIndex(item => item.id === id);
+    const postT = postType + 'Lts';
+    const index = state[postT].findIndex(item => item.id === id);
   
     if (actionType === INCREASE_LIKE) {
-      state[postType + 'Lts'][index].like++;
+      state[postT][index].like++;
     } 
     if (actionType === DECREASE_LIKE) {
-      state[postType][index].like--;
+      state[postT][index].like--;
     }
   
     return state;

@@ -36,14 +36,20 @@ function ImgView({ images }: ImgViewProps) {
   return (
     <div className="img-view-container">
       <div className="img-view-main-container">
-        <div onClick={preViewHandler}>{'<'}</div>
-        <img src={images[currentIdx]?.url}/>
-        <div onClick={nextViewHandler}>{'>'}</div>
+        <div className="img-view-main-arrow" onClick={preViewHandler}>{'<'}</div>
+        <div className="img-view-main-img-box">
+          <img src={images[currentIdx]?.url}/>
+        </div>
+        <div className="img-view-main-arrow" onClick={nextViewHandler}>{'>'}</div>
       </div>
 
       <div className="img-view-preview-container">
         {images.map((el, idx) => {
-          return <img className="img-view-preview-img" key={idx} src={el.url} onClick={() => goToClickedImgHandler(idx)} />
+          return (
+            <div key={idx} className="img-view-preview-img-box">
+              <img src={el.url} onClick={() => goToClickedImgHandler(idx)} />
+            </div>
+          )
         })}
       </div>
     </div>
