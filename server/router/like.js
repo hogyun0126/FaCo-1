@@ -1,19 +1,6 @@
-const express = require("express");
-const router = express.Router();
-const { body, header, query } = require("express-validator");
-const { validateError } = require("../middleware/validator");
+const router = require("express").Router();
 const { likeController } = require("../controllers");
 
-router.post(
-  "/",
-  [
-    query("userId")
-      .trim(),
-    query("postId")
-      .notEmpty(),
-    validateError,
-  ],
-  likeController.like.likePost,
-);
+router.post("/", likeController.like.likePost,);
 
 module.exports = router;

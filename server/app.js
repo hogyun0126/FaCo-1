@@ -23,11 +23,13 @@ app.use(
 );
 
 const userrouter = require("./router/user");
-const likerouter = require("./router/like")
+const likerouter = require("./router/like");
+const postrouter = require("./router/post");
 
 
 app.use("/user", userrouter);
 app.use("/like", likerouter);
+app.use("/post", postrouter);
 
 app.get("/", (req, res) => {
   res.status(201).send("Hello CodeFC");

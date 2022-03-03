@@ -8,6 +8,6 @@ function signout(req, res) {
     }
   }
   
-  module.exports = {
-    signout,
-  };
+module.exports = {
+  signout,
+};

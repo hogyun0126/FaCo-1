@@ -4,5 +4,6 @@ module.exports = {
     signout: require("./signout"),
     withdraw: require("./withdraw"),
     modify: require("./modify"),
-    // checkEmail: require("./checkEmail"),
+    checkEmail: require("./checkEmail"),
+    userInfo: require("./userInfo"),
   };
