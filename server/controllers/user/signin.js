@@ -49,7 +49,7 @@ async function signin(req, res) {
     console.log("err", err);
     return res.status(500).json({ message: "서버 에러입니다." });
   }
-}
+};
 
 module.exports = {
   checkUserPassword,
