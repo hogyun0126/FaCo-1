@@ -15,6 +15,13 @@ async function resultUserByEmail(email) {
   return searchEmail ? searchEmail : false;
 }
 
+async function resultUserById(id) {
+  const searchUserId = await user.findOne({
+    where: { id: id },
+  });
+  return searchUserId ? searchUserId : false;
+}
+
 async function createUser(email, name, password, phone, location, salt, sex) {
   return user.create({
     email,
@@ -54,6 +61,7 @@ module.exports = {
   findUserById,
   findUserByEmail,
   resultUserByEmail,
+  resultUserById,
   createUser,
   modifyUser,
   withdrawUser,
