@@ -45,7 +45,7 @@ function SearchBar({ searchHandler, pageNumberBtnClick, boardType, postCount }: 
   }
 
   return (
-    <div>
+    <div className='searchbar-container'>
       <select onChange={handleSelectChange}>
         {selectList.map((item, idx) => (
           <option key={idx} value={item}>

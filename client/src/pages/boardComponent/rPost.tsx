@@ -7,17 +7,13 @@ type RPostProps = {
 
 function RPost({ post, postClickHandler }: RPostProps) {
   return (
-   <div className='rboard-post'>
-    {post.img !== null && <img src={post.img[0].url} onClick={()=>postClickHandler(post)}/>}
-
-    <div className='rboard-title'>
-      <div onClick={()=>postClickHandler(post)}>[{post.location}/{post.weather}] {post.title}</div>
-      <div className='rboard-like'>하트{post.like}</div>
+   <div className='rboard-post-container' onClick={()=>postClickHandler(post)}>
+    <div className='rboard-post-img-box'>
+      {post.img !== null && <img src={post.img[0].url}/>}
     </div>
-
-    <div className='rboard-info'>
-      <p>{post.writer}</p>
-      <p>{post.createdAt}</p>
+    <div className='rboard-post-info'>
+      <div>{post.location} / {post.weather}</div>
+      <div className='rboard-post-like'>하트{post.like}</div>
     </div>
    </div>
   )

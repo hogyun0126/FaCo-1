@@ -28,18 +28,24 @@ function PostView({ post }: PostViewProps) {
 
   useEffect(() => {
     async function callback() {
-      // awit 해당 post id의 댓글들 요청
-      const arr = ['댓글1', '댓글2', '댓글3', '댓글4']
+      // await 해당 post id의 댓글들 요청
+      const arr = ['댓글1', '댓글2', '댓글3', '댓글4'];
       setComment(arr);
+      // await 해당 포스트에 대해 로그인한 유저가 눌렀는지 받아옴
+      const data = false;
+      setIsAlreadyLike(data)
     }
     callback();
   }, []);
 
   function handleLikeClick() {
-    // 안눌럿으면 증가
-    dispatch(increaseLike(post.id, post.type));
-    // 눌럿으면 감소
-    // dispatch(decreaseLike(post.id, post.type));
+    if (isAlreadyLike) {
+      dispatch(decreaseLike(post.id, post.type));
+      setIsAlreadyLike(false);
+    } else {
+      dispatch(increaseLike(post.id, post.type));
+      setIsAlreadyLike(true);
+    }
   }
 
   function handleCommentSubmit() {
@@ -66,11 +72,13 @@ function PostView({ post }: PostViewProps) {
 
         <div className="postview-content-like-container">
           <div onClick={handleLikeClick}>좋아요 {post.like}</div>
-          {
-            isWriter && 
+          {isWriter && 
+            <div>
               <NavLink to='/postEditor' state={{post, boardType: post.type}}>
                 <button>수정하기</button>
               </NavLink>
+              <button>삭제하기</button>
+            </div>
           }
         </div>
         

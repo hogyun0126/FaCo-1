@@ -7,7 +7,7 @@ export const postDummy = {
       weather: 'Clear',
       location: '일산',
       writer: 'kim',
-      like: 200,
+      like: 299,
       createdAt: 20220519,
       body: '바디',
       img: [
