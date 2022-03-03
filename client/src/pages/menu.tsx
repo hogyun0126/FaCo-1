@@ -8,11 +8,13 @@ import { listenerCount } from 'process';
 import UserSideBar from "./modal/userSideBar";
 import SignIn from './modal/signIn';
 import logo from '../logo/FaCo.png';
+import { userInfo } from "../modules/userInfo";
 
 import { NavLink } from "react-router-dom";
 import { updateIndicator } from "../modules/menus";
 import { RootState } from "../modules";
 const axios = require('axios').default;
+
 
 function Menu() {
 	const dispatch = useDispatch();
@@ -38,12 +40,15 @@ function Menu() {
 		setIsSignIn(true)
 	}
 	function handleSignOutBtnClick () {
-		stateUserInfo.userInfo.name = ''
-		stateUserInfo.userInfo.phone = ''
-		stateUserInfo.userInfo.email = ''
-		stateUserInfo.userInfo.location = ''
-		stateUserInfo.userInfo.sex = ''
-		stateUserInfo.userInfo.accessToken = ''
+		
+		const userInfos = Object.assign({},stateUserInfo)
+		userInfos.userInfo.name = ''
+		userInfos.userInfo.phone = ''
+		userInfos.userInfo.email = ''
+		userInfos.userInfo.location = ''
+		userInfos.userInfo.sex = ''
+		userInfos.userInfo.accessToken = ''
+		dispatch(userInfo(userInfos.userInfo));
 		setIsLogIn(false)
 	}
 	

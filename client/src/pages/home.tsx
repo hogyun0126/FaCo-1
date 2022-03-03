@@ -49,7 +49,6 @@ function Home() {
 			.then(res => res.json())
 			.then(res => {
 				setWeather(res.weather[0].main);
-				console.log(res);
 			})
 	}
 
@@ -71,15 +70,15 @@ function Home() {
 		// 		console.log(result);
 		// 	})
   };
-	console.log(stateLocation)
 
   return (
     <div className='home-container'>
 			<div>
-				<div>{selected}</div>
+				{/* <div>{selected}</div> */}
 				
 				{/* 지역 선택 */}
 				<select onChange={e=>handleSelect(e)}>
+					<option hidden>---</option>
 					{locations.map(loca => <LocaList key={loca.id} location={loca}/>)}
 				</select>
 				<span onClick={search}>선택</span>

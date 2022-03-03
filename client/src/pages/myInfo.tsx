@@ -12,17 +12,16 @@ function MyInfo() {
   const stateLocation = useSelector((state: RootState) => state.locationReducer);
 
   const path = 'http://localhost:4000/user/modify';
-  const [ userInfos, setUserInfos ] = useState(stateUserInfo);
+
   const [ modifying, setModifying ] = useState(false)
   const [selected, setSelected]= useState('서울')
   const [ userInfo, setUserInfo ] = useState({
-    email: '',
     password: '',
     passwordConfirm: '',
-    name: '',
-    phone: '',
-    location: '',
-    sex: ''
+    name: stateUserInfo.userInfo.name,
+    phone: stateUserInfo.userInfo.phone,
+    location: stateUserInfo.userInfo.location,
+    sex: stateUserInfo.userInfo.sex
   });
 
 
@@ -46,19 +45,19 @@ function MyInfo() {
   };
 
   function handleInputValue (e:any) {
-    setUserInfos(Object.assign({}, userInfos, {[e.target.name] : e.target.value}));
+    setUserInfo(Object.assign({}, userInfo, {[e.target.name] : e.target.value}));
     console.log(e.target.value)
     console.log(userInfo)
   }
 
   const isModifyClicked = function(){
-    axios.post(path, userInfo, {
+    axios.post(path, { password: userInfo.password, phone: userInfo.phone, location:userInfo.location }, {
       "content-type": "application/json",
       credentials: true,
     })
     .then(function (response:any) {
+      
       setModifying(false);
-    
       console.log(response);
     })
     .catch(function (error:any) {
@@ -72,9 +71,7 @@ function MyInfo() {
       <ul>
         <li>
           이메일: 
-          {modifying?
-          <input name='email' placeholder='이메일을 입력해주세요' onChange={(e) => handleInputValue(e)}></input>
-          :userInfos.userInfo.email}
+          {stateUserInfo.userInfo.email}
         </li>
           {modifying?
           <li>비밀번호: <input type='password' placeholder='비밀번호를 입력해주세요' onChange={(e) => handleInputValue(e)}></input></li>:
@@ -92,15 +89,15 @@ function MyInfo() {
         }
         </li>
         <li>
-          이름:{userInfos.userInfo.name}
+          이름:{userInfo.name}
         </li>
         <li>
           핸드폰번호:{modifying?
           <input name='phoneNumber' placeholder='핸드폰번호를 입력해주세요' onChange={(e) => handleInputValue(e)}></input>
-          :userInfos.userInfo.phone}
+          :userInfo.phone}
         </li>
         <li>
-          성별:{userInfos.userInfo.sex}
+          성별:{userInfo.sex}
         </li>
       </ul>
       {modifying?<div>

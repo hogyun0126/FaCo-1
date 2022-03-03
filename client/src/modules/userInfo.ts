@@ -36,7 +36,7 @@ const initialState: UserInfoState = {
     name: '',
     phone: '',
     email: '',
-    location: '',
+    location: 'Seoul',
     sex: '',
     accessToken: '',
   }

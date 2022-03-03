@@ -14,7 +14,7 @@ type MyProps = {
 function SignIn({isSignInClose, isLogInCancle}:MyProps) {
   const dispatch = useDispatch();
   const stateUserInfo = useSelector((state: RootState) => state.userInfoReducer);
-  const path = 'http://localhost:4000/user/signin';
+  const path = 'http://localhost:4000/user';
 
   const [ userEmail, setUserEmail ] = useState('')
   const [ userPassword, setUserPassword ] = useState('')
@@ -34,7 +34,7 @@ function SignIn({isSignInClose, isLogInCancle}:MyProps) {
 
   async function handleSignInBtnClick () {
     
-    await axios.post(path, {email: userEmail, password: userPassword}, {
+    await axios.post(`${path}/signin`, {email: userEmail, password: userPassword}, {
       "content-type": "application/json",
       credentials: true,
     })
@@ -49,25 +49,28 @@ function SignIn({isSignInClose, isLogInCancle}:MyProps) {
       console.log(error.response.data.message);
     })
 
-    await axios.get(path, 
-      // {headers: {
-      //   Authorization: `Bearer ${stateUserInfo.userInfo.accessToken}`,
-      //   "Content-Type": "application/json",
-      // }}
-      {email: userEmail, password: userPassword},
-      {
-        "content-type": "application/json",
-        credentials: true,
+    await axios.get(`${path}/userInfo`, 
+      { headers: {
+          Authorization: `Bearer ${stateUserInfo.userInfo.accessToken}`,
+          "Content-Type": "application/json",
+          credentials: true
+        }
       }
+      // {email: userEmail, password: userPassword},
+      // {
+      //   "content-type": "application/json",
+      //   credentials: true,
+      // }
       )
       .then(function(response:any){
         const data = response.data.data
+        console.log(data)
         const userInfos = Object.assign({},stateUserInfo)
         userInfos.userInfo.name = data.name
-        userInfos.userInfo.email = data.phone
-        userInfos.userInfo.name = data.email
-        userInfos.userInfo.name = data.location
-        userInfos.userInfo.name = data.sex
+        userInfos.userInfo.email = data.email
+        userInfos.userInfo.phone = ''
+        userInfos.userInfo.location = 'Seoul'
+        userInfos.userInfo.sex = ''
         dispatch(userInfo(userInfos.userInfo));
       })
       .catch(function (error:any) {
