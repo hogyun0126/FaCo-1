@@ -43,6 +43,13 @@ async function withdrawUser(userId) {
   return user.destroy({ where: { id: userId } });
 }
 
+async function findUserInfo(userId) {
+  return user.findAll({
+    where: { id: userId },
+    attributes: ["id", "email", "name"]
+  })
+}
+
 module.exports = {
   findUserById,
   findUserByEmail,
@@ -50,4 +57,5 @@ module.exports = {
   createUser,
   modifyUser,
   withdrawUser,
+  findUserInfo,
 };
