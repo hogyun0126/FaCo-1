@@ -10,9 +10,9 @@ async function userInfo(req, res) {
     }
 
     const findUserInfo = await userDB.findUserInfo(userId);
-    const { id, email, name } = findUserInfo[0].dataValues;
+    const { id, email, name, phone, location, sex } = findUserInfo[0].dataValues;
 
-    const result = { id, email, name };
+    const result = { id, email, name, phone, location, sex };
 
     return res.status(200).json({ data: result, message: "해당 사용자의 정보를 불러옵니다." })
   } catch (err) {

@@ -12,8 +12,6 @@ router.delete("/", accessToken, userController.withdraw.withdrawUser,);
 
 router.patch("/", accessToken, userController.modify.modify,);
 
-router.get("/email", userController.checkEmail.checkEmail);
-
 router.get("/userInfo", accessToken, userController.userInfo.userInfo);
 
 module.exports = router;
