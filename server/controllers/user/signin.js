@@ -1,4 +1,3 @@
-// const checkEmail = require("./checkEmail");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const userDB = require("../../data/user")
