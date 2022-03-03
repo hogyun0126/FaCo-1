@@ -5,6 +5,7 @@ import locationReducer from "./location";
 import userInfoReducer from "./userInfo";
 import menuReducer from "./menus";
 
+
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
@@ -19,7 +20,7 @@ const rootReducer = combineReducers({
   postsReducer,
   locationReducer,
   userInfoReducer,
-  menuReducer
+  menuReducer,
 });
 
 export const persistedReducer = persistReducer<any, any>(persistConfig, rootReducer);

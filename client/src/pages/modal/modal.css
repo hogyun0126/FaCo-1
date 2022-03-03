@@ -29,8 +29,8 @@
   transform: translate(-50%, -50%);
   background-color: white;
   border-radius: 10px;
-  width: 400px;
-  height: 500px;
+  width: 50vw;
+  height: 50vh;
   padding: 10px;
 }
 
@@ -60,4 +60,11 @@
   opacity: 0.7;
   color: red;
 }
+
+.sign-title {
+  margin: 10px;
+}
+/* .sign-title-pinput > input {
+  margin-left: 10px;
+} */
 

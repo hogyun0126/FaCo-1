@@ -78,9 +78,6 @@ function SignUp({isSignUpClose} : MyProps) {
       console.log(error.response.data);
     });}
 
-    
-
-
   return (
     <div>
 			<div className='sign-in-view'>

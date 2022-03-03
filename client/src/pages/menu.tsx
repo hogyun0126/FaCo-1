@@ -7,113 +7,120 @@ import { FaBars } from "react-icons/fa";
 import { listenerCount } from 'process';
 import UserSideBar from "./modal/userSideBar";
 import SignIn from './modal/signIn';
-import logo from '../logo/FaCo.png'
+import logo from '../logo/FaCo.png';
+import { userInfo } from "../modules/userInfo";
 
 import { NavLink } from "react-router-dom";
 import { updateIndicator } from "../modules/menus";
 import { RootState } from "../modules";
+const axios = require('axios').default;
 
 
 function Menu() {
-	// const dispatch = useDispatch();
-	const indicator = useRef<any>([]);
-	
+	const dispatch = useDispatch();
+	// const path = 'http://localhost:4000/user/signout';
+	const stateUserInfo = useSelector((state: RootState) => state.userInfoReducer);
 
-	// useEffect(() => {
-	// 	dispatch(updateIndicator(indicator.current))
-	// },[])
-
-	const isClikcedMenu = (e:any) => {
-		let indicatorList = e.currentTarget.parentNode.children
-		e.currentTarget.className = 'active'
-		for (let i = 0; i < indicatorList.length; i++) {
-      if(indicator.current !== undefined){
-				indicatorList[i].className = ''
-				indicator.current[i].className = ''; 
-			}
-			
-      if (indicatorList[i] === e.currentTarget) {
-				indicatorList[i].className = 'active'
-			indicator.current[i].className = 'indicator'; 
-      }
-    }
-		// const a = indicatorArray.map((el : any) => {
-		// 	let list = el.parentNode.parentNode
-		// 	if(list === e.currentTarget){
-		// 		el.className = 'indicator'
-		// 	}
-		// 	return el
-		// })
-		// dispatch(updateIndicator(a))
-		// console.log(indicatorArray[0])
-	}
-
-	const [ isLogIn, setIsLogIn] = useState<boolean>(false);
-	
+	const [ isLogIn, setIsLogIn] = useState<boolean>(false); // 메뉴화면 이모티콘
+	const [ isSignIn, setIsSignIn ] = useState<boolean>(false); // SignIn 모달화면 
 	const [ isSideBar, setIsSideBar ] = useState<boolean>(false);
 
-	const [ isSignIn, setIsSignIn ] = useState<boolean>(false);
-	const [ isSignUp, setIsSignUp ] = useState<boolean>(false);
-
-	const isLogInClicked = () => {
-		setIsLogIn(!isLogIn) // 내 정보를 불러왔을때 isLogIn -> true
-		setIsSignIn(true)
-	}
 	const isSignInClose = () => {
+		setIsSignIn(false)
+	}
+	const isLogInCancle =() => {
+		setIsLogIn(false)
 		setIsSignIn(false)
 	}
 	const isSideBarClicked = () => {
 		setIsSideBar(!isSideBar)
 	}
-
-
+	function handleSignInBtnClick () {
+		setIsLogIn(true)
+		setIsSignIn(true)
+	}
+	function handleSignOutBtnClick () {
+		
+		const userInfos = Object.assign({},stateUserInfo)
+		userInfos.userInfo.name = ''
+		userInfos.userInfo.phone = ''
+		userInfos.userInfo.email = ''
+		userInfos.userInfo.location = ''
+		userInfos.userInfo.sex = ''
+		userInfos.userInfo.accessToken = ''
+		dispatch(userInfo(userInfos.userInfo));
+		setIsLogIn(false)
+	}
+	
   return (
 		<div className='menu-container'>
 			<div className='menu-list-container'>
 				<ul className='menu-list'>
-					<li value='home' onClick={isClikcedMenu} >
+					<li value='home' >
 						<NavLink to='/'>
 							<div className='menu-icon'><BiLike/></div>
 							<div className='menu-text'>홈페이지</div>
-							<div ref={el=>indicator.current[0]=el}></div>
+							{/* <div ref={el=>indicator.current[0]=el}></div> */}
 						</NavLink>
 					</li>
-					<li onClick={isClikcedMenu} value='rBoard'>
+					<li value='rBoard'>
 						<NavLink to='/rBoard'>
 							<div className='menu-icon'><BiLike/></div>
 							<div className='menu-text'>추천게시판</div>
-							<div ref={el=>indicator.current[1]=el} ></div>
+							{/* <div ref={el=>indicator.current[1]=el} ></div> */}
 						</NavLink>
 					</li>
-					<li onClick={isClikcedMenu} >
+					<li >
 						<NavLink to='/qBoard'>
 							<div className='menu-icon'><AiOutlineQuestionCircle/></div>
 							<div className='menu-text'>질문게시판</div>
-							<div ref={el=>indicator.current[2]=el}></div>
+							{/* <div ref={el=>indicator.current[2]=el}></div> */}
 						</NavLink>
 					</li>
-					<li onClick={isLogInClicked}>
+					<li>
 					{isLogIn?
-						<a href='#'>
-							<div className='menu-icon'><FiUserX/></div>
-							<div className='menu-text'>로그인</div>						
-						</a>:
-						<a href='#'>
+						<a href='#' onClick={handleSignOutBtnClick}>
 							<div className='menu-icon'><FiUser/></div>
 							<div className='menu-text'>로그아웃</div>						
+						</a>:
+						<a href='#' onClick={handleSignInBtnClick}>
+							<div className='menu-icon'><FiUserX/></div>
+							<div className='menu-text'>로그인</div>						
 						</a>
 					}
 					</li>
 					<li>
-					  {isLogIn?'':<FaBars onClick={isSideBarClicked} className='menu-icon menu-myinfo'></FaBars>}
+					  {isLogIn?<FaBars onClick={isSideBarClicked} className='menu-icon menu-myinfo'></FaBars>:''}
 					</li>
 				</ul>
 			</div>
 			{isSideBar? <UserSideBar isSideBarClose={isSideBarClicked}/> : ''}
-			{isSignIn ? <SignIn isSignInClose={isSignInClose}></SignIn> : ''}
+			{isSignIn ? <SignIn isSignInClose={isSignInClose} isLogInCancle={isLogInCancle}></SignIn> : ''}
+			
 			
 		</div>
   );
 }
 
 export default Menu
+
+// const indicator = useRef<any>([]);
+// useEffect(() => {
+	// 	dispatch(updateIndicator(indicator.current))
+	// },[])
+
+	// const isClikcedMenu = (e:any) => {
+	// 	let indicatorList = e.currentTarget.parentNode.children
+	// 	e.currentTarget.className = 'active'
+	// 	for (let i = 0; i < indicatorList.length; i++) {
+  //     if(indicator.current !== undefined){
+	// 			indicatorList[i].className = ''
+	// 			indicator.current[i].className = ''; 
+	// 		}
+			
+  //     if (indicatorList[i] === e.currentTarget) {
+	// 			indicatorList[i].className = 'active'
+	// 		indicator.current[i].className = 'indicator'; 
+  //     }
+  //   }
+	// }

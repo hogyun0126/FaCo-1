@@ -1,13 +1,15 @@
 // type
 const USER_INFO = 'userInfo/USER_INFO' as const;
 
+
 export type userInfoType = {
     // id: string
     name: string,
     phone: any,
     email: string,
     location: string,
-    sex: string
+    sex: string,
+    accessToken: string,
 };
 
 // action
@@ -34,8 +36,9 @@ const initialState: UserInfoState = {
     name: '',
     phone: '',
     email: '',
-    location: '',
-    sex: ''
+    location: 'Seoul',
+    sex: '',
+    accessToken: '',
   }
 }
 
