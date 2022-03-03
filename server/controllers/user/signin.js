@@ -6,10 +6,9 @@ const userDB = require("../../data/user")
 function checkUserPassword(user, password) {
   const dbPassword = user.password;
   const salt = user.salt;
-  const hashedPassword = crypto
-    .pbkdf2Sync(password, salt, 9999, 64, "sha512")
-    .toString("base64");
-
+  const hashedPassword = (
+    crypto.pbkdf2Sync(password, salt, 9999, 64, "sha512") || ""
+  ).toString("base64");
   return hashedPassword === dbPassword ? true : false;
 }
 
@@ -31,7 +30,6 @@ async function signin(req, res) {
   try {
     const { email, password } = req.body;
     const user = await userDB.resultUserByEmail(email);
-
     if (!user) {
       return res.status(404).json({ message: "회원을 찾을수 없습니다." });
     }
@@ -55,5 +53,6 @@ async function signin(req, res) {
 
 module.exports = {
   checkUserPassword,
+  createAccessToken,
   signin,
 };

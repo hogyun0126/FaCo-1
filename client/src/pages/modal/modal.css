@@ -34,13 +34,6 @@
   padding: 10px;
 }
 
-
-.sign-In-view > div > input {
-  padding: 10px;
-
-
-}
-
 .sign-in-logo {
   width: 230px;
   height: 200px;
@@ -71,7 +64,7 @@
 .sign-title {
   margin: 10px;
 }
-.sign-title-pinput > input {
+/* .sign-title-pinput > input {
   margin-left: 10px;
-}
+} */
 

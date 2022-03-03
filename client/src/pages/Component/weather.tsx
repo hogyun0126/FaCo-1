@@ -25,7 +25,8 @@ function Weather(){
 
 
 	const search = () => {
-		fetch(`${api.base}weather?q=${userLocation}&units=metric&APPID=${api.key}`)
+		// fetch(`${api.base}weather?q=${userLocation}&units=metric&APPID=${api.key}`)
+		fetch(`${api.base}weather?q='Seoul'&units=metric&APPID=${api.key}`)
 		.then(res => res.json())
 		.then(res => {
 			const weatherSelected = res.weather[0].main

@@ -78,38 +78,34 @@ function SignUp({isSignUpClose} : MyProps) {
       console.log(error.response.data);
     });}
 
-    
-
-
   return (
     <div>
 			<div className='sign-in-view'>
-        <div onClick={isSignUpClose}>x</div>
-        <div className='sign-title'>이메일 :
-        <input name='email' placeholder='이메일을 입력해주세요' onChange={(e) => handleInputValue(e)}> </input>
+        <div>이메일 : 
+        <input name='email' placeholder='이메일을 입력해주세요' onChange={(e) => handleInputValue(e)}></input>
         </div>
         {/* <div>아이디 : 
           <input name='id' type='text' placeholder='아이디를 입력해주세요' onChange={(e) => handleInputValue(e)}></input>
         </div> */}
-        <div className='sign-title sign-title-pinput'>비밀번호 : 
+        <div>비밀번호 : 
           <input name='password' placeholder='비밀번호를 입력해주세요' onChange={(e) => handleInputValue(e)}></input>
         </div>
-        <div className='sign-title sign-title-pinput'>비밀번호확인 : 
+        <div >비밀번호확인 : 
         <input name='passwordConfirm' placeholder='비밀번호를 한번 더 입력해주세요' onChange={(e)=>handleInputValue(e)}></input>
         </div>
-        <div className='sign-title sign-title-pinput'>핸드폰번호 : 
+        <div>핸드폰번호 : 
         <input name='phone' placeholder='-없이 입력해주세요' onChange={(e) => handleInputValue(e)}></input>
         </div>
-        <div className='sign-title sign-title-pinput'>이름 : 
+        <div>이름 : 
         <input name='name' placeholder='이름을 입력해주세요' onChange={(e) => handleInputValue(e)}></input>
         </div>
-        <div className='sign-title'>지역 : 
+        <div>지역 : 
           <select name='location' onChange={(e) => handleInputValue(e)}>
           <option hidden>---</option>
           {locations.map(loca => <LocaList key={loca.id} location={loca}/>)}
           </select>
         </div>
-        <div className='sign-title'>성별 : 
+        <div>성별 : 
           <select name="sex" onChange={(e) => handleInputValue(e)}>
             <option hidden>---</option>
             <option value='male'>남자</option>

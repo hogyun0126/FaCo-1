@@ -18,7 +18,6 @@ import { locationDummy } from './dummyData/location';
 import { RootState } from './modules';
 import { rBoardLts, qBoardLts } from './modules/posts';
 import { locationLts } from './modules/location';
-import PostView from './pages/postView';
 
 function App() {
   const state = useSelector((state: RootState) => state.postsReducer);
