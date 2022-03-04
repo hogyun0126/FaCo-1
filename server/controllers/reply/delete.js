@@ -2,11 +2,11 @@ const replyDB = require("../../data/reply")
 
 async function unreply(req, res) {
   try {
-    const postId = req.postId;
+    const replyId = req.replyId;
 
-    replyDB.deleteReply(postId);
+    replyDB.deleteReply(replyId);
 
-    return res.status(201).json({ data: result, message: "댓글이 삭제되었습니다." })
+    return res.status(201).json({ message: "댓글이 삭제되었습니다." })
   } catch (err) {
     console.log("err", err);
     return res.status(500).json({ message: "서버 에러입니다." });
