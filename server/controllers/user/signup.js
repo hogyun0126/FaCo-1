@@ -1,6 +1,5 @@
 const crypto = require("crypto");
 const userDB = require("../../data/user");
-// const checkEmail = require("./checkEmail");
 
 function createCrypto(password) {
   const salt = (crypto.randomBytes(64) || "").toString("hex");

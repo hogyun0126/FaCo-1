@@ -7,4 +7,6 @@ router.delete("/", postController.delete.unpost)
 
 router.patch("/", postController.modify.modify)
 
+router.get("/", postController.allPost.allPost)
+
 module.exports = router;
