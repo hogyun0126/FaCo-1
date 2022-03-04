@@ -14,8 +14,8 @@ async function createReply(body) {
   })
 }
 
-async function deleteReply(postId) {
-  return reply.destroy({ where: { id: postId }})
+async function deleteReply(replyId) {
+  return reply.destroy({ where: { id: replyId }})
 }
 
 async function modifyReply(body) {
