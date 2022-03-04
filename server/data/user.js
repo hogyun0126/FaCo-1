@@ -53,7 +53,7 @@ async function withdrawUser(userId) {
 async function findUserInfo(userId) {
   return user.findAll({
     where: { id: userId },
-    attributes: ["id", "email", "name"]
+    attributes: ["id", "email", "name", "phone", "location", "sex"]
   })
 }
 
