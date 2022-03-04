@@ -2,22 +2,14 @@ const replyDB = require("../../data/reply")
 
 async function modify(req, res) {
   try {
-    const postId = req.postId;
-    const { body, updatedAt, createdAt } = req.body;
+    const replyId = req.replyId;
+    const { body  } = req.body;
 
     if (body) {
-      replyDB.modifyReply(body, postId);
+      replyDB.modifyReply(body, replyId);
     }
 
-    if (createdAt) {
-      replyDB.modifyReply(createdAt, postId);
-    }
-
-    if (updatedAt) {
-      replyDB.modifyReply(updatedAt, postId);
-    }
-
-    return res.status(201).json({ data: result, message: "댓글이 수정 되었습니다." })
+    return res.status(201).json({ message: "댓글이 수정 되었습니다." })
   } catch (err) {
     return res.status(400).json({ message: "서버 에러입니다." });
   }

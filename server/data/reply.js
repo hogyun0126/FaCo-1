@@ -8,11 +8,9 @@ async function replyInfo(userId) {
   })
 }
 
-async function createReply(body, createdAt, updatedAt) {
+async function createReply(body) {
   return reply.create({
     body,
-    createdAt,
-    updatedAt,
   })
 }
 
@@ -20,11 +18,9 @@ async function deleteReply(postId) {
   return reply.destroy({ where: { id: postId }})
 }
 
-async function modifyReply(body, createdAt, updatedAt) {
+async function modifyReply(body) {
   return reply.update({
     body: body,
-    createdAt,
-    updatedAt,
   })
 }
 
