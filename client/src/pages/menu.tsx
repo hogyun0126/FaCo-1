@@ -54,15 +54,13 @@ function Menu() {
 	
   return (
 		<div className='menu-container'>
+				
+					<NavLink to='/'>
+						<img src={logo} alt="FaCo" className='menu-logo'/>
+					</NavLink>
+			
 			<div className='menu-list-container'>
 				<ul className='menu-list'>
-					<li value='home' >
-						<NavLink to='/'>
-							<div className='menu-icon'><BiLike/></div>
-							<div className='menu-text'>홈페이지</div>
-							{/* <div ref={el=>indicator.current[0]=el}></div> */}
-						</NavLink>
-					</li>
 					<li value='rBoard'>
 						<NavLink to='/rBoard'>
 							<div className='menu-icon'><BiLike/></div>
@@ -90,7 +88,8 @@ function Menu() {
 					}
 					</li>
 					<li>
-					  {isLogIn?<FaBars onClick={isSideBarClicked} className='menu-icon menu-myinfo'></FaBars>:''}
+					  {/* {isLogIn?<FaBars onClick={isSideBarClicked} className='menu-icon menu-myinfo'></FaBars>:''} */}
+					  <FaBars onClick={isSideBarClicked} className='menu-icon menu-myinfo'></FaBars>
 					</li>
 				</ul>
 			</div>

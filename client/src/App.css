@@ -2,7 +2,6 @@
 .app-container {
   margin-inline: 3vw;
   height: auto;
-  min-height: 85vh;
   padding-top: 40px;
 }
 /*
@@ -10,37 +9,40 @@
 
 }
 */
+.section {
+  width: 1000px;
+}
 
 /* menu */
 .menu-container {
-  display:flex;
+  display:flex; 
+}
+.menu-logo {
+  /* background-color: gray; */
+  position: relative;
+  max-width: 200px;
+  min-width: 100px;
   
 }
-/* .menu-home {
-  position: relative;
-  
-  font-size: 50px;
-  height: 50px;
-  text-align: center;
-  align-items: center;
-} */
 .menu-list-container {
-  position: relative;
+  position:relative;
   display: flex;
-  background-color: skyblue;
+  background-color: black;
   align-items: center;
-  min-height: 50px;
+  height:80px;
   border-radius: 10px;
-  width: 94vw;
-  justify-content: center;
+  width: 300px;
+  float: right;
+  /* justify-content: right; */
 }
 .menu-list {
   display: flex; 
+  
 }
 .menu-list li {
   list-style: none;
   position: relative;
-  width: 20vw;
+  width: 5vw;
   height: 50px;
   
 }
@@ -56,7 +58,7 @@
   position: relative;
   display: block;
   line-height: 50px;
-  font-size: 35px;
+  font-size: 30px;
   text-align: center;
   transition: 0.5s;
   z-index: 1;
@@ -118,7 +120,9 @@
 
 /* user sidebar*/
 .side-container {
-  background-color: skyblue;
+  background-color: gray;
+  color: white;
+  opacity: 0.9;
   width: 30vw;
   height:100vh;
   display: flex;
@@ -136,6 +140,7 @@
 /* home */
 .home-container {
   margin: 10px;
+  
 }
 
 /* footer */
@@ -148,12 +153,22 @@
   height: 5vh;
 }
 
-/* menu */
+/* home */
+.home-first-container {
+  display:flex;
+}
 
+.home-first-column {
+  flex-grow: 3;
+  margin-top: 50px;
+}
+
+.home-second-column{
+  flex: 7;
+  word-break:normal;
+}
 .home-recommand-images {
-  height: 400px;
-  width: 500px;
-  /* position:relative; */
+  width:300px;
 }
 .home-ul:hover {
   animation-play-state: paused;
@@ -161,17 +176,23 @@
 }
 .home-ul {
   display: flex;
-  position:relative;
+  
+  /* position:relative; */
   list-style: none;
-  animation: slide 10s infinite alternate;
+  animation: slide 5s infinite alternate;
   animation-timing-function: linear;
+  width: 900px;
+  overflow: auto;
+  
+  
+  
 }
 .home-ul li {
   margin-inline: 15px;
 }
 @keyframes slide {
-  from {  transform: translateX(0);}
-  to { transform: translateX(-1300px);}
+  /* from {  transform: translateX(0);}
+  to { transform: translateX(-1300px);} */
 }
 
 /* footer */
@@ -480,4 +501,13 @@
 .img-form-img-limit-alert {
   color: red;
   opacity: 0.7;
+}
+
+/* weather */
+.weather-icon {
+  font-size: 200px;
+}
+.weather-text {
+  margin-top:-80px;
+  font-size: 50px;
 }

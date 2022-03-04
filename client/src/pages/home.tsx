@@ -28,70 +28,52 @@ function Home() {
 		key: 'da646735954e126fccbdcd34e0005c8c', // 비공개 키로 만들기
 		base: 'https://api.openweathermap.org/data/2.5/'
 	}
-	// const selected = dispatch(locationSelected)
 	const [selected, setSelected]= useState<string>('서울')
-	const [weather, setWeather] = useState<string>('Clear');
+	const [weather, setWeather] = useState<string>('');
 
-	
-	const dateBuilder =(d: any) => {
-		let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-		let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+	// 오늘날짜
+	const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+	const days = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+	const todayDay:string = days[new Date().getDay()]
+	const todayDate:number = new Date().getDate()
+	const todayMonth:number = new Date().getMonth() + 1
+	const todayYear = new Date().getFullYear()
 
-		let day = days[d.getDay()];
-		let date = d.getDate();
-		let month = months[d.getMonth()];
-		let year = d.getFullYear();
-		
-		return `${day} ${date} ${month} ${year}`
-	}
-	const search = (e:any) => {
+	//날씨검색
+	const search = () => {
 			fetch(`${api.base}weather?q=${selected}&units=metric&APPID=${api.key}`)
 			.then(res => res.json())
 			.then(res => {
 				setWeather(res.weather[0].main);
 			})
 	}
-
-
-	const inputChange = (e:any) :void => {
-		let selectedLocation = locations.filter(el => el.locationKr === e.target.value)[0]
-		// setSelected(selectedLocation.locationEn)
-	}
-
+	//지역선택
 	const handleSelect = (e:any) => {
     setSelected(e.target.value);
-    // selected.locationKr = e.target.value
-
-		// fetch(`${api.base}weather?q=${selected}&units=metric&APPID=${api.key}`)
-		// 	.then(res => res.json())
-		// 	.then(result => {
-		// 		setWeather(result);
-		// 		// setSelected('');
-		// 		console.log(result);
-		// 	})
   };
+	useEffect(():void => {
+		search()
+	})
 
   return (
     <div className='home-container'>
-			<div>
-				{/* <div>{selected}</div> */}
-				
-				{/* 지역 선택 */}
-				<select onChange={e=>handleSelect(e)}>
-					<option hidden>---</option>
-					{locations.map(loca => <LocaList key={loca.id} location={loca}/>)}
-				</select>
-				<span onClick={search}>선택</span>
-				<div>날씨 : <Weather/> </div>
-				<div>날짜 : {dateBuilder(new Date())}</div>
-			</div>
-			<div>
+			<div className='home-first-container'>
+				<div className='home-first-column'>
+					<div><Weather/> </div>
+					<div>{todayYear}년 {todayMonth}월 {todayDate}일</div>
+					<div>{todayDay}</div>
 
-			<div>인기게시글</div>
-				<ul className='home-ul'>
-					{recommand/*filter(post=>post.weather === weather)*/.map(el =>
-					<li key={el.id}><img className='home-recommand-images'  src={el.img.length !== 0 ? el.img[0].url : ''} alt='ddd'/></li>)}
-				</ul>
+					<select onChange={e=>handleSelect(e)}>
+						<option hidden>{selected}</option>
+						{locations.map(loca => <LocaList key={loca.id} location={loca}/>)}
+					</select>
+				</div>
+				<div className='home-second-column'>
+					<ul className='home-ul'>
+						{recommand/*filter(post=>post.weather === weather)*/.map(el =>
+						<li key={el.id}><img className='home-recommand-images'  src={el.img.length !== 0 ? el.img[0].url : ''} alt='ddd'/></li>)}
+					</ul>
+				</div>
 			</div>
 			
 			<div>인기게시글

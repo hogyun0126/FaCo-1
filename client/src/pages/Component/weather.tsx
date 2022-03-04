@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
+import { WiDaySunny, WiDayCloudy, WiRain, WiSnow } from "react-icons/wi";
 
 import { RootState } from '../../modules';
 
@@ -18,7 +19,6 @@ function Weather(){
 	const userLocation = userInfo.location
 	
 	const [weather, setWeather] = useState<any>('');
-	const [location, setLocation] = useState<any>('');
 
 	const weatherList:weatherListType = {
 		Clear: ['Clear'],
@@ -27,10 +27,8 @@ function Weather(){
 		Snow: ['Snow']
 	}
 
-
 	const search = () => {
 		fetch(`${api.base}weather?q=${userLocation}&units=metric&APPID=${api.key}`)
-		// fetch(`${api.base}weather?q='Seoul'&units=metric&APPID=${api.key}`)
 		.then(res => res.json())
 		.then(res => {
 			const weatherSelected = res.weather[0].main
@@ -48,10 +46,17 @@ function Weather(){
 		search()
 	})
 
-
 	return (
 		<div>
+			<div className='weather-icon'>
+			{weather==='Clear'?<WiDaySunny/>:''}
+			{weather==='Clouds'?<WiDayCloudy/>:''}
+			{weather==='Rain'?<WiRain/>:''}
+			{weather==='Snow'?<WiSnow/>:''}
+			</div>
+			<div className='weather-text'>
 			{weather}
+			</div>
 		</div>
 	);
 }

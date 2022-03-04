@@ -4,7 +4,6 @@ import './modal.css';
 
 import LocaList from '../Component/location';
 import { RootState } from '../../modules';
-import { userInfoType } from '../../modules/userInfo';
 const axios = require('axios').default;
 
 type MyProps = {
@@ -24,7 +23,7 @@ function SignUp({isSignUpClose} : MyProps) {
     name: '',
     phone: '',
     location: '',
-    sex: '남자'
+    sex: ''
   }); // userInfoState
 
   const [ isDisable, setIsDisable ] = useState<boolean>(true);
@@ -38,14 +37,13 @@ function SignUp({isSignUpClose} : MyProps) {
 
   function handleInputValue (e:any) {
     setUserInfo(Object.assign({}, userInfo, {[e.target.name] : e.target.value}));
-    console.log(e.target.value)
-    console.log(userInfo)
+    
   }
 
    // input 검증
    function verifyInputValue () {
     const emailReg = new RegExp(/^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/);
-    const nameReg = new RegExp(/^[가-힣]{2,4}$/);
+    const nameReg = new RegExp(/^[가-힣A-Za-z]{2,4}$/);
     const phoneReg = new RegExp(/010[0-9]{8}/);
     // const idRegExp = new RegExp(/^[a-zA-z0-9]{4,12}$/);
     const passwordRegExp = new RegExp(/^[a-zA-z0-9]{4,12}$/);
@@ -65,7 +63,7 @@ function SignUp({isSignUpClose} : MyProps) {
   }
 
   function handleSignUpBtnClick () {
-    console.log(userInfo)
+    // console.log(userInfo)
     axios.post(path, userInfo, {
       "content-type": "application/json",
       credentials: true,
@@ -88,10 +86,10 @@ function SignUp({isSignUpClose} : MyProps) {
           <input name='id' type='text' placeholder='아이디를 입력해주세요' onChange={(e) => handleInputValue(e)}></input>
         </div> */}
         <div>비밀번호 : 
-          <input name='password' placeholder='비밀번호를 입력해주세요' onChange={(e) => handleInputValue(e)}></input>
+          <input name='password' type='password' placeholder='비밀번호를 입력해주세요' onChange={(e) => handleInputValue(e)}></input>
         </div>
         <div >비밀번호확인 : 
-        <input name='passwordConfirm' placeholder='비밀번호를 한번 더 입력해주세요' onChange={(e)=>handleInputValue(e)}></input>
+        <input name='passwordConfirm' type='password' placeholder='비밀번호를 한번 더 입력해주세요' onChange={(e)=>handleInputValue(e)}></input>
         </div>
         <div>핸드폰번호 : 
         <input name='phone' placeholder='-없이 입력해주세요' onChange={(e) => handleInputValue(e)}></input>

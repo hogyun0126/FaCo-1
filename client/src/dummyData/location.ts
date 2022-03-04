@@ -29,11 +29,16 @@ export const locationDummy = {
       id: 6,
       locationKr: '의정부',
 			locationEn: 'Uijeongbu-si'
-    },]
+    },
+		{
+      id: 7,
+      locationKr: '인천',
+			locationEn: 'Incheon'
+    },
+	]
 };
 
 /*
-	['인천', 'Incheon'],
 	['김포', 'KimPo'],
 	['고양', 'Goyang'],
 	['파주', 'Paju'],
