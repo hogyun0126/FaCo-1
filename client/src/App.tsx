@@ -38,9 +38,6 @@ function App() {
           <Menu></Menu>
         </header>
 
-        {/*<section><ReduxTest /></section>*/}
-        {/*<button onClick={func}>test</button>*/}
-
         <section className='section'>
           <Routes>
             <Route path='/' element={<Home />} />
@@ -50,10 +47,12 @@ function App() {
             <Route path='/myinfo' element={<MyInfo/>}/>
           </Routes>
         </section>
-      </div>
-      <footer className='app-footer'>
+
+        {/*<footer className='app-footer'>
           <Footer></Footer>
-      </footer>
+        </footer>
+        */}
+      </div>
     </BrowserRouter>
   );
 }

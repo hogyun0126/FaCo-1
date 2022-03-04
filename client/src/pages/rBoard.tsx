@@ -15,7 +15,7 @@ function RBoard() {
   const popular = state.slice().sort((a, b) => a.like > b.like ? -1 : 1).slice(0, 3);
   const [lts, setLts] = useState(state);
 
-  const postCount = 3; // 페이지당 보여줄 개수
+  const postCount = 6; // 페이지당 보여줄 개수
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(postCount);
   const [currentPost, setCurrentPost] = useState<PostType>(postDummy.rLts[0]);
@@ -45,12 +45,12 @@ function RBoard() {
   
   return (
     <div>
-      <SearchBar searchHandler={searchHandler} pageNumberBtnClick={pageNumberBtnClick} boardType={'rLts'} postCount={postCount} />
-
       <h1>추천 게시판</h1>
 
+      <SearchBar searchHandler={searchHandler} pageNumberBtnClick={pageNumberBtnClick} boardType={'rLts'} postCount={postCount} />
+
       <div>
-        <h1>인기 게시글</h1>
+        <h1>인기 TOP3</h1>
         <div className='rboard-container'>
           {popular.map((post, idx) => <RPost key={post.id} post={post} postClickHandler={postClickHandler} />)}
         </div>
@@ -64,7 +64,7 @@ function RBoard() {
       </div>
 
       <NavLink to='/postEditor' state={{boardType: 'r'}}>
-        <button>글쓰기</button>
+        <button className='board-write-btn'>글쓰기</button>
       </NavLink>
 
       <PageNumber pageCount={lts.length} postCount={postCount} pageNumberBtnClick={pageNumberBtnClick} />

@@ -42,9 +42,9 @@ function QBoard() {
 
   return (
     <div className='qboard-container'>
-			<SearchBar searchHandler={searchHandler} pageNumberBtnClick={pageNumberBtnClick} boardType='qLts' postCount={postCount}/>
-      
       <h1>질문 게시판</h1>
+
+      <SearchBar searchHandler={searchHandler} pageNumberBtnClick={pageNumberBtnClick} boardType='qLts' postCount={postCount}/>
 
       {isPostClicked && <PostView post={currentPost}/>}
 
@@ -64,7 +64,7 @@ function QBoard() {
       </table>
 
       <NavLink to='/postEditor' state={{boardType: 'q'}}>
-        <button>글쓰기</button>
+        <button className='board-write-btn'>글쓰기</button>
       </NavLink>
 
       <PageNumber pageCount={lts.length} postCount={postCount} pageNumberBtnClick={pageNumberBtnClick} />

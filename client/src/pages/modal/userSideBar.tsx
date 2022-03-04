@@ -29,10 +29,10 @@ function UserSideBar({ isSideBarClose } : MyProps) {
       <AiOutlineClose onClick={isSideBarClose}></AiOutlineClose>
 			<ul className='side-ul'>
         <NavLink to='/myInfo'>
-          <li onClick={isSideBarClose}>내정보</li>
+          <li onClick={isSideBarClose} >내정보</li>
         </NavLink>
         <li>
-          <div>날씨</div>
+          <div>날씨선택</div>
           <input type='checkbox' value='Clear' onClick={(e)=>isWeatherClick(e)}></input>맑음
           <input type='checkbox' value='Clouds' onClick={(e)=>isWeatherClick(e)}></input>흐림
           <input type='checkbox' value='Rain' onClick={(e)=>isWeatherClick(e)}></input>비
