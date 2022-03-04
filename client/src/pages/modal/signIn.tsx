@@ -68,9 +68,9 @@ function SignIn({isSignInClose, isLogInCancle}:MyProps) {
         const userInfos = Object.assign({},stateUserInfo)
         userInfos.userInfo.name = data.name
         userInfos.userInfo.email = data.email
-        userInfos.userInfo.phone = ''
-        userInfos.userInfo.location = 'Seoul'
-        userInfos.userInfo.sex = ''
+        userInfos.userInfo.phone = data.phone
+        userInfos.userInfo.location = data.location
+        userInfos.userInfo.sex = data.sex
         dispatch(userInfo(userInfos.userInfo));
       })
       .catch(function (error:any) {

@@ -28,7 +28,7 @@ function Home() {
 		key: 'da646735954e126fccbdcd34e0005c8c', // 비공개 키로 만들기
 		base: 'https://api.openweathermap.org/data/2.5/'
 	}
-	const [selected, setSelected]= useState<string>('서울')
+	const [selected, setSelected]= useState<string>('Seoul')
 	const [weather, setWeather] = useState<string>('');
 
 	// 오늘날짜

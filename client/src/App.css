@@ -9,7 +9,7 @@
 }
 */
 .section {
-  width: 1000px;
+  /* width: 1000px; */
 }
 
 /* menu */
@@ -177,7 +177,7 @@
   animation: slide 5s infinite alternate;
   animation-timing-function: linear;
   width: 900px;
-  overflow: auto;
+  /* overflow: hidden; */
   
   
   

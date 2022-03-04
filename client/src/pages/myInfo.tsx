@@ -10,13 +10,13 @@ const axios = require('axios').default;
 function MyInfo() {
   const dispatch = useDispatch();
   const stateUserInfo = useSelector((state: RootState) => state.userInfoReducer);
-  const stateLocation = useSelector((state: RootState) => state.locationReducer);
+  const stateLocation = useSelector((state: RootState) => state.locationReducer.lLts);
 
   const path = 'http://localhost:4000/user';
-  const locations = stateLocation.lLts.sort((a, b) => a.locationKr > b.locationKr ? 1 : -1);
-
+  const locations = stateLocation.sort((a, b) => a.locationKr > b.locationKr ? 1 : -1);
+  // (stateLocation.filter(el => el.locationEn === stateUserInfo.userInfo.location))[0].locationKr
   const [ modifying, setModifying ] = useState(false)
-  const [selected, setSelected]= useState((locations.filter(el => el.locationEn === stateUserInfo.userInfo.location))[0].locationKr)
+  const [selected, setSelected]= useState('Seoul')
   const [ userInfos, setUserInfos ] = useState({
     password: '',
     passwordConfirm: '',

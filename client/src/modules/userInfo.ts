@@ -32,7 +32,7 @@ type UserInfoState = {
 const initialState: UserInfoState = {
   userInfo: {
     name: '',
-    phone: '01000000000',
+    phone: '',
     email: '',
     location: 'Seoul',
     sex: '',
