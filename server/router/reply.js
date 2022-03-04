@@ -1,10 +1,10 @@
 const router = require("express").Router();
 const { replyController } = require("../controllers");
 
-router.reply("/reply", replyController.create.reply);
+router.post("/reply", replyController.create.reply);
   
-router.reply("/", replyController.delete.unreply);
+router.delete("/", replyController.delete.unreply);
 
-router.reply("/", replyController.modify.modify);
+router.patch("/", replyController.modify.modify);
   
 module.exports = router;

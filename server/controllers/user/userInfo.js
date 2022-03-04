@@ -23,4 +23,4 @@ async function userInfo(req, res) {
 
 module.exports = {
     userInfo,
-  };
+};
