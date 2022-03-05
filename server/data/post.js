@@ -8,6 +8,14 @@ async function postInfo(userId) {
   })
 }
 
+async function allPostInfo(postId) {
+  return post.findAll({
+    where: {
+      postId: postId
+    }
+  });
+}
+
 async function createPost(QR, title, body, location) {
   return post.create({
     QR,
@@ -31,6 +39,7 @@ async function modifyPost(title, body, location) {
 
 module.exports = {
   postInfo,
+  allPostInfo,
   createPost,
   deletePost,
   modifyPost,
