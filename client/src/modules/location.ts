@@ -4,6 +4,7 @@ const LOCATION_SELECTED = 'location/LOCATION_SELECTED' as const;
 
 export type LocationList = {
   [key: string]: number | string | null;
+  id: number;
   locationKr: string;
 	locationEn: string;
 };

@@ -87,9 +87,9 @@ function Menu() {
 						</a>
 					}
 					</li>
-					<li>
+					<li className='menu-myinfo'>
 					  {/* {isLogIn?<FaBars onClick={isSideBarClicked} className='menu-icon menu-myinfo'></FaBars>:''} */}
-					  <FaBars onClick={isSideBarClicked} className='menu-icon menu-myinfo'></FaBars>
+					  <FaBars onClick={isSideBarClicked} className='menu-icon'></FaBars>
 					</li>
 				</ul>
 			</div>

@@ -11,6 +11,7 @@ import RPost from './boardComponent/rPost';
 import { PostType } from '../modules/posts';
 import { LocationSelected } from "../modules/location";
 import Weather from "./Component/weather";
+import { userInfo } from "os";
 
 
 function Home() {
@@ -18,17 +19,21 @@ function Home() {
   const stateLocation = useSelector((state: RootState) => state.locationReducer);
 	const stateRPost = useSelector((state: RootState) => state.postsReducer.rLts);
 	const stateQPost = useSelector((state: RootState) => state.postsReducer.qLts);
+	const stateUserInfo = useSelector((state: RootState) => state.userInfoReducer);
 
   const locations = stateLocation.lLts.sort((a, b) => a.locationKr > b.locationKr ? 1 : -1);
 	const recommand = stateRPost.slice(-5);
 	const question = stateQPost.slice(-5);
+	
 	
 	// 지역별 초기값 설정
 	const api = {
 		key: 'da646735954e126fccbdcd34e0005c8c', // 비공개 키로 만들기
 		base: 'https://api.openweathermap.org/data/2.5/'
 	}
-	const [selected, setSelected]= useState<string>('Seoul')
+	const initialLocation = locations.filter(el=>el.locationEn==='Seoul')[0]
+	const [selectedKr, setSelectedKr]= useState(initialLocation.locationKr)
+	const [selectedEn, setSelectedEn]= useState(initialLocation.locationEn)
 	const [weather, setWeather] = useState<string>('');
 
 	// 오늘날짜
@@ -41,50 +46,61 @@ function Home() {
 
 	//날씨검색
 	const search = () => {
-			fetch(`${api.base}weather?q=${selected}&units=metric&APPID=${api.key}`)
+			fetch(`${api.base}weather?q=${selectedEn}&units=metric&APPID=${api.key}`)
 			.then(res => res.json())
 			.then(res => {
 				setWeather(res.weather[0].main);
 			})
 	}
 	//지역선택
-	const handleSelect = (e:any) => {
-    setSelected(e.target.value);
+	const handleSelect = (e:React.ChangeEvent<HTMLSelectElement>) => {
+		// console.log(locations.filter(el => el.id === Number(e.target.value)))
+		const target = locations.filter(el => el.id === Number(e.target.value))
+		setSelectedKr(target[0].locationKr)
+		setSelectedEn(target[0].locationEn)
+		
+
   };
 	useEffect(():void => {
 		search()
 	})
 
+	console.log(locations)
+	console.log(initialLocation)
   return (
     <div className='home-container'>
 			<div className='home-first-container'>
-				<div className='home-first-column'>
+				<div className='home-weather-column'>
 					<div><Weather/> </div>
-					<div>{todayYear}년 {todayMonth}월 {todayDate}일</div>
-					<div>{todayDay}</div>
+					<div className='home-weather-text'>{todayYear}년 {todayMonth}월 {todayDate}일</div>
+					<div className='home-weather-text'>{todayDay}</div>
+					<div className='home-weather-text'>{selectedKr}</div>
 
-					<select onChange={e=>handleSelect(e)}>
-						<option hidden>{selected}</option>
+					<select onChange={e=>handleSelect(e)}className='home-weather-location'>
+						<option hidden>{selectedKr}</option>
 						{locations.map(loca => <LocaList key={loca.id} location={loca}/>)}
 					</select>
 				</div>
-				<div className='home-second-column'>
+				<div className='home-best-column'>
 					<ul className='home-ul'>
 						{recommand/*filter(post=>post.weather === weather)*/.map(el =>
 						<li key={el.id}><img className='home-recommand-images'  src={el.img.length !== 0 ? el.img[0].url : ''} alt='ddd'/></li>)}
 					</ul>
 				</div>
 			</div>
-			
-			<div>인기게시글
-				<ul>
-					{recommand/*.filter(post => post.weather === weather)*/.map(post => <div key={post.id}>{post.title}</div>)}
-				</ul>
-			</div>
-			<div>질문게시글
-				<ul>
-					{question/*.filter(post => post.weather === weather)*/.map(post => <div key={post.id}>{post.title}</div>)}
-				</ul>
+			<div className='home-second-container'>
+				<div className='home-board-column'>
+					<div>인기게시글</div>
+					<ul>
+						{recommand/*.filter(post => post.weather === weather)*/.map(post => <div key={post.id}><li>{post.title}</li></div>)}
+					</ul>
+				</div>
+				<div className='home-board-column'>
+				<div>질문게시글</div>
+					<ul>
+						{question/*.filter(post => post.weather === weather)*/.map(post => <div key={post.id}><li>{post.title}</li></div>)}
+					</ul>
+				</div>
 			</div>
     </div>
   );

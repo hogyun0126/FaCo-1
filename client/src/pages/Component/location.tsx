@@ -6,7 +6,7 @@ type LocationProps = {
 
 function LocaList({ location }: LocationProps) {
   return (
-   <option value={location.locationEn}>
+   <option value={location.id}>
 		 {location.locationKr}
    </option>
   )

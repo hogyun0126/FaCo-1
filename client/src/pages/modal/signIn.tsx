@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from "../../modules";
 import { userInfo , userInfoType} from "../../modules/userInfo";
 import SignUp from './signUp';
+import logo from '../../logo/FaCo.png';
 
 const axios = require('axios').default;
 
@@ -18,16 +19,20 @@ function SignIn({isSignInClose, isLogInCancle}:MyProps) {
 
   const [ userEmail, setUserEmail ] = useState('')
   const [ userPassword, setUserPassword ] = useState('')
-  const [isSignUp, setIsSignUp] = useState<boolean>(false)
+  const [ isSignUp, setIsSignUp ] = useState<boolean>(false)
+  const [ isSignInAccess, setIsSignInAccess ] = useState<boolean>(true)
+  const [ errorMessage, setErrorMessage ] = useState('')
 
   function handleEmailValue (e:any) : void {
     setUserEmail(e.target.value)
   }
   function handlePasswordValue (e:any) : void {
     setUserPassword(e.target.value)
-    
   }
-  
+  function loginFailed (message:any) : void {
+    setIsSignInAccess(false)
+    setErrorMessage(message)
+  }
   const isSignUpClicked = () : void => {
     setIsSignUp(!isSignUp)
   }
@@ -47,6 +52,7 @@ function SignIn({isSignInClose, isLogInCancle}:MyProps) {
     })
     .catch(function (error:any) {
       console.log(error.response.data.message);
+      loginFailed(error.response.data.message)
     })
 
     await axios.get(`${path}/userInfo`, 
@@ -83,18 +89,24 @@ function SignIn({isSignInClose, isLogInCancle}:MyProps) {
 			<div className='sign-in-view'>
         <div onClick={isLogInCancle}>X
         </div>
+      <div>
+        <img src={logo} alt="FaCo" className='sign-in-logo'/>
+      </div>
       <div className='sign-title'>이메일 : 
           <input type='text' name='email' onChange={(e)=>handleEmailValue(e)}></input>
         </div>
         <div className='sign-title'>비밀번호 : 
           <input type='password' name='password' onChange={(e)=>handlePasswordValue(e)}></input>
         </div>
+        <div className='err-message'>{isSignInAccess?'':errorMessage}</div>
 
         <button onClick={handleSignInBtnClick}>로그인</button>
         <button onClick={isSignUpClicked}>회원가입</button>
+        
       </div>
 
       {isSignUp ? <SignUp isSignUpClose={isSignUpClicked}></SignUp> : ''}
+
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState} from "react";
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 import { RootState } from "../modules";
 import { userInfo , userInfoType} from "../modules/userInfo";
 import LocaList from './Component/location';
@@ -9,6 +10,7 @@ const axios = require('axios').default;
 
 function MyInfo() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const stateUserInfo = useSelector((state: RootState) => state.userInfoReducer);
   const stateLocation = useSelector((state: RootState) => state.locationReducer.lLts);
 
@@ -48,7 +50,7 @@ function MyInfo() {
     });
   }
   const isModifyLocationClicked = function(){
-    axios.patch(`${path}`, {location:userInfos.location }, { headers: {
+    axios.patch(`${path}`, {}, { headers: {
       Authorization: `Bearer ${stateUserInfo.userInfo.accessToken}`,
       "Content-Type": "application/json",
       credentials: true
@@ -90,6 +92,8 @@ function MyInfo() {
     }})
     .then(function(response:any) {
       console.log(response)
+      navigate('/')
+      
     })
     .catch(function (error:any) {
       console.log(error.response.data);
@@ -97,17 +101,37 @@ function MyInfo() {
   }
 
   const modifyingClose= function() :void {
-    if(userInfos.password !== ''){
-      isModifyPasswordClicked()
-    }
-    if(userInfos.location !== stateUserInfo.userInfo.location){
-      isModifyLocationClicked()
-    }
-    if(userInfos.phone !== stateUserInfo.userInfo.phone){
-      isModifyPhoneClicked()
-    }
-    setModifying(false);
+    // if(userInfos.password !== ''){
+    //   isModifyPasswordClicked()
+    // }
+    // if(userInfos.location !== stateUserInfo.userInfo.location){
+    //   isModifyLocationClicked()
+    // }
+    // if(userInfos.phone !== stateUserInfo.userInfo.phone){
+    //   isModifyPhoneClicked()
+    // }
+    axios.patch(path, { password: userInfos.password, phone: userInfos.phone, location: userInfos.location},
+      { headers: {
+      Authorization: `Bearer ${stateUserInfo.userInfo.accessToken}`,
+      "Content-Type": "application/json",
+      credentials: true
+    }})
+    .then(function (response:any) {
+      const data = response.data.data
+      const userInfos = Object.assign({},stateUserInfo)
+      userInfos.userInfo.phone = data.phone
+      userInfos.userInfo.location = data.location
+      dispatch(userInfo(userInfos.userInfo));
+      setModifying(false);
+      console.log(response);
+    })
+    .catch(function (error:any) {
+      console.log(error.response);
+    });
+    
   }
+
+
   
   return (
     <div>
@@ -117,7 +141,7 @@ function MyInfo() {
           {stateUserInfo.userInfo.email}
         </li>
           {modifying?
-          <li>비밀번호: <input type='password' placeholder='변경할 비밀번호를 입력해주세요' onChange={(e) => handleInputValue(e)}></input></li>:
+          <li>비밀번호: <input type='password' name='password' placeholder='변경할 비밀번호를 입력해주세요' onChange={(e) => handleInputValue(e)}></input></li>:
           ''}
           {modifying?
           <li>비밀번호확인: <input type='password' name='passwordConfirm' placeholder='비밀번호를 한번 더 입력해주세요' onChange={(e)=>handleInputValue(e)}></input>
@@ -133,15 +157,15 @@ function MyInfo() {
           } 
         </li>
         <li>
-          이름:{userInfos.name}
+          이름:{stateUserInfo.userInfo.name}
         </li>
         <li>
           핸드폰번호:{modifying?
-          <input name='phone' placeholder={userInfos.phone} onChange={(e) => handleInputValue(e)}></input>
-          :userInfos.phone}
+          <input name='phone' placeholder={stateUserInfo.userInfo.phone} onChange={(e) => handleInputValue(e)}></input>
+          :stateUserInfo.userInfo.phone}
         </li>
         <li>
-          성별:{userInfos.sex}
+          성별:{stateUserInfo.userInfo.sex}
         </li>
       </ul>
       {modifying?<div>

@@ -48,7 +48,7 @@ function Weather(){
 
 
 	return (
-		<div>
+		<div className='weather-container'>
 			<div className='weather-icon'>
 			{weather==='Clear'?<WiDaySunny/>:''}
 			{weather==='Clouds'?<WiDayCloudy/>:''}
