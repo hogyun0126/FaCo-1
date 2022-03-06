@@ -173,7 +173,7 @@ function ImgForm({ images, handleImages }: ImgFormProps) {
             ))}
         </ul>
       </div>
-      {isLoading && <div className='img-form-loading'>Loading...</div>}
+      {/*isLoading && <div className='img-form-loading'>Loading...</div>*/}
     </div>
   )
 }

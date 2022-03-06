@@ -9,19 +9,25 @@ import { PostType } from '../modules/posts';
 import { NavLink } from 'react-router-dom';
 import { postDummy } from '../dummyData/boardDummy';
 import PostView from './postView';
+import axios from 'axios';
 
 function RBoard() {
   const state = useSelector((state: RootState) => state.postsReducer.rLts);
   const popular = state.slice().sort((a, b) => a.like > b.like ? -1 : 1).slice(0, 3);
   const [lts, setLts] = useState(state);
 
-  const postCount = 6; // 페이지당 보여줄 개수
+  const postCount = 3; // 페이지당 보여줄 개수
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(postCount);
   const [currentPost, setCurrentPost] = useState<PostType>(postDummy.rLts[0]);
   const [isPostClicked, setIspostClicked] = useState(false);
 
-  useEffect(() => searchHandler(state), []);
+  useEffect(() => {
+    async function callback() {
+      //axios.get()
+    }
+    searchHandler(state)}
+  , []);
 
   function pageNumberBtnClick(go: number): void {
     setStart(go - postCount);
