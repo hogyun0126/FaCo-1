@@ -16,12 +16,13 @@ async function allPostInfo(postId) {
   });
 }
 
-async function createPost(QR, title, body, location) {
+async function createPost(QR, title, body, location, url) {
   return post.create({
     QR,
     title,
     body,
     location,
+    url,
   })
 }
 
@@ -29,11 +30,12 @@ async function deletePost(postId) {
   return post.destroy({ where: { id: postId }})
 }
 
-async function modifyPost(title, body, location) {
+async function modifyPost(title, body, location, url) {
   return post.update({
     title: title,
     body: body,
     location: location,
+    url: url,
   })
 }
 

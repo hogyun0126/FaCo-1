@@ -4,6 +4,7 @@ async function modify(req, res) {
   try {
     const postId = req.postId;
     const { title, body, location } = req.body;
+    const { path } = req.file;
 
     if (title) {
       postDB.modifyPost(title, postId);
@@ -15,6 +16,10 @@ async function modify(req, res) {
 
     if (location) {
       postDB.modifyPost(location, postId);
+    }
+
+    if (path) {
+      postDB.modifyPost(url, postId);
     }
 
     return res.status(201).json({ message: "게시글이 수정 되었습니다." })
