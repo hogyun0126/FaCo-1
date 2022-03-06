@@ -40,7 +40,7 @@ async function modifyUser(userId, password, phone, location, salt) {
       password: password,
       phone: phone,
       location: location,
-      salt: salt
+      salt: salt,
     },
     { where: { id: userId } },
   );
