@@ -3,7 +3,7 @@ const replyDB = require("../../data/reply")
 async function modify(req, res) {
   try {
     const replyId = req.replyId;
-    const { body  } = req.body;
+    const { body } = req.body;
 
     if (body) {
       replyDB.modifyReply(body, replyId);
