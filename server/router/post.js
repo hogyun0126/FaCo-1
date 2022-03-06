@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { postController } = require("../controllers");
 
-router.post("/post", upload.single('file'), postController.create.post)
+router.post("/post", postController.create.post)
 
 router.delete("/", postController.delete.unpost)
 
