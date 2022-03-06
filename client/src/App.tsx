@@ -48,10 +48,10 @@ function App() {
           </Routes>
         </section>
 
-        {/*<footer className='app-footer'>
+        <footer className='app-footer'>
           <Footer></Footer>
         </footer>
-        */}
+       
       </div>
     </BrowserRouter>
   );

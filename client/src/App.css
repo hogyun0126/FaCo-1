@@ -1,38 +1,38 @@
 /* app */
 .app-container {
-  margin: 5vh 30vw 0 30vw;
-  height: auto;
-  min-height: 85vh;
-  padding-top: 40px;
+  margin:20px;
+  padding-left: 20px;
 }
 /*
 .app-header {
 
 }
 */
+.section {
+  /* width: 1000px; */
+}
 
 /* menu */
 .menu-container {
   display:flex;
-  width: 40vw;
+  justify-content: space-between;
 }
-/* .menu-home {
+.menu-logo {
+  /* background-color: gray; */
   position: relative;
+  max-width: 200px;
+  min-width: 100px;
+  left: 50px;
   
-  font-size: 50px;
-  height: 50px;
-  text-align: center;
-  align-items: center;
-} */
+}
 .menu-list-container {
-  position: relative;
+  position:relative;
   display: flex;
-  background-color: skyblue;
   align-items: center;
-  min-height: 50px;
+  height:80px;
   border-radius: 10px;
-  width: 40vw;
-  justify-content: center;
+  width: 500px;
+  justify-content: right;
 }
 .menu-list {
   display: flex; 
@@ -40,9 +40,8 @@
 .menu-list li {
   list-style: none;
   position: relative;
-  width: 8vw;
+  width: 100px;
   height: 50px;
-  
 }
 .menu-list a {
   position: relative;
@@ -54,25 +53,30 @@
 }
 .menu-icon {
   position: relative;
-  display: block;
+  /* display: block; */
   line-height: 50px;
-  font-size: 35px;
+  font-size: 30px;
   text-align: center;
   transition: 0.5s;
   z-index: 1;
 }
-
-.menu-list .active a .menu-icon {
-  transform: translateY(-35px);
+.menu-list li :hover .menu-icon{
+  font-size:40px;
+  font-weight: border;
 }
+.menu-list li :hover .menu-text{
+  font-size:20px;
+  font-weight: border;
+}
+
 .menu-icon {
-  color: white;
+  color: black;
 }
 .menu-text {
   position: absolute;
   transition: 0.5s;
   transform: translateY(30px);/* 50px로 바꾸면 글씨 안보임*/
-  color: white;
+  color: black;
   z-index: 1;
 }
 .menu-list .active a .menu-text {
@@ -85,7 +89,16 @@
   text-align: center;
   top: -10px;
 }
-.indicator {
+.menu-myinfo {
+  top:13px;
+  align-items: center;
+  text-align: left;
+}
+.menu-myinfo :hover {
+cursor: pointer;
+}
+
+/* .indicator {
   position:absolute;
   width: 60px;
   height: 60px;
@@ -114,11 +127,13 @@
   height: 23px;
   border-top-left-radius: 20px;
   box-shadow: 0px -10px 0 0 white;
-}
+} */
 
 /* user sidebar*/
 .side-container {
-  background-color: skyblue;
+  background-color: gray;
+  color: white;
+  opacity: 0.9;
   width: 30vw;
   height:100vh;
   display: flex;
@@ -133,40 +148,95 @@
   to { transform: translateX(0);}
 }
 
-/* home */
-.home-container {
-  margin: 10px;
-}
-
 /* footer */
 .app-footer {
-  height: 5vh;
+  height: 50px;
+  bottom: 0px;
+  margin-top: 100px;
 }
 
-/* menu */
+/* home */
+.home-first-container {
+  display:flex;
+  
+}
 
+.home-weather-column {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-left: 70px;
+  /* border-radius: 5px;
+  border: 1px solid; */
+  
+  
+}
+.home-weather-text {
+  margin:5px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.home-weather-location {
+  font-size: 20px;
+  margin-top: 10px;
+  width: 130px;
+  padding: .5em;
+  border: 1px solid #999;
+
+}
+
+.home-best-column{
+  justify-content: space-between;  
+}
 .home-recommand-images {
-  height: 400px;
-  width: 500px;
-  /* position:relative; */
+  max-height: 400px;
+  min-height: 300px;
+  max-width: 300px;
 }
 .home-ul:hover {
-  animation-play-state: paused;
+  /* animation-play-state: paused; */
   cursor: pointer;
 }
 .home-ul {
   display: flex;
-  position:relative;
   list-style: none;
-  animation: slide 10s infinite alternate;
-  animation-timing-function: linear;
+  /* animation: slide 5s infinite alternate; */
+  /* animation-timing-function: linear; */
+  max-width: 70vw;
+  min-width: 200px;
+  overflow: auto; 
 }
 .home-ul li {
-  margin-inline: 15px;
+  margin-right: 15px;
 }
-@keyframes slide {
+/* @keyframes slide {
   from {  transform: translateX(0);}
   to { transform: translateX(-1300px);}
+} */
+
+.home-second-container {
+  display:flex;
+  padding-left: 20px;
+}
+.home-second-container > div {
+  width: 40vw;
+}
+.home-board-column {
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 20px;
+}
+.home-board-column > div {
+  font-weight: bold;
+  font-size: 20px;
+}
+.home-board-column > ul{
+  list-style: none;
+}
+.home-board-column > ul >li {
+  margin-top: 2px;
+  
 }
 
 /*board*/
@@ -221,6 +291,9 @@
 }
 
 /*rboard*/
+.rboard-header {
+  display: flex;
+}
 .rboard-container {
   display: flex;
   flex-wrap: wrap;
@@ -258,6 +331,7 @@
   border-radius: 10px;
   padding: 10px;
   z-index: 2;
+  overflow: auto;
 }
 
 /*qboard*/
@@ -533,6 +607,15 @@
   opacity: 0.7;
 }
 
+/* weather */
+.weather-icon {
+  font-size: 200px;
+}
+.weather-text {
+  margin-top:-60px;
+  font-size: 50px;
+  text-align: center;
+}
 /*searchbar*/
 .searchbar-container {
   width: 40vw;

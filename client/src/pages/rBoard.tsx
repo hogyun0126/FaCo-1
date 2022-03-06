@@ -51,18 +51,19 @@ function RBoard() {
   
   return (
     <div>
-      <h1>추천 게시판</h1>
-
-      <SearchBar searchHandler={searchHandler} pageNumberBtnClick={pageNumberBtnClick} boardType={'rLts'} postCount={postCount} />
+      <div className='rboard-header'>
+        <div>추천 게시판</div>
+        <SearchBar searchHandler={searchHandler} pageNumberBtnClick={pageNumberBtnClick} boardType={'rLts'} postCount={postCount} />
+      </div>
       <div>
-        <h1>인기 게시글</h1>
+        <div>인기 TOP3</div>
         <div className='rboard-container'>
           {popular.map((post, idx) => <RPost key={post.id} post={post} postClickHandler={postClickHandler} />)}
         </div>
       </div>
 
       <div>
-        <h1>최근 게시글</h1>
+        <div>최근 게시글</div>
         <div className='rboard-container'>
           {lts.slice(start, end).map((post, idx) => <RPost key={post.id} post={post} postClickHandler={postClickHandler} />)}
         </div>

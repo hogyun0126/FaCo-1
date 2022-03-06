@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import './modal.css';
+import logo from '../../logo/FaCo.png';
 
 import LocaList from '../Component/location';
 import { RootState } from '../../modules';
-import { userInfoType } from '../../modules/userInfo';
 const axios = require('axios').default;
 
 type MyProps = {
@@ -24,7 +24,7 @@ function SignUp({isSignUpClose} : MyProps) {
     name: '',
     phone: '',
     location: '',
-    sex: '남자'
+    sex: ''
   }); // userInfoState
 
   const [ isDisable, setIsDisable ] = useState<boolean>(true);
@@ -38,14 +38,13 @@ function SignUp({isSignUpClose} : MyProps) {
 
   function handleInputValue (e:any) {
     setUserInfo(Object.assign({}, userInfo, {[e.target.name] : e.target.value}));
-    console.log(e.target.value)
-    console.log(userInfo)
+    
   }
 
    // input 검증
    function verifyInputValue () {
     const emailReg = new RegExp(/^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/);
-    const nameReg = new RegExp(/^[가-힣]{2,4}$/);
+    const nameReg = new RegExp(/^[가-힣A-Za-z]{2,20}$/);
     const phoneReg = new RegExp(/010[0-9]{8}/);
     // const idRegExp = new RegExp(/^[a-zA-z0-9]{4,12}$/);
     const passwordRegExp = new RegExp(/^[a-zA-z0-9]{4,12}$/);
@@ -54,8 +53,8 @@ function SignUp({isSignUpClose} : MyProps) {
     if (!(emailReg.test(userInfo.email))) return '올바른 이메일을 입력해주세요';
     if (!(passwordRegExp.test(userInfo.password))) return '비밀번호는 영문 대소문자와 숫자 4~12자리로 입력해야 합니다';
     if (userInfo.password !== userInfo.passwordConfirm) return '비밀번호가 다릅니다';
-    if (!(nameReg.test(userInfo.name))) return '올바른 이름을 입력해주세요';
     if (!(phoneReg.test(userInfo.phone))) return '올바른 핸드폰 번호를 입력해주세요';  
+    if (!(nameReg.test(userInfo.name))) return '올바른 이름을 입력해주세요';
     if (!!userInfo.email && !!userInfo.password && !!userInfo.passwordConfirm && !!userInfo.name && !!userInfo.phone) {
       setIsDisable(false);
     } else {
@@ -65,7 +64,7 @@ function SignUp({isSignUpClose} : MyProps) {
   }
 
   function handleSignUpBtnClick () {
-    console.log(userInfo)
+    // console.log(userInfo)
     axios.post(path, userInfo, {
       "content-type": "application/json",
       credentials: true,
@@ -80,41 +79,47 @@ function SignUp({isSignUpClose} : MyProps) {
 
   return (
     <div>
-			<div className='sign-in-view'>
-        <div>이메일 : 
-        <input name='email' placeholder='이메일을 입력해주세요' onChange={(e) => handleInputValue(e)}></input>
+			<div className='sign-up-view'>
+        <div onClick={isSignUpClose}>
+          <img src={logo} alt="FaCo" className='sign-in-logo'/>
         </div>
-        {/* <div>아이디 : 
-          <input name='id' type='text' placeholder='아이디를 입력해주세요' onChange={(e) => handleInputValue(e)}></input>
-        </div> */}
-        <div>비밀번호 : 
-          <input name='password' placeholder='비밀번호를 입력해주세요' onChange={(e) => handleInputValue(e)}></input>
-        </div>
-        <div >비밀번호확인 : 
-        <input name='passwordConfirm' placeholder='비밀번호를 한번 더 입력해주세요' onChange={(e)=>handleInputValue(e)}></input>
-        </div>
-        <div>핸드폰번호 : 
-        <input name='phone' placeholder='-없이 입력해주세요' onChange={(e) => handleInputValue(e)}></input>
-        </div>
-        <div>이름 : 
-        <input name='name' placeholder='이름을 입력해주세요' onChange={(e) => handleInputValue(e)}></input>
-        </div>
-        <div>지역 : 
-          <select name='location' onChange={(e) => handleInputValue(e)}>
-          <option hidden>---</option>
-          {locations.map(loca => <LocaList key={loca.id} location={loca}/>)}
-          </select>
-        </div>
-        <div>성별 : 
-          <select name="sex" onChange={(e) => handleInputValue(e)}>
+        <div>
+          <div>이메일 : 
+          <input name='email' className='sign-up-title' placeholder='이메일을 입력해주세요' onChange={(e) => handleInputValue(e)}></input>
+          </div>
+          {/* <div>아이디 : 
+            <input name='id' type='text' placeholder='아이디를 입력해주세요' onChange={(e) => handleInputValue(e)}></input>
+          </div> */}
+          <div>비밀번호 : 
+            <input name='password' className='sign-up-title' type='password' placeholder='비밀번호를 입력해주세요' onChange={(e) => handleInputValue(e)}></input>
+          </div>
+          <div >비밀번호확인 : 
+          <input name='passwordConfirm' className='sign-up-title' type='password' placeholder='비밀번호를 한번 더 입력해주세요' onChange={(e)=>handleInputValue(e)}></input>
+          </div>
+          <div>핸드폰번호 : 
+          <input name='phone' className='sign-up-title' placeholder='-없이 입력해주세요' onChange={(e) => handleInputValue(e)}></input>
+          </div>
+          <div>이름 : 
+          <input name='name' className='sign-up-title' placeholder='이름을 입력해주세요' onChange={(e) => handleInputValue(e)}></input>
+          </div>
+          <div>지역 : 
+            <select name='location' className='sign-up-title' onChange={(e) => handleInputValue(e)}>
             <option hidden>---</option>
-            <option value='male'>남자</option>
-            <option value='female'>여자</option>
-          </select>
+            {locations.map(loca => <LocaList key={loca.id} location={loca}/>)}
+            </select>
+          </div>
+          <div>성별 : 
+            <select name="sex" className='sign-up-title' onChange={(e) => handleInputValue(e)}>
+              <option hidden>---</option>
+              <option value='male'>남자</option>
+              <option value='female'>여자</option>
+            </select>
+          </div>
         </div>
 
-        <div>{errMessage}</div>
+        <div className='err-message'>{errMessage}</div>
         <button disabled={isDisable ? true : false} onClick={handleSignUpBtnClick}>회원가입</button>
+        <button onClick={isSignUpClose}>취소</button>
       </div>
     </div>
   );
