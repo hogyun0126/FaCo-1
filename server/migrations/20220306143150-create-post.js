@@ -23,6 +23,9 @@ module.exports = {
       location: {
         type: Sequelize.STRING
       },
+      url: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         type: Sequelize.STRING
       },

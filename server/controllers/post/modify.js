@@ -3,8 +3,7 @@ const postDB = require("../../data/post")
 async function modify(req, res) {
   try {
     const postId = req.postId;
-    const { title, body, location } = req.body;
-    const { path } = req.file;
+    const { title, body, location, url } = req.body;
 
     if (title) {
       postDB.modifyPost(title, postId);
@@ -18,7 +17,7 @@ async function modify(req, res) {
       postDB.modifyPost(location, postId);
     }
 
-    if (path) {
+    if (url) {
       postDB.modifyPost(url, postId);
     }
 
