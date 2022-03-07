@@ -54,7 +54,7 @@ function SearchBar({ searchHandler, pageNumberBtnClick, boardType, postCount }: 
         ))}
       </select>
       <input type='text' value={inputValue} onChange={handleInputChange} />
-      <button className='board-write-btn'onClick={handleBtnClick}>검색</button>
+      <button className='board-write-btn' onClick={handleBtnClick}>검색</button>
     </div>
   );
 }
