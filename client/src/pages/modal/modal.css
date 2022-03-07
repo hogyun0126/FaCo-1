@@ -82,6 +82,7 @@
   height: 50vh;
   padding: 20px;
   text-align: center;
+  overflow: auto;
 }
 .sign-up-title {
   margin:5px;

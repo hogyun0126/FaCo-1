@@ -42,7 +42,7 @@ function Home() {
 	const todayDay:string = days[new Date().getDay()]
 	const todayDate:number = new Date().getDate()
 	const todayMonth:number = new Date().getMonth() + 1
-	const todayYear = new Date().getFullYear()
+	const todayYear:number = new Date().getFullYear()
 
 	//날씨검색
 	const search = () => {
@@ -58,25 +58,20 @@ function Home() {
 		const target = locations.filter(el => el.id === Number(e.target.value))
 		setSelectedKr(target[0].locationKr)
 		setSelectedEn(target[0].locationEn)
-		
-
   };
 	useEffect(():void => {
 		search()
 	})
-
-	console.log(locations)
-	console.log(initialLocation)
   return (
     <div className='home-container'>
 			<div className='home-first-container'>
 				<div className='home-weather-column'>
-					<div><Weather/> </div>
+					<div><Weather selectLocation={selectedEn}/> </div>
 					<div className='home-weather-text'>{todayYear}년 {todayMonth}월 {todayDate}일</div>
 					<div className='home-weather-text'>{todayDay}</div>
 					<div className='home-weather-text'>{selectedKr}</div>
 
-					<select onChange={e=>handleSelect(e)}className='home-weather-location'>
+					<select onChange={e=>handleSelect(e)} className='home-weather-location'>
 						<option hidden>{selectedKr}</option>
 						{locations.map(loca => <LocaList key={loca.id} location={loca}/>)}
 					</select>

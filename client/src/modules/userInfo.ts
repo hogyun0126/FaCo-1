@@ -4,7 +4,7 @@ const USER_INFO = 'userInfo/USER_INFO' as const;
 
 export type userInfoType = {
     name: string,
-    phone: any,
+    phone: string,
     email: string,
     location: string,
     sex: string,
