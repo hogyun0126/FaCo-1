@@ -14,7 +14,8 @@ function MyInfo() {
   const stateUserInfo = useSelector((state: RootState) => state.userInfoReducer);
   const stateLocation = useSelector((state: RootState) => state.locationReducer.lLts);
 
-  const path = 'http://localhost:4000/user/';
+
+  const path = `${process.env.REACT_APP_API_URL}/user`;
   const locations = stateLocation.sort((a, b) => a.locationKr > b.locationKr ? 1 : -1);
   const initialLocation = locations.filter(el=>el.locationEn===stateUserInfo.userInfo.location)[0]
   const [ modifying, setModifying ] = useState(false)
@@ -38,7 +39,7 @@ function MyInfo() {
     setUserInfos(Object.assign({}, userInfos, {[e.target.name] : e.target.value}));
   }
   const isModifyPasswordClicked = function(){
-    axios.patch(`${path}`, { password: userInfos.password }, { headers: {
+    axios.patch(`${path}/modify`, { password: userInfos.password }, { headers: {
       Authorization: `Bearer ${stateUserInfo.userInfo.accessToken}`,
       "Content-Type": "application/json",
       credentials: true
@@ -51,7 +52,7 @@ function MyInfo() {
     });
   }
   const isModifyLocationClicked = function(){
-    axios.patch(`${path}`, {}, { headers: {
+    axios.patch(`${path}/modify`, {}, { headers: {
       Authorization: `Bearer ${stateUserInfo.userInfo.accessToken}`,
       "Content-Type": "application/json",
       credentials: true
@@ -68,7 +69,7 @@ function MyInfo() {
     });
   }
   const isModifyPhoneClicked = function(){
-    axios.patch(`${path}`, { phone: userInfos.phone}, { headers: {
+    axios.patch(`${path}/modify`, { phone: userInfos.phone}, { headers: {
       Authorization: `Bearer ${stateUserInfo.userInfo.accessToken}`,
       "Content-Type": "application/json",
       credentials: true
@@ -96,7 +97,7 @@ function MyInfo() {
 	}
   //회원탈퇴
   const isWithdrawClicked = function() {
-    axios.delete(`${path}`,{ headers: {
+    axios.delete(`${path}/`,{ headers: {
       Authorization: `Bearer ${stateUserInfo.userInfo.accessToken}`,
       "Content-Type": "application/json",
       credentials: true
