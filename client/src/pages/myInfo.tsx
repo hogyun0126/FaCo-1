@@ -14,7 +14,7 @@ function MyInfo() {
   const stateUserInfo = useSelector((state: RootState) => state.userInfoReducer);
   const stateLocation = useSelector((state: RootState) => state.locationReducer.lLts);
 
-  const path = 'http://localhost:4000/user/modify';
+  const path = `${process.env.REACT_APP_API_URL}/user/modify`;
   const locations = stateLocation.sort((a, b) => a.locationKr > b.locationKr ? 1 : -1);
   const initialLocation = locations.filter(el=>el.locationEn===stateUserInfo.userInfo.location)[0]
   const [ modifying, setModifying ] = useState(false)
