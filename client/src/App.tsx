@@ -47,12 +47,10 @@ function App() {
             <Route path='/myinfo' element={<MyInfo/>}/>
           </Routes>
         </section>
-
-        <footer className='app-footer'>
-          <Footer></Footer>
-        </footer>
-       
       </div>
+      <footer className='app-footer'>
+        <Footer></Footer>
+      </footer>
     </BrowserRouter>
   );
 }

@@ -5,11 +5,13 @@ import { WiDaySunny, WiDayCloudy, WiRain, WiSnow } from "react-icons/wi";
 import { RootState } from '../../modules';
 
 type weatherListType ={
-	[key:string]: string[]
+	[key:string]: string[];
+}
+type SelectType ={
+	selectLocation: string
 }
 
-function Weather(){
-	// const dispatch = useDispatch();
+function Weather({selectLocation}:SelectType){
 	const userInfo = useSelector((state: RootState) => state.userInfoReducer.userInfo);
 
 	const api = {
@@ -27,8 +29,8 @@ function Weather(){
 		Snow: ['Snow']
 	}
 
-	const search = () => {
-		fetch(`${api.base}weather?q=${'Seoul'}&units=metric&APPID=${api.key}`)
+	 const search = () => {
+		fetch(`${api.base}weather?q=${selectLocation}&units=metric&APPID=${api.key}`)
 		.then(res => res.json())
 		.then(res => {
 			const weatherSelected = res.weather[0].main
@@ -50,10 +52,15 @@ function Weather(){
 	return (
 		<div className='weather-container'>
 			<div className='weather-icon'>
-			{weather==='Clear'?<WiDaySunny/>:''}
-			{weather==='Clouds'?<WiDayCloudy/>:''}
-			{weather==='Rain'?<WiRain/>:''}
-			{weather==='Snow'?<WiSnow/>:''}
+			{weather==='Clear'?<WiDaySunny className='sunny'/>:''}
+			{weather==='Clouds'?<WiDayCloudy className='cloud'/>:''}
+			{weather==='Rain'?<WiRain className='rain'/>:''}
+			{weather==='Snow'?<WiSnow className='snow'/>:''}
+			{/* css적용시 사용
+			 <WiDaySunny className='sunny'/>
+			<WiDayCloudy className='cloud'/>
+			<WiRain className='rain'/>
+			<WiSnow className='snow'/> */}
 			</div>
 			<div className='weather-text'>
 			{weather}
