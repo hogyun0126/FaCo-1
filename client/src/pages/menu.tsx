@@ -20,7 +20,7 @@ const axios = require('axios').default;
 function Menu() {
 	const dispatch = useDispatch();
   
-  const navigate = useNavigate();
+        const navigate = useNavigate();
 	// const path = `${process.env.REACT_APP_API_URL}/user/signout`;
 
 	const navigate = useNavigate();
