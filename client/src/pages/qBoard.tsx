@@ -13,7 +13,7 @@ function QBoard() {
   const state = useSelector((state: RootState) => state.postsReducer.qLts);
   const dispatch = useDispatch();
   const [lts, setLts] = useState(state);
-  const postCount = 3; // 페이지당 보여줄 개수
+  const postCount = 10; // 페이지당 보여줄 개수
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(postCount);
   const [isPostClicked, setIspostClicked] = useState(false);
@@ -42,14 +42,16 @@ function QBoard() {
 
   return (
     <div className='qboard-container'>
-      <h1>질문 게시판</h1>
-
-      <SearchBar searchHandler={searchHandler} pageNumberBtnClick={pageNumberBtnClick} boardType='qLts' postCount={postCount}/>
-
-      {isPostClicked && <PostView post={currentPost}/>}
-
-      <table>
-        <thead>
+      <div className='rboard-header'>
+        <div className='rboard-title'>질문 게시판</div>
+        <SearchBar searchHandler={searchHandler} pageNumberBtnClick={pageNumberBtnClick} boardType='qLts' postCount={postCount}/>
+      </div>
+      <div>
+        {isPostClicked && <PostView post={currentPost}/>}
+      </div>
+      <div>
+      <table className='qboard-table'>
+        <thead className='qboard-thead'>
           <tr>
             <th>[위치/날씨]</th>
             <th>제목</th>
@@ -58,13 +60,14 @@ function QBoard() {
             <th>좋아요</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className='qboard-tbody'>
           {lts.slice(start, end).map(post => <QPost key={post.id} post={post} postClickHandler={postClickHandler} />)}
         </tbody>
       </table>
+      </div>
 
       <NavLink to='/postEditor' state={{boardType: 'q'}}>
-        <button className='board-write-btn'>글쓰기</button>
+        <button className='board-write-btn write'>글쓰기</button>
       </NavLink>
 
       <PageNumber pageCount={lts.length} postCount={postCount} pageNumberBtnClick={pageNumberBtnClick} />

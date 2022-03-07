@@ -31,7 +31,7 @@ function Home() {
 		key: 'da646735954e126fccbdcd34e0005c8c', // 비공개 키로 만들기
 		base: 'https://api.openweathermap.org/data/2.5/'
 	}
-	const initialLocation = locations.filter(el=>el.locationEn==='Seoul')[0]
+	const initialLocation = locations.filter(el=>String(el.id)===stateUserInfo.userInfo.location)[0]
 	const [selectedKr, setSelectedKr]= useState("서울")
 	const [selectedEn, setSelectedEn]= useState("Seoul")
 	const [weather, setWeather] = useState<string>('');
