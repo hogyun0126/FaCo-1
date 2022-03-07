@@ -9,6 +9,7 @@ import UserSideBar from "./modal/userSideBar";
 import SignIn from './modal/signIn';
 import logo from '../logo/FaCo.png';
 import { userInfo } from "../modules/userInfo";
+import { useNavigate } from "react-router-dom";
 
 import { NavLink } from "react-router-dom";
 import { updateIndicator } from "../modules/menus";
@@ -18,6 +19,7 @@ const axios = require('axios').default;
 
 function Menu() {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	// const path = 'http://localhost:4000/user/signout';
 	const stateUserInfo = useSelector((state: RootState) => state.userInfoReducer);
 
@@ -50,6 +52,7 @@ function Menu() {
 		userInfos.userInfo.accessToken = ''
 		dispatch(userInfo(userInfos.userInfo));
 		setIsLogIn(false)
+		navigate('/')
 	}
 	
   return (
