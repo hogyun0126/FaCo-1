@@ -81,7 +81,7 @@ function SignUp({isSignUpClose} : MyProps) {
     <div>
 			<div className='sign-up-view'>
         <div onClick={isSignUpClose}>
-          <img src={logo} alt="FaCo" className='sign-in-logo'/>
+          <img src={logo} alt="FaCo" className='sign-up-logo'/>
         </div>
         <div>
           <div>이메일 : 
@@ -118,8 +118,8 @@ function SignUp({isSignUpClose} : MyProps) {
         </div>
 
         <div className='err-message'>{errMessage}</div>
-        <button disabled={isDisable ? true : false} onClick={handleSignUpBtnClick}>회원가입</button>
-        <button onClick={isSignUpClose}>취소</button>
+        <button className='signup-btn' disabled={isDisable ? true : false} onClick={handleSignUpBtnClick}>회원가입</button>
+        <button className='signup-btn' onClick={isSignUpClose}>취소</button>
       </div>
     </div>
   );

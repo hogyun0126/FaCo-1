@@ -160,7 +160,7 @@ function MyInfo() {
         <li>
           <div>지역 :</div>
           {modifying?<div><select className='myinfo-modify-select' onChange={(e) => handleInputValue(e)} name='location'>
-          <option >{initialLocation.locationKr}</option>
+          <option>{initialLocation.locationKr}</option>
           {locations.map(loca => <LocaList key={loca.id} location={loca}/>)}
           </select></div>:
           <div>{initialLocation.locationKr}</div>

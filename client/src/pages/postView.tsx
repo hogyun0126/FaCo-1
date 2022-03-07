@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
 import { RootState } from "../modules";
 import { decreaseLike, increaseLike, PostType } from "../modules/posts";
+import { AiFillHeart } from "react-icons/ai";
 
 import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html';
 import ImgView from "./boardComponent/imgView";
@@ -62,7 +63,7 @@ function PostView({ post }: PostViewProps) {
   return (
     <div className="postview-container">
       {post.img.length !== 0 && 
-      <div>
+      <div className='postview-img'>
         <ImgView images={post.img} />
       </div>}
 
@@ -71,9 +72,14 @@ function PostView({ post }: PostViewProps) {
         <pre className="postview-content-body" dangerouslySetInnerHTML={{__html: html}}/>
 
         <div className="postview-content-like-container">
-          <div onClick={handleLikeClick}>좋아요 {post.like}</div>
-          {isWriter && 
+          <div className='postview-content-like post-patch-btn' onClick={handleLikeClick}>
             <div>
+              <AiFillHeart/>
+            </div>
+            <div>{post.like}</div>
+            </div>
+          {isWriter && 
+            <div className='post-patch-btn'>
               <NavLink to='/postEditor' state={{post, boardType: post.type}}>
                 <button>수정하기</button>
               </NavLink>
@@ -81,18 +87,18 @@ function PostView({ post }: PostViewProps) {
             </div>
           }
         </div>
-        
-        <p>comment</p>
-        <div className="postview-content-commentes">
-          {comment.map((el, idx) => {
-            return <div key={idx}>{el}</div>
-          })}
-        </div>
-
-        <div className="postview-content-comment-form">
-          <textarea value={textareaValue} onChange={(e) => handleTextareaChange(e)} maxLength={200} placeholder="최대 200자까지 입력할 수 있습니다"></textarea>
-          <div>
-            <button onClick={handleCommentSubmit}>Add comment</button>
+        <div>
+          <p>댓글</p>
+          <div className="postview-content-commentes">
+            {comment.map((el, idx) => {
+              return <div key={idx}>{el}</div>
+            })}
+          </div>
+          <div className="postview-content-comment-form">
+            <textarea value={textareaValue} onChange={(e) => handleTextareaChange(e)} maxLength={200} placeholder="최대 200자까지 입력할 수 있습니다"></textarea>
+            <div className='comment-btn'>
+              <button onClick={handleCommentSubmit}>댓글등록</button>
+            </div>
           </div>
         </div>
       </div>

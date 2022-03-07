@@ -1,4 +1,6 @@
 import { PostType } from '../../modules/posts';
+import { AiFillHeart } from "react-icons/ai";
+import Weather from '../Component/location'
 
 type RPostProps = {
   post: PostType;
@@ -12,8 +14,11 @@ function RPost({ post, postClickHandler }: RPostProps) {
       {post.img !== null && <img src={post.img[0].url}/>}
     </div>
     <div className='rboard-post-info'>
-      <div>{post.location} / {post.weather}</div>
-      <div className='rboard-post-like'>하트{post.like}</div>
+      <div><div>{post.location}</div><div>{post.weather}</div></div>
+      <div className='rboard-post-like'>
+        <div className='heart'><AiFillHeart/></div>
+        <div>{post.like}</div>
+      </div>
     </div>
    </div>
   )

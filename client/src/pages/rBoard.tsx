@@ -16,7 +16,7 @@ function RBoard() {
   const popular = state.slice().sort((a, b) => a.like > b.like ? -1 : 1).slice(0, 3);
   const [lts, setLts] = useState(state);
 
-  const postCount = 3; // 페이지당 보여줄 개수
+  const postCount = 6; // 페이지당 보여줄 개수
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(postCount);
   const [currentPost, setCurrentPost] = useState<PostType>(postDummy.rLts[0]);
@@ -55,22 +55,21 @@ function RBoard() {
         <div className='rboard-title'>추천 게시판</div>
         <SearchBar searchHandler={searchHandler} pageNumberBtnClick={pageNumberBtnClick} boardType={'rLts'} postCount={postCount} />
       </div>
-      <div>
-        <div>인기 TOP3</div>
+      <div className='rboard-top'>
+        <div className='rboard-subtitle'>인기 TOP3</div>
         <div className='rboard-container'>
           {popular.map((post, idx) => <RPost key={post.id} post={post} postClickHandler={postClickHandler} />)}
         </div>
       </div>
-
-      <div>
-        <div>최근 게시글</div>
+      <div className='rboard-recent'>
+        <div className='rboard-subtitle'>최근 게시글</div>
         <div className='rboard-container'>
           {lts.slice(start, end).map((post, idx) => <RPost key={post.id} post={post} postClickHandler={postClickHandler} />)}
         </div>
       </div>
 
       <NavLink to='/postEditor' state={{boardType: 'r'}}>
-        <button className='board-write-btn'>글쓰기</button>
+        <button className='board-write-btn write'>글쓰기</button>
       </NavLink>
 
       <PageNumber pageCount={lts.length} postCount={postCount} pageNumberBtnClick={pageNumberBtnClick} />

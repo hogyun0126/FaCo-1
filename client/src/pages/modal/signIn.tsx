@@ -87,10 +87,8 @@ function SignIn({isSignInClose, isLogInCancle}:MyProps) {
   return (
     <div className='modal-background'>
 			<div className='sign-in-view'>
-        <div onClick={isLogInCancle}>X
-        </div>
       <div>
-        <img src={logo} alt="FaCo" className='sign-in-logo'/>
+        <img onClick={isLogInCancle} src={logo} alt="FaCo" className='sign-in-logo'/>
       </div>
       <div className='sign-title'>이메일 : 
           <input type='text' name='email' onChange={(e)=>handleEmailValue(e)}></input>
@@ -100,8 +98,8 @@ function SignIn({isSignInClose, isLogInCancle}:MyProps) {
         </div>
         <div className='err-message'>{isSignInAccess?'':errorMessage}</div>
 
-        <button onClick={handleSignInBtnClick}>로그인</button>
-        <button onClick={isSignUpClicked}>회원가입</button>
+        <button className='btn' onClick={handleSignInBtnClick}>로그인</button>
+        <button className='btn' onClick={isSignUpClicked}>회원가입</button>
         
       </div>
 
