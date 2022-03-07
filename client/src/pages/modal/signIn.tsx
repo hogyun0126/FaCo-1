@@ -15,7 +15,7 @@ type MyProps = {
 function SignIn({isSignInClose, isLogInCancle}:MyProps) {
   const dispatch = useDispatch();
   const stateUserInfo = useSelector((state: RootState) => state.userInfoReducer);
-  const path = 'http://localhost:4000/user';
+  const path = `${process.env.REACT_APP_API_URL}/user`;
 
   const [ userEmail, setUserEmail ] = useState('')
   const [ userPassword, setUserPassword ] = useState('')

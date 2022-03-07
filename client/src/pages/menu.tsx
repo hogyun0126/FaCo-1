@@ -19,8 +19,9 @@ const axios = require('axios').default;
 
 function Menu() {
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
-	// const path = 'http://localhost:4000/user/signout';
+  
+        const navigate = useNavigate();
+	// const path = `${process.env.REACT_APP_API_URL}/user/signout`;
 	const stateUserInfo = useSelector((state: RootState) => state.userInfoReducer);
 
 	const [ isLogIn, setIsLogIn] = useState<boolean>(false); // 메뉴화면 이모티콘

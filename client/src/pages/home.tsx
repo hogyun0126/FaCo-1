@@ -32,8 +32,8 @@ function Home() {
 		base: 'https://api.openweathermap.org/data/2.5/'
 	}
 	const initialLocation = locations.filter(el=>el.locationEn==='Seoul')[0]
-	const [selectedKr, setSelectedKr]= useState(initialLocation.locationKr)
-	const [selectedEn, setSelectedEn]= useState(initialLocation.locationEn)
+	const [selectedKr, setSelectedKr]= useState("서울")
+	const [selectedEn, setSelectedEn]= useState("Seoul")
 	const [weather, setWeather] = useState<string>('');
 
 	// 오늘날짜

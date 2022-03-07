@@ -15,7 +15,7 @@ type MyProps = {
 function SignUp({isSignUpClose} : MyProps) {
   const stateLocation = useSelector((state: RootState) => state.locationReducer.lLts);
   const locations = stateLocation.sort((a, b) => a.locationKr > b.locationKr ? 1 : -1);
-  const path = 'http://localhost:4000/user/signup';
+  const path = `${process.env.REACT_APP_API_URL}/user/signup`;
   const [ userInfo, setUserInfo ] = useState({
     // id: '',
     email: '',
