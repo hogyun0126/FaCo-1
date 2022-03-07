@@ -54,14 +54,11 @@ function Home() {
 	}
 	//지역선택
 	const handleSelect = (e:React.ChangeEvent<HTMLSelectElement>) => {
-		// console.log(locations.filter(el => el.id === Number(e.target.value)))
 		const target = locations.filter(el => el.id === Number(e.target.value))
 		setSelectedKr(target[0].locationKr)
 		setSelectedEn(target[0].locationEn)
   };
-	useEffect(():void => {
-		search()
-	})
+
   return (
     <div className='home-container'>
 			<div className='home-first-container'>

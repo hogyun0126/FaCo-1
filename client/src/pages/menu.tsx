@@ -9,6 +9,7 @@ import UserSideBar from "./modal/userSideBar";
 import SignIn from './modal/signIn';
 import logo from '../logo/FaCo.png';
 import { userInfo } from "../modules/userInfo";
+import { useNavigate } from "react-router-dom";
 
 import { NavLink } from "react-router-dom";
 import { updateIndicator } from "../modules/menus";
@@ -18,7 +19,11 @@ const axios = require('axios').default;
 
 function Menu() {
 	const dispatch = useDispatch();
+  
+  const navigate = useNavigate();
 	// const path = `${process.env.REACT_APP_API_URL}/user/signout`;
+
+	const navigate = useNavigate();
 	const stateUserInfo = useSelector((state: RootState) => state.userInfoReducer);
 
 	const [ isLogIn, setIsLogIn] = useState<boolean>(false); // 메뉴화면 이모티콘
@@ -50,6 +55,7 @@ function Menu() {
 		userInfos.userInfo.accessToken = ''
 		dispatch(userInfo(userInfos.userInfo));
 		setIsLogIn(false)
+		navigate('/')
 	}
 	
   return (

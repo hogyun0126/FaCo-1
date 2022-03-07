@@ -14,6 +14,7 @@ function MyInfo() {
   const stateUserInfo = useSelector((state: RootState) => state.userInfoReducer);
   const stateLocation = useSelector((state: RootState) => state.locationReducer.lLts);
 
+
   const path = `${process.env.REACT_APP_API_URL}/user`;
   const locations = stateLocation.sort((a, b) => a.locationKr > b.locationKr ? 1 : -1);
   const initialLocation = locations.filter(el=>el.locationEn===stateUserInfo.userInfo.location)[0]
@@ -84,6 +85,16 @@ function MyInfo() {
       console.log(error.response);
     });
   }
+  function handleSignOutBtnClick () {
+		const userInfos = Object.assign({},stateUserInfo)
+		userInfos.userInfo.name = ''
+		userInfos.userInfo.phone = ''
+		userInfos.userInfo.email = ''
+		userInfos.userInfo.location = ''
+		userInfos.userInfo.sex = ''
+		userInfos.userInfo.accessToken = ''
+		dispatch(userInfo(userInfos.userInfo));
+	}
   //회원탈퇴
   const isWithdrawClicked = function() {
     axios.delete(`${path}/`,{ headers: {
@@ -94,6 +105,7 @@ function MyInfo() {
     .then(function(response:any) {
       console.log(response)
       navigate('/')
+      handleSignOutBtnClick()
       
     })
     .catch(function (error:any) {
