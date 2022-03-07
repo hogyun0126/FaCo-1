@@ -50,7 +50,7 @@ function QBoard() {
         {isPostClicked && <PostView post={currentPost}/>}
       </div>
       <div>
-      <table className='qboard-table'>
+      <table className='board-table'>
         <thead className='qboard-thead'>
           <tr>
             <th>[위치/날씨]</th>
