@@ -14,11 +14,12 @@ function MyInfo() {
   const stateUserInfo = useSelector((state: RootState) => state.userInfoReducer);
   const stateLocation = useSelector((state: RootState) => state.locationReducer.lLts);
 
-  const path = 'http://localhost:4000/user';
+  const path = 'http://localhost:4000/user/modify';
   const locations = stateLocation.sort((a, b) => a.locationKr > b.locationKr ? 1 : -1);
-  // (stateLocation.filter(el => el.locationEn === stateUserInfo.userInfo.location))[0].locationKr
+  const initialLocation = locations.filter(el=>el.locationEn===stateUserInfo.userInfo.location)[0]
   const [ modifying, setModifying ] = useState(false)
-  const [selected, setSelected]= useState('Seoul')
+  const [selected, setSelected]= useState(initialLocation)
+
   const [ userInfos, setUserInfos ] = useState({
     password: '',
     passwordConfirm: '',
@@ -134,46 +135,55 @@ function MyInfo() {
 
   
   return (
-    <div>
-      <ul>
+    <div className='myinfo-container'>
+      <ul className='myinfo-first-box'>
         <li>
-          이메일: 
-          {stateUserInfo.userInfo.email}
+          <div>이메일 :</div>
+          <div>{stateUserInfo.userInfo.email}</div>
         </li>
-          {modifying?
-          <li>비밀번호: <input type='password' name='password' placeholder='변경할 비밀번호를 입력해주세요' onChange={(e) => handleInputValue(e)}></input></li>:
-          ''}
-          {modifying?
-          <li>비밀번호확인: <input type='password' name='passwordConfirm' placeholder='비밀번호를 한번 더 입력해주세요' onChange={(e)=>handleInputValue(e)}></input>
-          </li>:
-          ''}
+        {modifying?
         <li>
-          지역:
-          {modifying?<span><select onChange={(e) => handleInputValue(e)} name='location'>
-          <option >{selected}</option>
+          <div>비밀번호 :</div>
+          <div><input className='myinfo-modify-input' type='password' name='password' placeholder='변경할 비밀번호를 입력해주세요' onChange={(e) => handleInputValue(e)}></input></div>
+        </li>:
+        ''}
+        {modifying?
+        <li>
+          <div>비밀번호확인 :</div>
+          <div><input className='myinfo-modify-input' type='password' name='passwordConfirm' placeholder='비밀번호를 한번 더 입력해주세요' onChange={(e)=>handleInputValue(e)}></input></div>
+        </li>:
+        ''}
+        <li>
+          <div>지역 :</div>
+          {modifying?<div><select className='myinfo-modify-select' onChange={(e) => handleInputValue(e)} name='location'>
+          <option >{userInfos.location}</option>
           {locations.map(loca => <LocaList key={loca.id} location={loca}/>)}
-          </select></span>:
-          <span>{selected}</span>
+          </select></div>:
+          <div>서울</div>
           } 
         </li>
         <li>
-          이름:{stateUserInfo.userInfo.name}
+          <div>이름 :</div>
+          <div>{stateUserInfo.userInfo.name}</div>
         </li>
         <li>
-          핸드폰번호:{modifying?
-          <input name='phone' placeholder={stateUserInfo.userInfo.phone} onChange={(e) => handleInputValue(e)}></input>
-          :stateUserInfo.userInfo.phone}
+          <div>핸드폰번호 :</div>
+          <div>{modifying?
+          <input className='myinfo-modify-input' name='phone' placeholder={stateUserInfo.userInfo.phone} onChange={(e) => handleInputValue(e)}></input>
+          :stateUserInfo.userInfo.phone}</div>
         </li>
         <li>
-          성별:{stateUserInfo.userInfo.sex}
+          <div>성별 :</div>
+          <div>{stateUserInfo.userInfo.sex}</div>
         </li>
       </ul>
-      {modifying?<div>
-      <button onClick={modifyingClose}>수정완료</button>
-      <button onClick={modifyingClicked}>취소</button>
+      {modifying?<div className='myinfo-second-box'>
+        <button className='myinfo-btn' onClick={modifyingClose}>수정완료</button>
+        <button className='myinfo-btn' onClick={modifyingClicked}>취소</button>
       </div>
-      :<div><button onClick={modifyingClicked}>수정하기</button>
-      <button onClick={isWithdrawClicked}>회원탈퇴</button></div>
+      :<div className='myinfo-second'>
+        <button className='myinfo-btn' onClick={modifyingClicked}>수정하기</button>
+        <button className='myinfo-btn' onClick={isWithdrawClicked}>회원탈퇴</button></div>
       }
       
 			

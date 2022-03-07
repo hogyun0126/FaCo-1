@@ -29,14 +29,14 @@ function Menu() {
 		setIsSignIn(false)
 	}
 	const isLogInCancle =() => {
-		setIsLogIn(false)
+		// setIsLogIn(false)
 		setIsSignIn(false)
 	}
 	const isSideBarClicked = () => {
 		setIsSideBar(!isSideBar)
 	}
 	function handleSignInBtnClick () {
-		setIsLogIn(true)
+		// setIsLogIn(true)
 		setIsSignIn(true)
 	}
 	function handleSignOutBtnClick () {
@@ -76,7 +76,7 @@ function Menu() {
 						</NavLink>
 					</li>
 					<li>
-					{isLogIn?
+					{stateUserInfo.userInfo.accessToken !== ''?
 						<a href='#' onClick={handleSignOutBtnClick}>
 							<div className='menu-icon'><FiUser/></div>
 							<div className='menu-text'>로그아웃</div>						
