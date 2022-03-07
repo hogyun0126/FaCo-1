@@ -17,10 +17,11 @@ function MyInfo() {
 
   const path = `${process.env.REACT_APP_API_URL}/user`;
   const locations = stateLocation.sort((a, b) => a.locationKr > b.locationKr ? 1 : -1);
-  const initialLocation = locations.filter(el=>el.locationEn===stateUserInfo.userInfo.location)[0]
+  const initialLocation = locations.filter(el=>String(el.id) === stateUserInfo.userInfo.location)[0]
   const [ modifying, setModifying ] = useState(false)
   const [selected, setSelected]= useState(initialLocation)
 
+  console.log(initialLocation)
   const [ userInfos, setUserInfos ] = useState({
     password: '',
     passwordConfirm: '',
@@ -114,15 +115,6 @@ function MyInfo() {
   }
 
   const modifyingClose= function() :void {
-    // if(userInfos.password !== ''){
-    //   isModifyPasswordClicked()
-    // }
-    // if(userInfos.location !== stateUserInfo.userInfo.location){
-    //   isModifyLocationClicked()
-    // }
-    // if(userInfos.phone !== stateUserInfo.userInfo.phone){
-    //   isModifyPhoneClicked()
-    // }
     axios.patch(path, { password: userInfos.password, phone: userInfos.phone, location: userInfos.location},
       { headers: {
       Authorization: `Bearer ${stateUserInfo.userInfo.accessToken}`,
@@ -168,10 +160,10 @@ function MyInfo() {
         <li>
           <div>지역 :</div>
           {modifying?<div><select className='myinfo-modify-select' onChange={(e) => handleInputValue(e)} name='location'>
-          <option >{userInfos.location}</option>
+          <option >{initialLocation.locationKr}</option>
           {locations.map(loca => <LocaList key={loca.id} location={loca}/>)}
           </select></div>:
-          <div>서울</div>
+          <div>{initialLocation.locationKr}</div>
           } 
         </li>
         <li>

@@ -52,7 +52,7 @@ function RBoard() {
   return (
     <div>
       <div className='rboard-header'>
-        <div>추천 게시판</div>
+        <div className='rboard-title'>추천 게시판</div>
         <SearchBar searchHandler={searchHandler} pageNumberBtnClick={pageNumberBtnClick} boardType={'rLts'} postCount={postCount} />
       </div>
       <div>
