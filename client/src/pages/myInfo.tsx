@@ -19,9 +19,9 @@ function MyInfo() {
   const locations = stateLocation.sort((a, b) => a.locationKr > b.locationKr ? 1 : -1);
   const initialLocation = locations.filter(el=>String(el.id) === stateUserInfo.userInfo.location)[0]
   const [ modifying, setModifying ] = useState(false)
+  
   const [selected, setSelected]= useState(initialLocation)
 
-  console.log(initialLocation)
   const [ userInfos, setUserInfos ] = useState({
     password: '',
     passwordConfirm: '',
@@ -39,55 +39,8 @@ function MyInfo() {
   function handleInputValue (e:any) {
     setUserInfos(Object.assign({}, userInfos, {[e.target.name] : e.target.value}));
   }
-  const isModifyPasswordClicked = function(){
-    axios.patch(`${path}/modify`, { password: userInfos.password }, { headers: {
-      Authorization: `Bearer ${stateUserInfo.userInfo.accessToken}`,
-      "Content-Type": "application/json",
-      credentials: true
-    }})
-    .then(function (response:any) {
-      console.log(response);
-    })
-    .catch(function (error:any) {
-      console.log(error.response);
-    });
-  }
-  const isModifyLocationClicked = function(){
-    axios.patch(`${path}/modify`, {}, { headers: {
-      Authorization: `Bearer ${stateUserInfo.userInfo.accessToken}`,
-      "Content-Type": "application/json",
-      credentials: true
-    }})
-    .then(function (response:any) {
-      const data = response.data.data
-      const userInfos = Object.assign({},stateUserInfo)
-      userInfos.userInfo.location = data.location
-      dispatch(userInfo(userInfos.userInfo));
-      console.log(response);
-    })
-    .catch(function (error:any) {
-      console.log(error.response);
-    });
-  }
-  const isModifyPhoneClicked = function(){
-    axios.patch(`${path}/modify`, { phone: userInfos.phone}, { headers: {
-      Authorization: `Bearer ${stateUserInfo.userInfo.accessToken}`,
-      "Content-Type": "application/json",
-      credentials: true
-    }})
-    .then(function (response:any) {
-      const data = response.data.data
-      const userInfos = Object.assign({},stateUserInfo)
-      userInfos.userInfo.phone = data.phone
-      dispatch(userInfo(userInfos.userInfo));
-      console.log(response);
-    })
-    .catch(function (error:any) {
-      console.log(error.response);
-    });
-  }
   function handleSignOutBtnClick () {
-		const userInfos = Object.assign({},stateUserInfo)
+    const userInfos = Object.assign({},stateUserInfo)
 		userInfos.userInfo.name = ''
 		userInfos.userInfo.phone = ''
 		userInfos.userInfo.email = ''
@@ -113,33 +66,31 @@ function MyInfo() {
       console.log(error.response.data);
     });
   }
-
+  
   const modifyingClose= function() :void {
     axios.patch(path, { password: userInfos.password, phone: userInfos.phone, location: userInfos.location},
       { headers: {
-      Authorization: `Bearer ${stateUserInfo.userInfo.accessToken}`,
-      "Content-Type": "application/json",
-      credentials: true
-    }})
-    .then(function (response:any) {
-      const data = response.data.data
-      const userInfos = Object.assign({},stateUserInfo)
-      userInfos.userInfo.phone = data.phone
-      userInfos.userInfo.location = data.location
-      dispatch(userInfo(userInfos.userInfo));
-      setModifying(false);
-      console.log(response);
-    })
-    .catch(function (error:any) {
-      console.log(error.response);
-    });
-    
-  }
-
-
+        Authorization: `Bearer ${stateUserInfo.userInfo.accessToken}`,
+        "Content-Type": "application/json",
+        credentials: true
+      }})
+      .then(function (response:any) {
+        const data = response.data.data
+        const userInfos = Object.assign({},stateUserInfo)
+        userInfos.userInfo.phone = data.phone
+        userInfos.userInfo.location = data.location
+        dispatch(userInfo(userInfos.userInfo));
+        setModifying(false);
+        console.log(response);
+      })
+      .catch(function (error:any) {
+        console.log(error.response);
+      });
+    }
   
-  return (
-    <div className='myinfo-container'>
+    return (
+      <div className='myinfo-container'>
+      <div className='myinfo-title'>내정보</div>
       <ul className='myinfo-first-box'>
         <li>
           <div>이메일 :</div>
@@ -181,13 +132,14 @@ function MyInfo() {
           <div>{stateUserInfo.userInfo.sex}</div>
         </li>
       </ul>
-      {modifying?<div className='myinfo-second-box'>
+      {modifying?<div className='myinfo-second'>
         <button className='myinfo-btn' onClick={modifyingClose}>수정완료</button>
         <button className='myinfo-btn' onClick={modifyingClicked}>취소</button>
       </div>
       :<div className='myinfo-second'>
         <button className='myinfo-btn' onClick={modifyingClicked}>수정하기</button>
-        <button className='myinfo-btn' onClick={isWithdrawClicked}>회원탈퇴</button></div>
+        <button className='myinfo-btn' onClick={isWithdrawClicked}>회원탈퇴</button>
+      </div>
       }
       
 			

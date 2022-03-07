@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-
-import { arrayBuffer } from 'stream/consumers';
-import { images } from '../dummyData/images';
-
 import LocaList from './Component/location';
 import { RootState } from '../modules';
 
@@ -12,6 +8,8 @@ import { PostType } from '../modules/posts';
 import { LocationSelected } from "../modules/location";
 import Weather from "./Component/weather";
 import { userInfo } from "os";
+import { postDummy } from '../dummyData/boardDummy';
+import PostView from '../pages/postView';
 
 
 function Home() {
@@ -22,9 +20,8 @@ function Home() {
 	const stateUserInfo = useSelector((state: RootState) => state.userInfoReducer);
 
   const locations = stateLocation.lLts.sort((a, b) => a.locationKr > b.locationKr ? 1 : -1);
-	const recommand = stateRPost.slice(-5);
+	const recommand = stateRPost
 	const question = stateQPost.slice(-5);
-	
 	
 	// 지역별 초기값 설정
 	const api = {
@@ -32,9 +29,13 @@ function Home() {
 		base: 'https://api.openweathermap.org/data/2.5/'
 	}
 	const initialLocation = locations.filter(el=>String(el.id)===stateUserInfo.userInfo.location)[0]
+	const [locationSelected, setLocationSelected ] = useState(initialLocation)
 	const [selectedKr, setSelectedKr]= useState("서울")
 	const [selectedEn, setSelectedEn]= useState("Seoul")
-	const [weather, setWeather] = useState<string>('');
+	const [weather, setWeather] = useState<string>('Clear');
+	const [isPostClicked, setIspostClicked] = useState(false);
+	const [currentPost, setCurrentPost] = useState(recommand[0]);
+	
 
 	// 오늘날짜
 	const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -57,8 +58,18 @@ function Home() {
 		const target = locations.filter(el => el.id === Number(e.target.value))
 		setSelectedKr(target[0].locationKr)
 		setSelectedEn(target[0].locationEn)
+		setWeather('Clouds')
   };
-
+	//날씨별 RPost best5
+	 function handleModalBackgroundClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    if (e.target === e.currentTarget) {
+      setIspostClicked(false);
+    }
+  }
+	function handleRecommandClick (el:any) {
+		setCurrentPost(el)
+		setIspostClicked(true)
+	}
   return (
     <div className='home-container'>
 			<div className='home-first-container'>
@@ -69,14 +80,16 @@ function Home() {
 					<div className='home-weather-text'>{selectedKr}</div>
 
 					<select onChange={e=>handleSelect(e)} className='home-weather-location'>
-						<option hidden>{selectedKr}</option>
+						<option>{selectedKr}</option>
 						{locations.map(loca => <LocaList key={loca.id} location={loca}/>)}
 					</select>
 				</div>
 				<div className='home-best-column'>
 					<ul className='home-ul'>
-						{recommand/*filter(post=>post.weather === weather)*/.map(el =>
-						<li key={el.id}><img className='home-recommand-images'  src={el.img.length !== 0 ? el.img[0].url : ''} alt='ddd'/></li>)}
+						{recommand.filter(post=>post.weather === weather).map(el =>
+						<li key={el.id} onClick={()=>handleRecommandClick(el)}><img className='home-recommand-images'  src={el.img.length !== 0 ? el.img[0].url : ''} alt='ddd'/>
+						</li>
+						)}
 					</ul>
 				</div>
 			</div>
@@ -84,17 +97,38 @@ function Home() {
 				<div className='home-board-column'>
 					<div>인기게시글</div>
 					<ul>
-						{recommand/*.filter(post => post.weather === weather)*/.map(post => <div key={post.id}><li>{post.title}</li></div>)}
+						{recommand/*.filter(post => post.weather === weather)*/.map(post => (
+						<div key={post.id}>
+							<li className='recommand-board'>
+								<div>{post.title}</div>
+								<div>{post.writer}</div>
+							</li>			
+						</div>
+						))}
 					</ul>
 				</div>
 				<div className='home-board-column'>
 				<div>질문게시글</div>
 					<ul>
-						{question/*.filter(post => post.weather === weather)*/.map(post => <div key={post.id}><li>{post.title}</li></div>)}
+						{question/*.filter(post => post.weather === weather)*/.map(post => <div key={post.id}>
+							<li className='recommand-board'>
+								<div>{post.title}</div>
+								<div>{post.writer}</div>
+							</li>		
+						</div>)}
 					</ul>
 				</div>
 			</div>
+			{
+				isPostClicked &&
+				<div onClick={(e)=>{handleModalBackgroundClick(e)}} className='rboard-postview-modal-background'>
+					<div className='rboard-postview-modal'>
+						<PostView post={currentPost} />
+					</div>
+				</div>
+			}
     </div>
+		
   );
 }
 

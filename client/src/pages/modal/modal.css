@@ -95,3 +95,9 @@
 .sign-up-logo {
   height: 80px;
 }
+
+/* sidebar*/
+.side-container {
+  font-size: 30px;
+  align-items: right;
+}

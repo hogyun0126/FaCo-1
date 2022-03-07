@@ -73,7 +73,7 @@
 .menu-text {
   position: absolute;
   transition: 0.5s;
-  transform: translateY(30px);/* 50px로 바꾸면 글씨 안보임*/
+  transform: translateY(30px);
   color: black;
   z-index: 1;
 }
@@ -96,44 +96,13 @@
 cursor: pointer;
 }
 
-/* .indicator {
-  position:absolute;
-  width: 60px;
-  height: 60px;
-  background-color: darkcyan;
-  border-radius: 50%;
-  border: 3px solid white;
-  transition: 0.5s;
-  top: -45px;
-}
-.indicator::before {
-  content: '';
-  position: absolute;
-  top: 44%;
-  left: -20px;
-  width: 20px;
-  height: 23px;
-  border-top-right-radius: 20px;
-  box-shadow: 0px -10px 0 0 white;
-}
-.indicator::after {
-  content: '';
-  position: absolute;
-  top: 44%;
-  right: -20px;
-  width: 20px;
-  height: 23px;
-  border-top-left-radius: 20px;
-  box-shadow: 0px -10px 0 0 white;
-} */
-
 /* user sidebar*/
 .side-container {
-  background-color: gray;
+  background-color: black;
   color: white;
   opacity: 0.9;
-  width: 30vw;
-  height:100vh;
+  width: 20vw;
+  height:100%;
   display: flex;
   position: fixed;
   z-index: 5;
@@ -142,8 +111,19 @@ cursor: pointer;
   animation: sidebar 0.5s;
 }
 @keyframes sidebar {
-  from {  transform: translateX(30vw);}
+  from {  transform: translateX(10vw);}
   to { transform: translateX(0);}
+}
+@keyframes sidebarClose {
+  from {  transform: translateX(10vw);}
+  to { transform: translateX(0);}
+}
+.side-ul li {
+  cursor: pointer;
+}
+.side-ul {
+  color: white;
+  list-style: none;
 }
 
 /* footer */
@@ -162,10 +142,6 @@ cursor: pointer;
 .home-weather-column {
   text-align: center;
   margin: 30px;
-  /* border-radius: 5px;
-  border: 1px solid; */
-  
-  
 }
 .home-weather-text {
   margin:5px;
@@ -229,6 +205,9 @@ cursor: pointer;
   padding: 10px;
   margin: 20px;
   box-shadow: 3px 3px 3px silver;
+  max-height: 500px;
+  min-height: 100px;
+  
 }
 .home-board-column > div {
   font-weight: bold;
@@ -236,10 +215,19 @@ cursor: pointer;
 }
 .home-board-column > ul{
   list-style: none;
+  overflow:auto;
+  height: 170px;
 }
-.home-board-column > ul >li {
+.home-board-column > ul > div {
   margin-top: 2px;
-  
+  margin:10px;
+}
+.recommand-board {
+  display: flex;
+  justify-content: space-between; 
+}
+.recommand-board :nth-child(2) {
+  margin-right:30px
 }
 
 /*board*/
@@ -704,9 +692,23 @@ min-width:150px;
 .myinfo-container{
   align-items: center;
 }
+.myinfo-title {
+  font-size: 30px;
+  margin:20px 20px 20px 50px;
+  font-weight: 900;
+  min-width:150px;
+}
 .myinfo-first-box {
   list-style: none;
-  font-size: 30px;
+  font-size: 20px;
+  width: 80vw;
+  border: 3px solid;
+  border-radius: 10px;
+  margin: 30px;
+  padding: 20px;
+}
+.myinfo-first-box > li > div{
+  margin-left:10px;
 }
 .myinfo-first-box > li {
   margin: 15px;
@@ -720,6 +722,10 @@ min-width:150px;
   width: 300px;
   font-size:20px;
 }
+.myinfo-second {
+  min-width: 250px;
+  text-align: center;
+}
 .myinfo-btn {
   border: 1px solid #d2d2d2;
   width: 100px;
@@ -728,5 +734,5 @@ min-width:150px;
   font-size: 20px;
   border-radius: 10px;
   color: white;
-  
+  margin: 10px;
 }
