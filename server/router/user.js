@@ -10,7 +10,7 @@ router.post("/signout", userController.signout.signout);
 
 router.delete("/", accessToken, userController.withdraw.withdrawUser,);
 
-router.patch("/modify", userController.modify.modify,);
+router.patch("/", accessToken, userController.modify.modify,);
 
 router.get("/userInfo", accessToken, userController.userInfo.userInfo);
 
