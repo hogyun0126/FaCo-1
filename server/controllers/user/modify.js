@@ -7,7 +7,13 @@ async function modify(req, res) {
   try {
     const userId = req.userId;
     const { password, phone, location } = req.body;
+    const user = await userDB.resultUserById(userId);
+    const resultCheckPassword = signin.checkUserPassword(user, password);
     const [salt, encryptedPassword] = signup.createCrypto(password);
+
+    if(resultCheckPassword) {
+      return res.status(501).json({ message: "이전과 동일한 비빌번호입니다." });
+    }
 
     userDB.modifyUser(userId, encryptedPassword, phone, location, salt);
 
