@@ -15,7 +15,6 @@ async function post(req, res) {
       location,
       url,
     );
-    console.log(createPostData)
     const postId = createPostData.id;
     const result = { postId, QR, userId, title, body, location, url };
 
