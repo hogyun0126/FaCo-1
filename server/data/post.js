@@ -16,9 +16,10 @@ async function allPostInfo(postId) {
   });
 }
 
-async function createPost(QR, title, body, location, url) {
+async function createPost(QR, userId, title, body, location, url) {
   return post.create({
     QR,
+    userId,
     title,
     body,
     location,
