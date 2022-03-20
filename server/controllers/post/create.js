@@ -3,18 +3,18 @@ const postDB = require("../../data/post")
 async function post(req, res) {
   try {
     const { QR, title, body, location, url } = req.body;
+    const userId = req.userId;
 
     const createPostData = await postDB.createPost(
       QR,
+      userId,
       title,
       body,
       location,
-      path,
       url,
     );
     const postId = createPostData.id;
-    const userId = req.body.user.userId;
-    const result = { postId, QR, title, body, location, userId, url };
+    const result = { postId, QR, userId, title, body, location, url };
 
     return res.status(201).json({ data: result, message: "게시글이 작성되었습니다." })
   } catch (err) {
