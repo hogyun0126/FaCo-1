@@ -12,7 +12,7 @@ async function modify(req, res) {
     const [salt, encryptedPassword] = signup.createCrypto(password);
 
     if(resultCheckPassword) {
-      return res.status(501).json({ message: "이전과 동일한 비빌번호입니다." });
+      return res.status(501).json({ message: "이전과 동일한 비밀번호입니다." });
     }
 
     userDB.modifyUser(userId, encryptedPassword, phone, location, salt);
