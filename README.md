@@ -52,7 +52,7 @@ Fashion Coordinator의 약자로 날씨에 따라 가장 인기있는 옷을 추
 - Node JS
 - Express
 - JWT
-- MYSQL
+- MySQL
 - Sequelize
 ### Deploy
 - AWS
