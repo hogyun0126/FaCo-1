@@ -4,8 +4,7 @@ const userDB = require("../../data/user");
 async function post(req, res) {
   try {
     const { QR, title, body, location, url, email } = req.body;
-    const findUser = await userDB.findUserByEmail(email);
-    const userId = findUser.id;
+    const userId = req.userId;
 
     const createPostData = await postDB.createPost(
       QR,
