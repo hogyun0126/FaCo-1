@@ -1,5 +1,4 @@
 const postDB = require("../../data/post");
-const userDB = require("../../data/user");
 
 async function post(req, res) {
   try {
